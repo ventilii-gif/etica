@@ -3,1125 +3,774 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Etica & Economia Civile | Ethics & Civil Economy</title>
+  <title>Etica & Economia Civile</title>
   <style>
-    /* ===== RESET & BASE ===== */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    /* ===== CSS VARIABLES ===== */
     :root {
-      --font-main: 'Georgia', serif;
+      --font-main: Georgia, 'Times New Roman', serif;
       --font-sans: 'Segoe UI', system-ui, sans-serif;
-
-      /* Light theme */
-      --bg: #faf8f4;
-      --bg-card: #ffffff;
-      --bg-hero: #f0ebe0;
-      --bg-nav: #ffffff;
-      --text: #2c2416;
-      --text-muted: #6b5e4a;
-      --text-light: #9c8c78;
-      --accent: #7b5e3a;
-      --accent-light: #a07848;
-      --accent-hover: #5a4228;
-      --border: #e0d8c8;
-      --shadow: rgba(60,40,10,0.08);
-      --tag-bg: #f0e8d8;
-      --tag-text: #7b5e3a;
-      --quote-bg: #f5f0e8;
-      --nav-border: #e8e0d0;
+      --bg:        #faf8f4;
+      --bg-card:   #ffffff;
+      --bg-alt:    #f3ede2;
+      --bg-nav:    #ffffff;
+      --text:      #1e1810;
+      --text-muted:#6b5e4a;
+      --text-faint:#a09080;
+      --accent:    #7b5e3a;
+      --accent2:   #a07848;
+      --border:    #e0d8c8;
+      --shadow:    rgba(60,40,10,.08);
+      --tag-bg:    #f0e8d8;
+      --tag-text:  #7b5e3a;
+      --quote-bg:  #f5f0e8;
     }
-
     [data-theme="dark"] {
-      --bg: #0d0d0d;
-      --bg-card: #141414;
-      --bg-hero: #111111;
-      --bg-nav: #0d0d0d;
-      --text: #e8e0d0;
-      --text-muted: #a09080;
-      --text-light: #706050;
-      --accent: #c8924a;
-      --accent-light: #d4a460;
-      --accent-hover: #e0b870;
-      --border: #252018;
-      --shadow: rgba(0,0,0,0.4);
-      --tag-bg: #1e1a12;
-      --tag-text: #c8924a;
-      --quote-bg: #121008;
-      --nav-border: #1e1a12;
+      --bg:        #080808;
+      --bg-card:   #111111;
+      --bg-alt:    #0e0e0e;
+      --bg-nav:    #080808;
+      --text:      #e8e0d0;
+      --text-muted:#a09080;
+      --text-faint:#5a5040;
+      --accent:    #c8924a;
+      --accent2:   #d4a460;
+      --border:    #1e1a12;
+      --shadow:    rgba(0,0,0,.5);
+      --tag-bg:    #181410;
+      --tag-text:  #c8924a;
+      --quote-bg:  #0e0b06;
     }
 
-    /* ===== BODY ===== */
     body {
       font-family: var(--font-sans);
       background: var(--bg);
       color: var(--text);
-      line-height: 1.7;
-      transition: background 0.3s, color 0.3s;
-      min-height: 100vh;
+      line-height: 1.75;
+      transition: background .3s, color .3s;
     }
 
-    /* ===== NAVIGATION ===== */
+    /* ── NAV ── */
     nav {
-      position: sticky;
-      top: 0;
-      z-index: 100;
+      position: sticky; top: 0; z-index: 100;
       background: var(--bg-nav);
-      border-bottom: 1px solid var(--nav-border);
-      padding: 0.75rem 1.5rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
+      border-bottom: 1px solid var(--border);
+      padding: .7rem 1.5rem;
+      display: flex; align-items: center; justify-content: space-between; gap: 1rem;
       box-shadow: 0 1px 8px var(--shadow);
-      transition: background 0.3s, border-color 0.3s;
+      transition: background .3s;
     }
-
     .nav-brand {
       font-family: var(--font-main);
-      font-size: 1.15rem;
-      font-weight: 700;
-      color: var(--accent);
-      text-decoration: none;
-      letter-spacing: 0.02em;
+      font-size: 1.1rem; font-weight: 700;
+      color: var(--accent); text-decoration: none;
     }
-
-    .nav-controls {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      flex-wrap: wrap;
-    }
-
-    /* Language buttons */
+    .nav-controls { display: flex; align-items: center; gap: .6rem; flex-wrap: wrap; }
     .lang-btn {
-      background: var(--tag-bg);
-      border: 1px solid var(--border);
-      color: var(--text-muted);
-      font-size: 0.78rem;
-      font-weight: 600;
-      padding: 0.3rem 0.6rem;
-      border-radius: 4px;
-      cursor: pointer;
-      transition: all 0.2s;
-      letter-spacing: 0.04em;
+      background: var(--tag-bg); border: 1px solid var(--border);
+      color: var(--text-muted); font-size: .75rem; font-weight: 700;
+      padding: .28rem .6rem; border-radius: 4px; cursor: pointer;
+      transition: all .2s; letter-spacing: .04em;
     }
-    .lang-btn:hover, .lang-btn.active {
-      background: var(--accent);
-      color: #fff;
-      border-color: var(--accent);
+    .lang-btn:hover, .lang-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+    .theme-btn {
+      width: 34px; height: 34px; border-radius: 50%;
+      background: var(--tag-bg); border: 1px solid var(--border);
+      color: var(--text); font-size: 1rem; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: all .2s;
     }
+    .theme-btn:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
 
-    /* Theme toggle */
-    .theme-toggle {
-      background: var(--tag-bg);
-      border: 1px solid var(--border);
-      color: var(--text);
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      cursor: pointer;
-      font-size: 1rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.2s;
-    }
-    .theme-toggle:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
-
-    /* ===== HERO ===== */
+    /* ── HERO ── */
     .hero {
-      background: var(--bg-hero);
-      padding: 4rem 1.5rem 3rem;
+      background: var(--bg-alt);
+      padding: 4.5rem 1.5rem 3.5rem;
       text-align: center;
-      transition: background 0.3s;
+      transition: background .3s;
     }
-
-    .hero-eyebrow {
-      font-size: 0.8rem;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 1rem;
+    .eyebrow {
+      font-size: .72rem; font-weight: 700;
+      letter-spacing: .14em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: .9rem;
     }
-
-    .hero-title {
+    .hero h1 {
       font-family: var(--font-main);
-      font-size: clamp(1.8rem, 5vw, 3rem);
-      line-height: 1.25;
-      color: var(--text);
-      margin-bottom: 1.25rem;
-      max-width: 760px;
-      margin-left: auto;
-      margin-right: auto;
+      font-size: clamp(1.9rem, 5vw, 3.1rem);
+      line-height: 1.22; color: var(--text);
+      max-width: 780px; margin: 0 auto 1.25rem;
     }
-
-    .hero-subtitle {
-      font-size: 1.05rem;
-      color: var(--text-muted);
-      max-width: 620px;
-      margin: 0 auto 2rem;
+    .hero-lead {
+      font-size: 1.07rem; color: var(--text-muted);
+      max-width: 640px; margin: 0 auto 2rem;
     }
-
-    .hero-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      justify-content: center;
-    }
-
+    .tag-row { display: flex; flex-wrap: wrap; gap: .45rem; justify-content: center; }
     .tag {
-      background: var(--tag-bg);
-      color: var(--tag-text);
+      background: var(--tag-bg); color: var(--tag-text);
       border: 1px solid var(--border);
-      border-radius: 999px;
-      padding: 0.3rem 0.85rem;
-      font-size: 0.78rem;
-      font-weight: 600;
-      letter-spacing: 0.03em;
+      border-radius: 999px; padding: .28rem .85rem;
+      font-size: .75rem; font-weight: 600; letter-spacing: .03em;
     }
 
-    /* ===== MAIN CONTAINER ===== */
-    .container {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 0 1.5rem;
-    }
-
-    /* ===== SECTIONS ===== */
-    section {
-      padding: 3.5rem 0;
-      border-bottom: 1px solid var(--border);
-    }
+    /* ── LAYOUT ── */
+    .wrap { max-width: 860px; margin: 0 auto; padding: 0 1.5rem; }
+    section { padding: 3.5rem 0; border-bottom: 1px solid var(--border); }
     section:last-of-type { border-bottom: none; }
 
-    .section-label {
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 0.6rem;
+    .sec-label {
+      font-size: .7rem; font-weight: 700;
+      letter-spacing: .14em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: .55rem;
     }
-
-    .section-title {
+    .sec-title {
       font-family: var(--font-main);
       font-size: clamp(1.4rem, 3.5vw, 2rem);
-      color: var(--text);
-      margin-bottom: 1rem;
-      line-height: 1.3;
+      line-height: 1.28; margin-bottom: .9rem;
     }
+    .sec-lead { font-size: 1.02rem; color: var(--text-muted); margin-bottom: 2rem; max-width: 700px; }
 
-    .section-intro {
-      font-size: 1.05rem;
-      color: var(--text-muted);
-      margin-bottom: 2rem;
-      max-width: 680px;
+    p + p { margin-top: .9rem; }
+
+    /* ── DARK NOTICE ── */
+    .dark-notice {
+      display: none; align-items: center; gap: .5rem;
+      background: var(--tag-bg); border: 1px solid var(--border);
+      border-radius: 6px; padding: .55rem 1rem;
+      font-size: .78rem; color: var(--text-muted); margin-bottom: 2rem;
     }
+    [data-theme="dark"] .dark-notice { display: flex; }
 
-    /* ===== PROFILE CARD ===== */
-    .profile-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 2rem;
-      box-shadow: 0 2px 16px var(--shadow);
-      display: grid;
-      grid-template-columns: auto 1fr;
-      gap: 1.5rem;
-      align-items: start;
-      transition: background 0.3s, border-color 0.3s;
-    }
-
-    .profile-avatar {
-      width: 72px;
-      height: 72px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--accent), var(--accent-light));
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: var(--font-main);
-      font-size: 1.8rem;
-      color: #fff;
-      flex-shrink: 0;
-    }
-
-    .profile-name {
-      font-family: var(--font-main);
-      font-size: 1.4rem;
-      color: var(--text);
-      margin-bottom: 0.3rem;
-    }
-
-    .profile-role {
-      font-size: 0.85rem;
-      color: var(--accent);
-      font-weight: 600;
-      margin-bottom: 0.75rem;
-    }
-
-    .profile-bio {
-      font-size: 0.95rem;
-      color: var(--text-muted);
-      line-height: 1.65;
-    }
-
-    .profile-badges {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.4rem;
-      margin-top: 1rem;
-    }
-
-    .badge {
-      background: var(--tag-bg);
-      color: var(--tag-text);
-      border: 1px solid var(--border);
-      border-radius: 4px;
-      padding: 0.2rem 0.6rem;
-      font-size: 0.73rem;
-      font-weight: 600;
-    }
-
-    /* ===== CONCEPT CARDS GRID ===== */
-    .cards-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 1.25rem;
-    }
-
+    /* ── CARD GRID ── */
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px,1fr)); gap: 1.1rem; }
     .card {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 1.5rem;
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: 10px; padding: 1.4rem;
       box-shadow: 0 2px 10px var(--shadow);
-      transition: transform 0.2s, box-shadow 0.2s, background 0.3s;
+      transition: transform .2s, box-shadow .2s, background .3s;
     }
-    .card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 6px 20px var(--shadow);
-    }
+    .card:hover { transform: translateY(-3px); box-shadow: 0 6px 22px var(--shadow); }
+    .card-icon { font-size: 1.7rem; margin-bottom: .65rem; }
+    .card h3 { font-family: var(--font-main); font-size: 1.05rem; margin-bottom: .45rem; }
+    .card p  { font-size: .87rem; color: var(--text-muted); line-height: 1.6; }
 
-    .card-icon {
-      font-size: 1.8rem;
-      margin-bottom: 0.75rem;
+    /* ── TWO-COL TEXT ── */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
     }
+    @media (max-width: 600px) { .two-col { grid-template-columns: 1fr; } }
+    .col-box {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: 10px; padding: 1.5rem;
+      box-shadow: 0 2px 10px var(--shadow);
+    }
+    .col-box h3 { font-family: var(--font-main); font-size: 1.07rem; margin-bottom: .6rem; color: var(--accent); }
+    .col-box p  { font-size: .88rem; color: var(--text-muted); line-height: 1.65; }
+    .col-box p + p { margin-top: .7rem; }
 
-    .card-title {
-      font-family: var(--font-main);
-      font-size: 1.05rem;
-      color: var(--text);
-      margin-bottom: 0.5rem;
-    }
-
-    .card-text {
-      font-size: 0.88rem;
-      color: var(--text-muted);
-      line-height: 1.6;
-    }
-
-    /* ===== TIMELINE ===== */
-    .timeline {
-      position: relative;
-      padding-left: 2rem;
-    }
-    .timeline::before {
-      content: '';
-      position: absolute;
-      left: 0.4rem;
-      top: 0.4rem;
-      bottom: 0.4rem;
-      width: 2px;
-      background: linear-gradient(to bottom, var(--accent), var(--border));
-    }
-
-    .timeline-item {
-      position: relative;
-      margin-bottom: 2rem;
-    }
-    .timeline-item::before {
-      content: '';
-      position: absolute;
-      left: -1.68rem;
-      top: 0.4rem;
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: var(--accent);
-      border: 2px solid var(--bg);
-    }
-
-    .timeline-year {
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 0.25rem;
-    }
-
-    .timeline-title {
-      font-size: 0.97rem;
-      font-weight: 600;
-      color: var(--text);
-      margin-bottom: 0.3rem;
-    }
-
-    .timeline-text {
-      font-size: 0.87rem;
-      color: var(--text-muted);
-    }
-
-    /* ===== QUOTE ===== */
+    /* ── BLOCKQUOTE ── */
     blockquote {
       background: var(--quote-bg);
       border-left: 3px solid var(--accent);
       border-radius: 0 8px 8px 0;
-      padding: 1.25rem 1.5rem;
-      margin: 1.5rem 0;
-      transition: background 0.3s;
+      padding: 1.2rem 1.5rem; margin: 1.75rem 0;
+      transition: background .3s;
     }
     blockquote p {
-      font-family: var(--font-main);
-      font-size: 1rem;
-      color: var(--text-muted);
-      font-style: italic;
-      line-height: 1.7;
+      font-family: var(--font-main); font-size: 1rem;
+      color: var(--text-muted); font-style: italic; line-height: 1.7;
     }
     blockquote cite {
-      display: block;
-      margin-top: 0.75rem;
-      font-size: 0.8rem;
-      font-style: normal;
-      color: var(--text-light);
-      font-weight: 600;
+      display: block; margin-top: .7rem;
+      font-size: .78rem; font-style: normal;
+      color: var(--text-faint); font-weight: 600;
     }
 
-    /* ===== BOOKS GRID ===== */
-    .books-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1.25rem;
+    /* ── TIMELINE ── */
+    .timeline { position: relative; padding-left: 2.2rem; }
+    .timeline::before {
+      content: ''; position: absolute;
+      left: .45rem; top: .35rem; bottom: .35rem;
+      width: 2px; background: linear-gradient(to bottom, var(--accent), var(--border));
     }
+    .tl-item { position: relative; margin-bottom: 2.2rem; }
+    .tl-item::before {
+      content: ''; position: absolute;
+      left: -1.83rem; top: .38rem;
+      width: 11px; height: 11px; border-radius: 50%;
+      background: var(--accent); border: 2px solid var(--bg);
+    }
+    .tl-year {
+      font-size: .7rem; font-weight: 700;
+      letter-spacing: .1em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: .2rem;
+    }
+    .tl-title { font-size: .97rem; font-weight: 600; margin-bottom: .3rem; }
+    .tl-text  { font-size: .87rem; color: var(--text-muted); line-height: 1.65; }
 
-    .book-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 1.5rem;
+    /* ── ACCORDION ── */
+    .acc-item {
+      border: 1px solid var(--border); border-radius: 8px;
+      margin-bottom: .55rem; overflow: hidden;
+      background: var(--bg-card); transition: background .3s;
+    }
+    .acc-head {
+      width: 100%; background: none; border: none;
+      padding: 1.05rem 1.4rem;
+      display: flex; align-items: center; justify-content: space-between;
+      cursor: pointer; font-size: .95rem; font-weight: 600;
+      color: var(--text); text-align: left; gap: 1rem;
+      transition: color .2s;
+    }
+    .acc-head:hover { color: var(--accent); }
+    .acc-arrow { font-size: .75rem; color: var(--text-faint); transition: transform .25s; flex-shrink:0; }
+    .acc-head[aria-expanded="true"] .acc-arrow { transform: rotate(180deg); color: var(--accent); }
+    .acc-body { max-height: 0; overflow: hidden; transition: max-height .35s ease; }
+    .acc-body.open { max-height: 800px; }
+    .acc-content {
+      padding: 1rem 1.4rem 1.3rem;
+      border-top: 1px solid var(--border);
+      font-size: .88rem; color: var(--text-muted); line-height: 1.7;
+    }
+    .acc-content p + p { margin-top: .75rem; }
+
+    /* ── BOOK CARDS ── */
+    .books { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px,1fr)); gap: 1.1rem; }
+    .book {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: 10px; padding: 1.4rem;
+      display: flex; gap: 1.1rem; align-items: flex-start;
+      box-shadow: 0 2px 10px var(--shadow); transition: background .3s;
+    }
+    .book-icon {
+      width: 48px; min-width: 48px; height: 66px;
+      border-radius: 4px; display: flex; align-items: center; justify-content: center;
+      font-size: 1.35rem;
+      background: linear-gradient(150deg, var(--accent), var(--accent2));
+    }
+    .book-meta { font-size: .7rem; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: var(--accent); margin-bottom: .2rem; }
+    .book-title { font-family: var(--font-main); font-size: 1rem; line-height: 1.3; margin-bottom: .2rem; }
+    .book-author { font-size: .8rem; color: var(--text-faint); margin-bottom: .55rem; }
+    .book-desc { font-size: .84rem; color: var(--text-muted); line-height: 1.6; }
+
+    /* ── PRINCIPLES ── */
+    .principles { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px,1fr)); gap: 1.1rem; }
+    .principle {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: 10px; padding: 1.4rem;
       box-shadow: 0 2px 10px var(--shadow);
-      display: flex;
-      gap: 1.25rem;
-      align-items: flex-start;
-      transition: background 0.3s;
+      border-top: 3px solid var(--accent);
+      transition: background .3s;
     }
+    .principle-num { font-size: .7rem; font-weight: 700; letter-spacing: .1em; color: var(--accent); margin-bottom: .4rem; }
+    .principle h3  { font-family: var(--font-main); font-size: 1rem; margin-bottom: .5rem; }
+    .principle p   { font-size: .85rem; color: var(--text-muted); line-height: 1.6; }
 
-    .book-spine {
-      width: 52px;
-      min-width: 52px;
-      height: 72px;
-      border-radius: 4px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.4rem;
-      background: linear-gradient(160deg, var(--accent), var(--accent-light));
-    }
-
-    .book-year {
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 0.25rem;
-    }
-
-    .book-title {
-      font-family: var(--font-main);
-      font-size: 1rem;
-      color: var(--text);
-      margin-bottom: 0.25rem;
-      line-height: 1.3;
-    }
-
-    .book-author {
-      font-size: 0.82rem;
-      color: var(--text-muted);
-      margin-bottom: 0.5rem;
-    }
-
-    .book-desc {
-      font-size: 0.84rem;
-      color: var(--text-muted);
-      line-height: 1.55;
-    }
-
-    /* ===== PRINCIPLES ACCORDION ===== */
-    .accordion-item {
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      margin-bottom: 0.6rem;
-      overflow: hidden;
-      background: var(--bg-card);
-      transition: background 0.3s;
-    }
-
-    .accordion-header {
-      width: 100%;
-      background: none;
-      border: none;
-      padding: 1.1rem 1.5rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      cursor: pointer;
-      font-size: 0.97rem;
-      font-weight: 600;
-      color: var(--text);
-      text-align: left;
-      gap: 1rem;
-      transition: color 0.2s;
-    }
-    .accordion-header:hover { color: var(--accent); }
-
-    .accordion-icon {
-      font-size: 0.8rem;
-      color: var(--text-muted);
-      transition: transform 0.25s;
-      flex-shrink: 0;
-    }
-    .accordion-header[aria-expanded="true"] .accordion-icon {
-      transform: rotate(180deg);
-      color: var(--accent);
-    }
-
-    .accordion-body {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.35s ease;
-    }
-    .accordion-body.open { max-height: 600px; }
-
-    .accordion-content {
-      padding: 0 1.5rem 1.25rem;
-      font-size: 0.9rem;
-      color: var(--text-muted);
-      line-height: 1.65;
-      border-top: 1px solid var(--border);
-      padding-top: 1rem;
-    }
-
-    /* ===== FOOTER ===== */
+    /* ── FOOTER ── */
     footer {
-      background: var(--bg-hero);
-      border-top: 1px solid var(--border);
-      padding: 2.5rem 1.5rem;
-      text-align: center;
-      transition: background 0.3s;
+      background: var(--bg-alt); border-top: 1px solid var(--border);
+      padding: 2.5rem 1.5rem; text-align: center;
+      transition: background .3s;
+    }
+    footer p { font-size: .82rem; color: var(--text-faint); line-height: 1.7; }
+    footer strong { color: var(--accent); }
+
+    @media (max-width: 580px) {
+      nav { padding: .6rem 1rem; }
+      .hero { padding: 2.8rem 1rem 2.2rem; }
+      .wrap { padding: 0 1rem; }
     }
 
-    .footer-title {
-      font-family: var(--font-main);
-      font-size: 1rem;
-      color: var(--accent);
-      margin-bottom: 0.5rem;
-    }
-
-    .footer-text {
-      font-size: 0.82rem;
-      color: var(--text-light);
-      line-height: 1.6;
-    }
-
-    /* ===== DARK NOTICE ===== */
-    .dark-notice {
-      display: none;
-      align-items: center;
-      gap: 0.5rem;
-      background: var(--tag-bg);
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      padding: 0.6rem 1rem;
-      font-size: 0.8rem;
-      color: var(--text-muted);
-      margin-bottom: 2rem;
-    }
-    [data-theme="dark"] .dark-notice { display: flex; }
-
-    /* ===== RESPONSIVE ===== */
-    @media (max-width: 600px) {
-      .profile-card { grid-template-columns: 1fr; }
-      .profile-avatar { margin: 0 auto; }
-      nav { padding: 0.6rem 1rem; }
-      .hero { padding: 2.5rem 1rem 2rem; }
-    }
-
-    /* ===== UTILITY ===== */
-    .visually-hidden { display: none; }
-    [data-lang]:not([data-lang="it"]) { display: none; }
+    [data-lang] { display: none; }
   </style>
 </head>
 <body data-theme="light">
 
-<!-- NAVIGATION -->
-<nav role="navigation" aria-label="Main navigation">
-  <a href="#" class="nav-brand" data-i18n-brand>Etica & Economia Civile</a>
+<!-- NAV -->
+<nav>
+  <span class="nav-brand" id="brand">Etica &amp; Economia Civile</span>
   <div class="nav-controls">
-    <button class="lang-btn active" onclick="setLang('it')" aria-label="Italiano">IT</button>
-    <button class="lang-btn" onclick="setLang('en')" aria-label="English">EN</button>
-    <button class="lang-btn" onclick="setLang('pt')" aria-label="Português">PT</button>
-    <button class="theme-toggle" onclick="toggleTheme()" id="theme-btn" aria-label="Toggle theme" title="Cambia tema">
-      &#9788;
-    </button>
+    <button class="lang-btn active" onclick="setLang('it')">IT</button>
+    <button class="lang-btn"        onclick="setLang('en')">EN</button>
+    <button class="lang-btn"        onclick="setLang('pt')">PT</button>
+    <button class="theme-btn" id="theme-btn" onclick="toggleTheme()" title="Cambia tema">&#9788;</button>
   </div>
 </nav>
 
 <!-- HERO -->
 <header class="hero">
-  <p class="hero-eyebrow">
-    <span data-lang="it">Filosofia per tutti</span>
-    <span data-lang="en">Philosophy for everyone</span>
-    <span data-lang="pt">Filosofia para todos</span>
+  <p class="eyebrow">
+    <span data-lang="it">Guida introduttiva</span>
+    <span data-lang="en">Introductory guide</span>
+    <span data-lang="pt">Guia introdutório</span>
   </p>
-  <h1 class="hero-title">
-    <span data-lang="it">I Principi dell'Etica e dell'Economia Civile</span>
-    <span data-lang="en">Principles of Ethics and Civil Economy</span>
-    <span data-lang="pt">Princípios da Ética e da Economia Civil</span>
+  <h1>
+    <span data-lang="it">Etica, Economia e Felicità Civile</span>
+    <span data-lang="en">Ethics, Economics and Civil Happiness</span>
+    <span data-lang="pt">Ética, Economia e Felicidade Civil</span>
   </h1>
-  <p class="hero-subtitle">
-    <span data-lang="it">Una guida introduttiva ispirata alle ricerche di Paolo Santori, per chi si avvicina per la prima volta alla filosofia economica e all'etica sociale.</span>
-    <span data-lang="en">An introductory guide inspired by the research of Paolo Santori, for those approaching economic philosophy and social ethics for the first time.</span>
-    <span data-lang="pt">Um guia introdutório inspirado nas pesquisas de Paolo Santori, para quem se aproxima pela primeira vez da filosofia econômica e da ética social.</span>
+  <p class="hero-lead">
+    <span data-lang="it">Un percorso divulgativo tra filosofia, storia del pensiero economico e domande che riguardano tutti: cosa è giusto? Come funziona davvero il mercato? Che cosa ci rende felici come società?</span>
+    <span data-lang="en">A popular journey through philosophy, history of economic thought and questions that concern everyone: what is just? How does the market really work? What makes us happy as a society?</span>
+    <span data-lang="pt">Um percurso divulgativo entre filosofia, história do pensamento econômico e perguntas que dizem respeito a todos: o que é justo? Como o mercado realmente funciona? O que nos torna felizes como sociedade?</span>
   </p>
-  <div class="hero-tags">
-    <span class="tag">
-      <span data-lang="it">Filosofia dell'Economia</span>
-      <span data-lang="en">Philosophy of Economics</span>
-      <span data-lang="pt">Filosofia da Economia</span>
-    </span>
-    <span class="tag">
-      <span data-lang="it">Economia Civile</span>
-      <span data-lang="en">Civil Economy</span>
-      <span data-lang="pt">Economia Civil</span>
-    </span>
-    <span class="tag">
-      <span data-lang="it">Etica degli Affari</span>
-      <span data-lang="en">Business Ethics</span>
-      <span data-lang="pt">Ética nos Negócios</span>
-    </span>
-    <span class="tag">
-      <span data-lang="it">Storia del Pensiero</span>
-      <span data-lang="en">History of Thought</span>
-      <span data-lang="pt">História do Pensamento</span>
-    </span>
+  <div class="tag-row">
+    <span class="tag"><span data-lang="it">Filosofia dell'Economia</span><span data-lang="en">Philosophy of Economics</span><span data-lang="pt">Filosofia da Economia</span></span>
+    <span class="tag"><span data-lang="it">Economia Civile</span><span data-lang="en">Civil Economy</span><span data-lang="pt">Economia Civil</span></span>
+    <span class="tag"><span data-lang="it">Etica degli Affari</span><span data-lang="en">Business Ethics</span><span data-lang="pt">Ética nos Negócios</span></span>
+    <span class="tag"><span data-lang="it">Teologia dell'Economia</span><span data-lang="en">Theology of Economics</span><span data-lang="pt">Teologia da Economia</span></span>
   </div>
 </header>
 
-<!-- MAIN -->
-<main class="container">
+<main class="wrap">
 
-  <!-- DARK MODE NOTICE -->
+  <!-- DARK NOTICE -->
   <div class="dark-notice" role="note">
-    <span>&#9679;</span>
-    <span data-lang="it">Modalità scura attiva &mdash; risparmio energetico abilitato per schermi OLED e AMOLED.</span>
-    <span data-lang="en">Dark mode active &mdash; energy saving enabled for OLED and AMOLED displays.</span>
-    <span data-lang="pt">Modo escuro ativo &mdash; economia de energia habilitada para telas OLED e AMOLED.</span>
+    <span aria-hidden="true">&#9679;</span>
+    <span data-lang="it">Modalità scura attiva &mdash; risparmio energetico per schermi OLED e AMOLED.</span>
+    <span data-lang="en">Dark mode active &mdash; energy saving for OLED and AMOLED screens.</span>
+    <span data-lang="pt">Modo escuro ativo &mdash; economia de energia para telas OLED e AMOLED.</span>
   </div>
 
-  <!-- SECTION 1: IL RICERCATORE -->
-  <section id="ricercatore">
-    <p class="section-label">
-      <span data-lang="it">Il Ricercatore</span>
-      <span data-lang="en">The Researcher</span>
-      <span data-lang="pt">O Pesquisador</span>
+  <!-- ①  ECONOMIA CIVILE -->
+  <section id="economia-civile">
+    <p class="sec-label">
+      <span data-lang="it">Il punto di partenza</span>
+      <span data-lang="en">The starting point</span>
+      <span data-lang="pt">O ponto de partida</span>
     </p>
-    <h2 class="section-title">
-      <span data-lang="it">Paolo Santori</span>
-      <span data-lang="en">Paolo Santori</span>
-      <span data-lang="pt">Paolo Santori</span>
+    <h2 class="sec-title">
+      <span data-lang="it">Che cos'è l'Economia Civile?</span>
+      <span data-lang="en">What is Civil Economy?</span>
+      <span data-lang="pt">O que é Economia Civil?</span>
     </h2>
-    <p class="section-intro">
-      <span data-lang="it">Ricercatore italiano che unisce filosofia, economia e teologia per rispondere a domande fondamentali: come vivere bene? Come costruire una società giusta?</span>
-      <span data-lang="en">An Italian researcher who combines philosophy, economics and theology to answer fundamental questions: how to live well? How to build a just society?</span>
-      <span data-lang="pt">Um pesquisador italiano que combina filosofia, economia e teologia para responder perguntas fundamentais: como viver bem? Como construir uma sociedade justa?</span>
+    <p class="sec-lead">
+      <span data-lang="it">L'economia non è solo numeri, mercati e profitti. È anche, e soprattutto, il modo in cui le persone cooperano, si fidano, si aiutano. L'<strong>Economia Civile</strong> è la tradizione di pensiero che ha messo al centro questa dimensione umana.</span>
+      <span data-lang="en">Economics is not just numbers, markets and profits. It is also, and above all, the way people cooperate, trust each other, help each other. <strong>Civil Economy</strong> is the tradition of thought that has placed this human dimension at its core.</span>
+      <span data-lang="pt">A economia não é apenas números, mercados e lucros. É também, e sobretudo, a forma como as pessoas cooperam, confiam umas nas outras, se ajudam. A <strong>Economia Civil</strong> é a tradição de pensamento que colocou essa dimensão humana no centro.</span>
     </p>
-
-    <div class="profile-card">
-      <div class="profile-avatar">PS</div>
-      <div>
-        <h3 class="profile-name">Paolo Santori</h3>
-        <p class="profile-role">
-          <span data-lang="it">Ricercatore in Filosofia ed Economia &bull; Professore a contratto</span>
-          <span data-lang="en">Researcher in Philosophy and Economics &bull; Adjunct Professor</span>
-          <span data-lang="pt">Pesquisador em Filosofia e Economia &bull; Professor contratado</span>
-        </p>
-        <p class="profile-bio">
-          <span data-lang="it">Dopo la laurea triennale e specialistica in Etica Sociale all'Università di Roma Tor Vergata e il dottorato in Scienze dell'Economia Civile all'università LUMSA di Roma, Santori ricopre il ruolo di ricercatore in Filosofia ed Economia presso il Centro Universitario Cattolico e insegna Storia del Pensiero Economico alla Pontificia Università Lateranense. È membro del board di <em>The Economy of Francesco</em>, dove coordina il villaggio «Policies and Happiness» ed è responsabile scientifico della <em>School of Civil Happiness</em>.</span>
-          <span data-lang="en">After completing his bachelor's and master's degrees in Social Ethics at the University of Rome Tor Vergata, and his PhD in Civil Economy Sciences at LUMSA University in Rome, Santori serves as a researcher in Philosophy and Economics at the Catholic University Centre and teaches History of Economic Thought at the Pontifical Lateran University. He is a board member of <em>The Economy of Francesco</em>, where he coordinates the "Policies and Happiness" village and serves as scientific director of the <em>School of Civil Happiness</em>.</span>
-          <span data-lang="pt">Após obter a licenciatura e o mestrado em Ética Social na Universidade de Roma Tor Vergata e o doutoramento em Ciências da Economia Civil na Universidade LUMSA de Roma, Santori atua como pesquisador em Filosofia e Economia no Centro Universitário Católico e ensina História do Pensamento Econômico na Pontifícia Universidade Lateranense. É membro do conselho de <em>The Economy of Francesco</em>, onde coordena a aldeia «Policies and Happiness» e é responsável científico da <em>School of Civil Happiness</em>.</span>
-        </p>
-        <div class="profile-badges">
-          <span class="badge">Tor Vergata</span>
-          <span class="badge">LUMSA</span>
-          <span class="badge">Pontificia Lateranense</span>
-          <span class="badge">Economy of Francesco</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- SECTION 2: CAMPI DI RICERCA -->
-  <section id="ricerca">
-    <p class="section-label">
-      <span data-lang="it">Campi di Ricerca</span>
-      <span data-lang="en">Research Fields</span>
-      <span data-lang="pt">Áreas de Pesquisa</span>
-    </p>
-    <h2 class="section-title">
-      <span data-lang="it">Le Quattro Aree Principali</span>
-      <span data-lang="en">The Four Main Areas</span>
-      <span data-lang="pt">As Quatro Áreas Principais</span>
-    </h2>
-    <p class="section-intro">
-      <span data-lang="it">La ricerca di Santori si muove attorno a quattro grandi aree, tutte orientate verso un unico obiettivo: costruire un'economia più umana e giusta.</span>
-      <span data-lang="en">Santori's research revolves around four major areas, all oriented toward a single goal: building a more humane and just economy.</span>
-      <span data-lang="pt">A pesquisa de Santori gira em torno de quatro grandes áreas, todas orientadas para um único objetivo: construir uma economia mais humana e justa.</span>
-    </p>
-    <div class="cards-grid">
+    <div class="grid">
       <div class="card">
         <div class="card-icon">&#9881;</div>
-        <h3 class="card-title">
-          <span data-lang="it">Filosofia dell'Economia</span>
-          <span data-lang="en">Philosophy of Economics</span>
-          <span data-lang="pt">Filosofia da Economia</span>
-        </h3>
-        <p class="card-text">
-          <span data-lang="it">Si interroga sui fondamenti profondi dell'economia: perché scambiamo? Che cos'è il valore? L'economia può essere etica?</span>
-          <span data-lang="en">It questions the deep foundations of economics: why do we exchange? What is value? Can economics be ethical?</span>
-          <span data-lang="pt">Questiona os fundamentos profundos da economia: por que trocamos? O que é valor? A economia pode ser ética?</span>
+        <h3><span data-lang="it">Filosofia dell'Economia</span><span data-lang="en">Philosophy of Economics</span><span data-lang="pt">Filosofia da Economia</span></h3>
+        <p>
+          <span data-lang="it">Si chiede perché scambiamo, che cos'è il valore, se l'economia può essere etica. Va oltre i modelli e chiede: che tipo di persone vogliamo diventare attraverso le nostre scelte economiche?</span>
+          <span data-lang="en">It asks why we exchange, what value is, whether economics can be ethical. It goes beyond models and asks: what kind of people do we want to become through our economic choices?</span>
+          <span data-lang="pt">Pergunta por que trocamos, o que é valor, se a economia pode ser ética. Va além dos modelos e pergunta: que tipo de pessoas queremos nos tornar por meio de nossas escolhas econômicas?</span>
         </p>
       </div>
       <div class="card">
         <div class="card-icon">&#128218;</div>
-        <h3 class="card-title">
-          <span data-lang="it">Storia del Pensiero Economico</span>
-          <span data-lang="en">History of Economic Thought</span>
-          <span data-lang="pt">História do Pensamento Econômico</span>
-        </h3>
-        <p class="card-text">
-          <span data-lang="it">Studia come le idee economiche si sono evolute nel tempo, dal Medioevo fino ai giorni nostri, per capire il presente.</span>
-          <span data-lang="en">Studies how economic ideas evolved over time, from the Middle Ages to the present day, to understand the present.</span>
-          <span data-lang="pt">Estuda como as ideias econômicas evoluíram ao longo do tempo, da Idade Média até os dias atuais, para entender o presente.</span>
+        <h3><span data-lang="it">Storia del Pensiero Economico</span><span data-lang="en">History of Economic Thought</span><span data-lang="pt">História do Pensamento Econômico</span></h3>
+        <p>
+          <span data-lang="it">Le idee di oggi hanno radici profonde. Capire come Aristotele, Tommaso d'Aquino, Adam Smith o Antonio Genovesi pensavano l'economia ci aiuta a capire perché il nostro sistema funziona così com'è.</span>
+          <span data-lang="en">Today's ideas have deep roots. Understanding how Aristotle, Thomas Aquinas, Adam Smith or Antonio Genovesi thought about economics helps us understand why our system works the way it does.</span>
+          <span data-lang="pt">As ideias de hoje têm raízes profundas. Entender como Aristóteles, Tomás de Aquino, Adam Smith ou Antonio Genovesi pensavam a economia nos ajuda a entender por que nosso sistema funciona assim.</span>
         </p>
       </div>
       <div class="card">
         <div class="card-icon">&#9878;</div>
-        <h3 class="card-title">
-          <span data-lang="it">Etica degli Affari</span>
-          <span data-lang="en">Business Ethics</span>
-          <span data-lang="pt">Ética nos Negócios</span>
-        </h3>
-        <p class="card-text">
-          <span data-lang="it">Riflette sui comportamenti morali nel mondo del lavoro e delle imprese: come si dovrebbe agire? Cosa è giusto fare?</span>
-          <span data-lang="en">Reflects on moral behavior in the world of work and business: how should one act? What is the right thing to do?</span>
-          <span data-lang="pt">Reflete sobre comportamentos morais no mundo do trabalho e das empresas: como se deve agir? O que é certo fazer?</span>
+        <h3><span data-lang="it">Etica degli Affari</span><span data-lang="en">Business Ethics</span><span data-lang="pt">Ética nos Negócios</span></h3>
+        <p>
+          <span data-lang="it">Come si dovrebbe agire nel mondo del lavoro? Quando un comportamento è scorretto anche se è legale? L'etica degli affari risponde a queste domande concrete della vita quotidiana.</span>
+          <span data-lang="en">How should one act in the business world? When is a behavior wrong even if it's legal? Business ethics answers these concrete questions of daily life.</span>
+          <span data-lang="pt">Como se deve agir no mundo dos negócios? Quando um comportamento é errado mesmo sendo legal? A ética nos negócios responde a essas perguntas concretas da vida cotidiana.</span>
         </p>
       </div>
       <div class="card">
         <div class="card-icon">&#9770;</div>
-        <h3 class="card-title">
-          <span data-lang="it">Teologia dell'Economia</span>
-          <span data-lang="en">Theology of Economics</span>
-          <span data-lang="pt">Teologia da Economia</span>
-        </h3>
-        <p class="card-text">
-          <span data-lang="it">Esplora il rapporto tra fede, valori religiosi e sistemi economici. Come le tradizioni spirituali hanno pensato la ricchezza e la povertà?</span>
-          <span data-lang="en">Explores the relationship between faith, religious values and economic systems. How have spiritual traditions thought about wealth and poverty?</span>
-          <span data-lang="pt">Explora a relação entre fé, valores religiosos e sistemas econômicos. Como as tradições espirituais pensaram a riqueza e a pobreza?</span>
+        <h3><span data-lang="it">Teologia dell'Economia</span><span data-lang="en">Theology of Economics</span><span data-lang="pt">Teologia da Economia</span></h3>
+        <p>
+          <span data-lang="it">Le grandi tradizioni religiose hanno sempre riflettuto su ricchezza, povertà, giustizia. La teologia dell'economia studia questi contributi e il loro dialogo con il pensiero economico moderno.</span>
+          <span data-lang="en">The great religious traditions have always reflected on wealth, poverty and justice. Theology of economics studies these contributions and their dialogue with modern economic thought.</span>
+          <span data-lang="pt">As grandes tradições religiosas sempre refletiram sobre riqueza, pobreza e justiça. A teologia da economia estuda essas contribuições e seu diálogo com o pensamento econômico moderno.</span>
         </p>
       </div>
     </div>
   </section>
 
-  <!-- SECTION 3: ECONOMIA CIVILE -->
-  <section id="economia-civile">
-    <p class="section-label">
-      <span data-lang="it">Il Cuore della Ricerca</span>
-      <span data-lang="en">The Heart of the Research</span>
-      <span data-lang="pt">O Coração da Pesquisa</span>
+  <!-- ②  LE RADICI: TOMMASO -->
+  <section id="tommaso">
+    <p class="sec-label">
+      <span data-lang="it">Le radici medievali</span>
+      <span data-lang="en">Medieval roots</span>
+      <span data-lang="pt">Raízes medievais</span>
     </p>
-    <h2 class="section-title">
-      <span data-lang="it">La Tradizione dell'Economia Civile</span>
-      <span data-lang="en">The Civil Economy Tradition</span>
-      <span data-lang="pt">A Tradição da Economia Civil</span>
+    <h2 class="sec-title">
+      <span data-lang="it">San Tommaso d'Aquino e il Bene Comune</span>
+      <span data-lang="en">Thomas Aquinas and the Common Good</span>
+      <span data-lang="pt">São Tomás de Aquino e o Bem Comum</span>
     </h2>
-    <p class="section-intro">
-      <span data-lang="it">L'obiettivo centrale di Santori è ricostruire la storia della tradizione dell'economia civile del XVIII secolo, risalendo alle sue radici profonde e confrontandola con la tradizione della Political Economy.</span>
-      <span data-lang="en">Santori's central objective is to reconstruct the history of the civil economy tradition of the 18th century, tracing its deep roots and comparing it with the Political Economy tradition.</span>
-      <span data-lang="pt">O objetivo central de Santori é reconstruir a história da tradição da economia civil do século XVIII, rastreando suas raízes profundas e comparando-a com a tradição da Economia Política.</span>
+    <p class="sec-lead">
+      <span data-lang="it">Per capire l'Economia Civile bisogna tornare indietro di sette secoli. Tommaso d'Aquino (1225–1274) ha posto domande che restano attualissime: cos'è il giusto prezzo? A cosa serve la proprietà? Chi deve beneficiare della ricchezza?</span>
+      <span data-lang="en">To understand Civil Economy we must go back seven centuries. Thomas Aquinas (1225–1274) posed questions that remain very relevant today: what is the just price? What is property for? Who should benefit from wealth?</span>
+      <span data-lang="pt">Para entender a Economia Civil é preciso voltar sete séculos. Tomás de Aquino (1225–1274) fez perguntas que permanecem muito atuais: o que é o preço justo? Para que serve a propriedade? Quem deve se beneficiar da riqueza?</span>
     </p>
 
     <blockquote>
       <p>
-        <span data-lang="it">«L'economia civile nasce dall'idea che l'uomo è un essere sociale per natura, e che il mercato, per funzionare bene, ha bisogno di virtù, fiducia e legami comunitari &mdash; non solo di interessi individuali.»</span>
-        <span data-lang="en">«Civil economy is born from the idea that man is a social being by nature, and that the market, to function well, needs virtue, trust and community bonds — not just individual interests.»</span>
-        <span data-lang="pt">«A economia civil nasce da ideia de que o homem é um ser social por natureza, e que o mercado, para funcionar bem, precisa de virtude, confiança e laços comunitários — não apenas de interesses individuais.»</span>
+        <span data-lang="it">«L'uomo è un animale politico per natura». Non siamo fatti per vivere isolati: la società non è un male necessario, ma la condizione naturale in cui l'essere umano fiorisce.</span>
+        <span data-lang="en">«Man is by nature a political animal.» We are not made to live in isolation: society is not a necessary evil, but the natural condition in which the human being flourishes.</span>
+        <span data-lang="pt">«O homem é por natureza um animal político.» Não somos feitos para viver isolados: a sociedade não é um mal necessário, mas a condição natural em que o ser humano floresce.</span>
       </p>
-      <cite>
-        <span data-lang="it">Tradizione dell'Economia Civile, XVIII sec.</span>
-        <span data-lang="en">Civil Economy Tradition, 18th century</span>
-        <span data-lang="pt">Tradição da Economia Civil, séc. XVIII</span>
-      </cite>
+      <cite>Aristotele &mdash; <span data-lang="it">ripreso da Tommaso d'Aquino</span><span data-lang="en">taken up by Thomas Aquinas</span><span data-lang="pt">retomado por Tomás de Aquino</span></cite>
     </blockquote>
 
-    <div class="timeline">
-      <div class="timeline-item">
-        <p class="timeline-year">
-          <span data-lang="it">XIII Secolo</span>
-          <span data-lang="en">13th Century</span>
-          <span data-lang="pt">Século XIII</span>
-        </p>
-        <h4 class="timeline-title">
-          <span data-lang="it">San Tommaso d'Aquino &mdash; Le Radici</span>
-          <span data-lang="en">Thomas Aquinas &mdash; The Roots</span>
-          <span data-lang="pt">São Tomás de Aquino &mdash; As Raízes</span>
-        </h4>
-        <p class="timeline-text">
-          <span data-lang="it">Tommaso d'Aquino pone le basi: l'uomo è naturalmente sociale (zoon politikon), la proprietà privata è legittima ma deve servire il bene comune, e il giusto prezzo è determinato dalla comunità, non solo dall'utilità individuale. La sua riflessione sul bene comune e sulla virtù della giustizia è fondamentale per comprendere l'economia civile.</span>
-          <span data-lang="en">Thomas Aquinas lays the foundations: man is naturally social (zoon politikon), private property is legitimate but must serve the common good, and the just price is determined by the community, not just individual utility. His reflection on the common good and the virtue of justice is fundamental to understanding civil economy.</span>
-          <span data-lang="pt">Tomás de Aquino lança as bases: o homem é naturalmente social (zoon politikon), a propriedade privada é legítima mas deve servir ao bem comum, e o preço justo é determinado pela comunidade, não apenas pela utilidade individual. Sua reflexão sobre o bem comum e a virtude da justiça é fundamental para entender a economia civil.</span>
+    <div class="grid">
+      <div class="card">
+        <div class="card-icon">&#9878;</div>
+        <h3><span data-lang="it">Il Giusto Prezzo</span><span data-lang="en">The Just Price</span><span data-lang="pt">O Preço Justo</span></h3>
+        <p>
+          <span data-lang="it">Tommaso sosteneva che ogni bene ha un prezzo equo determinato dalla comunità, non solo dall'utilità di chi compra o dalla cupidigia di chi vende. Vendere troppo caro, specialmente a chi è in difficoltà, è moralmente sbagliato.</span>
+          <span data-lang="en">Aquinas argued that every good has a fair price determined by the community, not just by the buyer's utility or the seller's greed. Charging too much, especially to those in need, is morally wrong.</span>
+          <span data-lang="pt">Aquino argumentava que todo bem tem um preço justo determinado pela comunidade, não apenas pela utilidade do comprador ou pela ganância do vendedor. Cobrar demais, especialmente de quem está em dificuldade, é moralmente errado.</span>
         </p>
       </div>
-      <div class="timeline-item">
-        <p class="timeline-year">
-          <span data-lang="it">XVIII Secolo</span>
-          <span data-lang="en">18th Century</span>
-          <span data-lang="pt">Século XVIII</span>
-        </p>
-        <h4 class="timeline-title">
-          <span data-lang="it">L'Economia Civile Napoletana</span>
-          <span data-lang="en">The Neapolitan Civil Economy</span>
-          <span data-lang="pt">A Economia Civil Napolitana</span>
-        </h4>
-        <p class="timeline-text">
-          <span data-lang="it">Nel Settecento napoletano, pensatori come Antonio Genovesi sviluppano una visione dell'economia fondata sulla felicità pubblica, sulla reciprocità e sul bene comune. È una tradizione alternativa all'individualismo della Political Economy anglosassone.</span>
-          <span data-lang="en">In 18th-century Naples, thinkers like Antonio Genovesi develop a vision of economics founded on public happiness, reciprocity and the common good. This is an alternative tradition to the individualism of Anglo-Saxon Political Economy.</span>
-          <span data-lang="pt">Na Nápoles do século XVIII, pensadores como Antonio Genovesi desenvolvem uma visão da economia fundada na felicidade pública, na reciprocidade e no bem comum. É uma tradição alternativa ao individualismo da Economia Política anglo-saxônica.</span>
+      <div class="card">
+        <div class="card-icon">&#127968;</div>
+        <h3><span data-lang="it">La Proprietà Privata</span><span data-lang="en">Private Property</span><span data-lang="pt">Propriedade Privada</span></h3>
+        <p>
+          <span data-lang="it">La proprietà è legittima, ma non assoluta: deve essere amministrata in modo da servire anche il bene comune. Possedere molte risorse comporta una responsabilità verso gli altri.</span>
+          <span data-lang="en">Property is legitimate, but not absolute: it must be managed in a way that also serves the common good. Possessing many resources entails a responsibility toward others.</span>
+          <span data-lang="pt">A propriedade é legítima, mas não absoluta: deve ser administrada de forma a servir também ao bem comum. Possuir muitos recursos implica uma responsabilidade para com os outros.</span>
         </p>
       </div>
-      <div class="timeline-item">
-        <p class="timeline-year">
-          <span data-lang="it">XVIII Secolo &mdash; Confronto</span>
-          <span data-lang="en">18th Century &mdash; Comparison</span>
-          <span data-lang="pt">Século XVIII &mdash; Comparação</span>
-        </p>
-        <h4 class="timeline-title">
-          <span data-lang="it">Hume e Smith &mdash; La Political Economy</span>
-          <span data-lang="en">Hume and Smith &mdash; Political Economy</span>
-          <span data-lang="pt">Hume e Smith &mdash; A Economia Política</span>
-        </h4>
-        <p class="timeline-text">
-          <span data-lang="it">David Hume e Adam Smith fondano la tradizione anglosassone: il mercato funziona grazie all'interesse personale («mano invisibile»). L'individuo razionale, perseguendo il proprio tornaconto, contribuisce inconsapevolmente al benessere collettivo. Santori studia le somiglianze e le differenze profonde tra le due tradizioni.</span>
-          <span data-lang="en">David Hume and Adam Smith found the Anglo-Saxon tradition: the market works through self-interest (the "invisible hand"). The rational individual, pursuing their own gain, unknowingly contributes to collective well-being. Santori studies the deep similarities and differences between the two traditions.</span>
-          <span data-lang="pt">David Hume e Adam Smith fundam a tradição anglo-saxônica: o mercado funciona por meio do interesse próprio («mão invisível»). O indivíduo racional, perseguindo seu próprio ganho, contribui inconscientemente para o bem-estar coletivo. Santori estuda as semelhanças e diferenças profundas entre as duas tradições.</span>
+      <div class="card">
+        <div class="card-icon">&#9994;</div>
+        <h3><span data-lang="it">La Virtù della Giustizia</span><span data-lang="en">The Virtue of Justice</span><span data-lang="pt">A Virtude da Justiça</span></h3>
+        <p>
+          <span data-lang="it">La giustizia non è solo una norma giuridica, ma una virtù che si coltiva: la disposizione stabile a dare a ciascuno ciò che gli spetta. Senza persone giuste, nessuna legge basta.</span>
+          <span data-lang="en">Justice is not just a legal norm, but a virtue to be cultivated: the stable disposition to give each person what they are due. Without just people, no law is sufficient.</span>
+          <span data-lang="pt">A justiça não é apenas uma norma jurídica, mas uma virtude a ser cultivada: a disposição estável de dar a cada pessoa o que lhe é devido. Sem pessoas justas, nenhuma lei é suficiente.</span>
         </p>
       </div>
     </div>
   </section>
 
-  <!-- SECTION 4: TEMI ATTUALI -->
-  <section id="temi">
-    <p class="section-label">
-      <span data-lang="it">Temi di Attualità</span>
-      <span data-lang="en">Current Topics</span>
-      <span data-lang="pt">Temas Atuais</span>
+  <!-- ③  CONFRONTO: DUE TRADIZIONI -->
+  <section id="confronto">
+    <p class="sec-label">
+      <span data-lang="it">Due strade diverse</span>
+      <span data-lang="en">Two different paths</span>
+      <span data-lang="pt">Dois caminhos diferentes</span>
     </p>
-    <h2 class="section-title">
+    <h2 class="sec-title">
+      <span data-lang="it">Economia Civile e Political Economy a confronto</span>
+      <span data-lang="en">Civil Economy and Political Economy compared</span>
+      <span data-lang="pt">Economia Civil e Economia Política comparadas</span>
+    </h2>
+    <p class="sec-lead">
+      <span data-lang="it">Nel Settecento si sviluppano due grandi tradizioni che pensano il mercato in modo molto diverso. Conoscerle ci aiuta a capire le tensioni ancora vive nell'economia di oggi.</span>
+      <span data-lang="en">In the 18th century two great traditions developed that think about the market in very different ways. Knowing them helps us understand the tensions still alive in today's economy.</span>
+      <span data-lang="pt">No século XVIII duas grandes tradições se desenvolveram pensando o mercado de maneiras muito diferentes. Conhecê-las nos ajuda a entender as tensões ainda vivas na economia de hoje.</span>
+    </p>
+    <div class="two-col">
+      <div class="col-box">
+        <h3>
+          <span data-lang="it">&#9670; Economia Civile (Napoli, XVIII sec.)</span>
+          <span data-lang="en">&#9670; Civil Economy (Naples, 18th c.)</span>
+          <span data-lang="pt">&#9670; Economia Civil (Nápoles, séc. XVIII)</span>
+        </h3>
+        <p>
+          <span data-lang="it">Pensatori come <strong>Antonio Genovesi</strong> vedono il mercato come uno spazio di relazioni umane. Gli scambi funzionano grazie alla <em>reciprocità</em>, alla fiducia e al senso civico, non nonostante essi.</span>
+          <span data-lang="en">Thinkers like <strong>Antonio Genovesi</strong> see the market as a space of human relationships. Exchanges work thanks to <em>reciprocity</em>, trust and civic sense, not despite them.</span>
+          <span data-lang="pt">Pensadores como <strong>Antonio Genovesi</strong> vêem o mercado como um espaço de relações humanas. As trocas funcionam graças à <em>reciprocidade</em>, à confiança e ao senso cívico, não apesar deles.</span>
+        </p>
+        <p>
+          <span data-lang="it">La <em>felicità pubblica</em> è l'obiettivo centrale: una società prospera è una società in cui tutti fioriscono, non solo chi accumula di più.</span>
+          <span data-lang="en"><em>Public happiness</em> is the central goal: a prosperous society is one in which everyone flourishes, not just those who accumulate the most.</span>
+          <span data-lang="pt">A <em>felicidade pública</em> é o objetivo central: uma sociedade próspera é uma em que todos florescem, não apenas quem acumula mais.</span>
+        </p>
+      </div>
+      <div class="col-box">
+        <h3>
+          <span data-lang="it">&#9670; Political Economy (Scozia, XVIII sec.)</span>
+          <span data-lang="en">&#9670; Political Economy (Scotland, 18th c.)</span>
+          <span data-lang="pt">&#9670; Economia Política (Escócia, séc. XVIII)</span>
+        </h3>
+        <p>
+          <span data-lang="it"><strong>David Hume</strong> e <strong>Adam Smith</strong> fondano la visione dominante: il mercato funziona grazie all'interesse personale. Il singolo che persegue il proprio tornaconto genera, quasi involontariamente, benessere collettivo (<em>mano invisibile</em>).</span>
+          <span data-lang="en"><strong>David Hume</strong> and <strong>Adam Smith</strong> establish the dominant vision: the market works through self-interest. The individual pursuing their own gain generates, almost involuntarily, collective well-being (<em>invisible hand</em>).</span>
+          <span data-lang="pt"><strong>David Hume</strong> e <strong>Adam Smith</strong> estabelecem a visão dominante: o mercado funciona por meio do interesse próprio. O indivíduo que persegue seu próprio ganho gera, quase involuntariamente, bem-estar coletivo (<em>mão invisível</em>).</span>
+        </p>
+        <p>
+          <span data-lang="it">La virtù e il legame sociale non sono necessari al funzionamento del mercato: bastano regole e incentivi giusti. L'individuo razionale e autointeressato è il protagonista.</span>
+          <span data-lang="en">Virtue and social bonds are not necessary for the market to function: the right rules and incentives are sufficient. The rational, self-interested individual is the protagonist.</span>
+          <span data-lang="pt">Virtude e laços sociais não são necessários para o funcionamento do mercado: bastam regras e incentivos certos. O indivíduo racional e autointeressado é o protagonista.</span>
+        </p>
+      </div>
+    </div>
+    <blockquote style="margin-top:2rem">
+      <p>
+        <span data-lang="it">La domanda ancora aperta: i mercati hanno bisogno di <em>fiducia, reciprocità e virtù</em> per funzionare davvero, oppure bastano le regole e l'interesse personale? Il dibattito tra queste due tradizioni è più vivo che mai.</span>
+        <span data-lang="en">The still open question: do markets need <em>trust, reciprocity and virtue</em> to truly work, or are rules and self-interest enough? The debate between these two traditions is more alive than ever.</span>
+        <span data-lang="pt">A pergunta ainda aberta: os mercados precisam de <em>confiança, reciprocidade e virtude</em> para realmente funcionar, ou bastam regras e interesse próprio? O debate entre essas duas tradições está mais vivo do que nunca.</span>
+      </p>
+      <cite>
+        <span data-lang="it">Uno dei temi centrali della ricerca contemporanea in filosofia ed economia</span>
+        <span data-lang="en">One of the central themes of contemporary research in philosophy and economics</span>
+        <span data-lang="pt">Um dos temas centrais da pesquisa contemporânea em filosofia e economia</span>
+      </cite>
+    </blockquote>
+  </section>
+
+  <!-- ④  TEMI: MERITOCRAZIA & LIMITI -->
+  <section id="temi">
+    <p class="sec-label">
+      <span data-lang="it">Domande di oggi</span>
+      <span data-lang="en">Questions of today</span>
+      <span data-lang="pt">Perguntas de hoje</span>
+    </p>
+    <h2 class="sec-title">
       <span data-lang="it">Meritocrazia e Limiti Morali del Mercato</span>
       <span data-lang="en">Meritocracy and the Moral Limits of the Market</span>
       <span data-lang="pt">Meritocracia e os Limites Morais do Mercado</span>
     </h2>
-    <p class="section-intro">
-      <span data-lang="it">La ricerca di Santori dialoga con il dibattito economico e filosofico contemporaneo, in particolare su due grandi questioni: la meritocrazia e i limiti del mercato.</span>
-      <span data-lang="en">Santori's research engages with contemporary economic and philosophical debate, particularly on two major issues: meritocracy and the limits of the market.</span>
-      <span data-lang="pt">A pesquisa de Santori dialoga com o debate econômico e filosófico contemporâneo, especialmente sobre duas grandes questões: a meritocracia e os limites do mercado.</span>
+    <p class="sec-lead">
+      <span data-lang="it">Queste due questioni stanno al cuore del dibattito filosofico ed economico contemporaneo. Sembrano astratte, ma riguardano scelte concrete: come distribuiamo le opportunità? Cosa non dovrebbe avere un prezzo?</span>
+      <span data-lang="en">These two questions are at the heart of the contemporary philosophical and economic debate. They may seem abstract, but they concern concrete choices: how do we distribute opportunities? What should not have a price?</span>
+      <span data-lang="pt">Essas duas questões estão no coração do debate filosófico e econômico contemporâneo. Podem parecer abstratas, mas dizem respeito a escolhas concretas: como distribuimos as oportunidades? O que não deveria ter preço?</span>
     </p>
 
-    <div class="accordion-item">
-      <button class="accordion-header" onclick="toggleAccordion(this)" aria-expanded="false">
-        <span>
-          <span data-lang="it">&#9670; Che cos'è la meritocrazia?</span>
-          <span data-lang="en">&#9670; What is meritocracy?</span>
-          <span data-lang="pt">&#9670; O que é meritocracia?</span>
-        </span>
-        <span class="accordion-icon">&#9660;</span>
+    <div class="acc-item">
+      <button class="acc-head" onclick="toggleAcc(this)" aria-expanded="false">
+        <span><span data-lang="it">La meritocrazia è davvero giusta?</span><span data-lang="en">Is meritocracy truly fair?</span><span data-lang="pt">A meritocracia é realmente justa?</span></span>
+        <span class="acc-arrow">&#9660;</span>
       </button>
-      <div class="accordion-body">
-        <div class="accordion-content">
-          <span data-lang="it">La meritocrazia è il principio secondo cui le persone dovrebbero essere ricompensate in base ai loro meriti, talenti e impegno. Suona giusto, vero? Ma la filosofia mette in discussione questo principio: fino a che punto i nostri talenti sono davvero «nostri»? Nasciamo in famiglie diverse, con risorse diverse. La meritocrazia rischia di ignorare queste disuguaglianze di partenza, legitimando privilegi come se fossero conquiste personali. La riflessione etica ci invita a distinguere tra ciò che è «guadagnato» e ciò che è semplicemente «fortunato».</span>
-          <span data-lang="en">Meritocracy is the principle that people should be rewarded based on their merits, talents and effort. Sounds fair, right? But philosophy challenges this principle: to what extent are our talents truly «ours»? We are born into different families, with different resources. Meritocracy risks ignoring these starting inequalities, legitimizing privileges as if they were personal achievements. Ethical reflection invites us to distinguish between what is «earned» and what is simply «fortunate».</span>
-          <span data-lang="pt">A meritocracia é o princípio segundo o qual as pessoas devem ser recompensadas com base em seus méritos, talentos e esforço. Parece justo, não é? Mas a filosofia questiona esse princípio: até que ponto nossos talentos são realmente «nossos»? Nascemos em famílias diferentes, com recursos diferentes. A meritocracia corre o risco de ignorar essas desigualdades de partida, legitimando privilégios como se fossem conquistas pessoais. A reflexão ética nos convida a distinguir entre o que é «merecido» e o que é simplesmente «sorte».</span>
+      <div class="acc-body">
+        <div class="acc-content">
+          <p>
+            <span data-lang="it">La <strong>meritocrazia</strong> è l'idea che le persone debbano essere ricompensate in base ai propri talenti e al proprio impegno. A prima vista sembra equa: chi si impegna di più dovrebbe ottenere di più.</span>
+            <span data-lang="en"><strong>Meritocracy</strong> is the idea that people should be rewarded based on their talents and effort. At first glance it seems fair: those who work harder should get more.</span>
+            <span data-lang="pt">A <strong>meritocracia</strong> é a ideia de que as pessoas devem ser recompensadas com base em seus talentos e esforço. À primeira vista parece justa: quem se esforça mais deveria obter mais.</span>
+          </p>
+          <p>
+            <span data-lang="it">Ma la filosofia solleva un problema: fino a che punto i nostri talenti sono davvero <em>nostri</em>? Nasciamo in famiglie diverse, con risorse diverse, in contesti diversi. Un bambino cresciuto in un quartiere ricco con genitori istruiti non ha gli stessi punti di partenza di un bambino cresciuto in povertà. Premiare il merito senza correggere le disuguaglianze di partenza rischia di <em>legittimare il privilegio</em> come se fosse conquista personale.</span>
+            <span data-lang="en">But philosophy raises a problem: to what extent are our talents truly <em>ours</em>? We are born into different families, with different resources, in different contexts. A child raised in a wealthy neighborhood with educated parents does not have the same starting point as a child raised in poverty. Rewarding merit without correcting starting inequalities risks <em>legitimizing privilege</em> as if it were personal achievement.</span>
+            <span data-lang="pt">Mas a filosofia levanta um problema: até que ponto nossos talentos são realmente <em>nossos</em>? Nascemos em famílias diferentes, com recursos diferentes, em contextos diferentes. Uma criança criada em um bairro rico com pais instruidos não tem os mesmos pontos de partida que uma criança criada na pobreza. Recompensar o mérito sem corrigir as desigualdades de partida corre o risco de <em>legitimar o privilégio</em> como se fosse conquista pessoal.</span>
+          </p>
+          <p>
+            <span data-lang="it">La sfida è distinguere tra ciò che è genuinamente meritato e ciò che è frutto di circostanze fortunate. Una società giusta dovrebbe premiare lo sforzo, ma anche garantire che il punto di partenza sia il più equo possibile.</span>
+            <span data-lang="en">The challenge is to distinguish between what is genuinely earned and what is the fruit of fortunate circumstances. A just society should reward effort, but also ensure that the starting point is as equitable as possible.</span>
+            <span data-lang="pt">O desafio é distinguir entre o que é genuinamente merecido e o que é fruto de circunstâncias afortunadas. Uma sociedade justa deve recompensar o esforço, mas também garantir que o ponto de partida seja o mais equitativo possível.</span>
+          </p>
         </div>
       </div>
     </div>
 
-    <div class="accordion-item">
-      <button class="accordion-header" onclick="toggleAccordion(this)" aria-expanded="false">
-        <span>
-          <span data-lang="it">&#9670; Esistono cose che il mercato non dovrebbe vendere?</span>
-          <span data-lang="en">&#9670; Are there things the market should not sell?</span>
-          <span data-lang="pt">&#9670; Existem coisas que o mercado não deveria vender?</span>
-        </span>
-        <span class="accordion-icon">&#9660;</span>
+    <div class="acc-item">
+      <button class="acc-head" onclick="toggleAcc(this)" aria-expanded="false">
+        <span><span data-lang="it">Esistono cose che il mercato non dovrebbe comprare?</span><span data-lang="en">Are there things the market should not buy?</span><span data-lang="pt">Existem coisas que o mercado não deveria comprar?</span></span>
+        <span class="acc-arrow">&#9660;</span>
       </button>
-      <div class="accordion-body">
-        <div class="accordion-content">
-          <span data-lang="it">Il mercato può valorizzare quasi tutto: voti, organi, amicizie, voti elettorali. Ma la filosofia etica sostiene che alcune cose perdono il loro valore morale quando vengono mercificate. L'amicizia comprata non è vera amicizia. Un voto comprato non è vera democrazia. Esistono «limiti morali del mercato» che la società deve saper riconoscere e difendere. Santori esplora dove questi confini si trovano e perché sono importanti.</span>
-          <span data-lang="en">The market can commodify almost anything: grades, organs, friendships, votes. But ethical philosophy argues that some things lose their moral value when they are commodified. Bought friendship is not true friendship. A bought vote is not true democracy. There are «moral limits of the market» that society must know how to recognize and defend. Santori explores where these boundaries lie and why they matter.</span>
-          <span data-lang="pt">O mercado pode valorizar quase tudo: notas, órgãos, amizades, votos eleitorais. Mas a filosofia ética sustenta que algumas coisas perdem seu valor moral quando são mercantilizadas. A amizade comprada não é verdadeira amizade. Um voto comprado não é verdadeira democracia. Existem «limites morais do mercado» que a sociedade deve saber reconhecer e defender. Santori explora onde esses limites se encontram e por que são importantes.</span>
+      <div class="acc-body">
+        <div class="acc-content">
+          <p>
+            <span data-lang="it">Il mercato è uno strumento potente: può allocare beni e servizi in modo efficiente. Ma esistono cose che, se messe in vendita, <em>cambiano di natura</em> e perdono il loro valore autentico.</span>
+            <span data-lang="en">The market is a powerful tool: it can allocate goods and services efficiently. But there are things that, if put up for sale, <em>change their nature</em> and lose their authentic value.</span>
+            <span data-lang="pt">O mercado é uma ferramenta poderosa: pode alocar bens e serviços de forma eficiente. Mas existem coisas que, se colocadas à venda, <em>mudam de natureza</em> e perdem seu valor autêntico.</span>
+          </p>
+          <p>
+            <span data-lang="it">Esempio: l'amicizia comprata non è vera amicizia. Un voto elettorale comprato non è vera democrazia. Alcuni beni — come la fiducia, la cura, la partecipazione civica — funzionano solo fuori dalla logica del prezzo. Quando li trasformiamo in merce, li svuotiamo di senso.</span>
+            <span data-lang="en">Example: bought friendship is not true friendship. A bought vote is not true democracy. Some goods — like trust, care, civic participation — only work outside the logic of price. When we turn them into commodities, we empty them of meaning.</span>
+            <span data-lang="pt">Exemplo: amizade comprada não é verdadeira amizade. Um voto comprado não é verdadeira democracia. Alguns bens — como confiança, cuidado, participação cívica — só funcionam fora da lógica do preço. Quando os transformamos em mercadoria, esvaziamos seu significado.</span>
+          </p>
+          <p>
+            <span data-lang="it">Riconoscere i <strong>limiti morali del mercato</strong> non significa essere contro il mercato: significa capire dove esso è uno strumento utile e dove invece danneggia ciò che tocca.</span>
+            <span data-lang="en">Recognizing the <strong>moral limits of the market</strong> does not mean being against the market: it means understanding where it is a useful tool and where it instead damages what it touches.</span>
+            <span data-lang="pt">Reconhecer os <strong>limites morais do mercado</strong> não significa ser contra o mercado: significa entender onde ele é uma ferramenta útil e onde, ao contrário, danifica o que toca.</span>
+          </p>
         </div>
       </div>
     </div>
 
-    <div class="accordion-item">
-      <button class="accordion-header" onclick="toggleAccordion(this)" aria-expanded="false">
-        <span>
-          <span data-lang="it">&#9670; Che cosa è il bene comune?</span>
-          <span data-lang="en">&#9670; What is the common good?</span>
-          <span data-lang="pt">&#9670; O que é o bem comum?</span>
-        </span>
-        <span class="accordion-icon">&#9660;</span>
+    <div class="acc-item">
+      <button class="acc-head" onclick="toggleAcc(this)" aria-expanded="false">
+        <span><span data-lang="it">Che cosa ci rende davvero felici?</span><span data-lang="en">What truly makes us happy?</span><span data-lang="pt">O que realmente nos torna felizes?</span></span>
+        <span class="acc-arrow">&#9660;</span>
       </button>
-      <div class="accordion-body">
-        <div class="accordion-content">
-          <span data-lang="it">Il bene comune non è la somma degli interessi individuali, ma qualcosa di più: è il fiorire di una comunità intera. Un'idea che viene da Aristotele e Tommaso d'Aquino: la società funziona davvero quando tutti i suoi membri possono svilupparsi come persone, non solo quando la media del reddito sale. Questo concetto è centrale nell'economia civile e orienta la ricerca di Santori verso politiche orientate alla «felicità civile».</span>
-          <span data-lang="en">The common good is not the sum of individual interests, but something more: it is the flourishing of an entire community. An idea that comes from Aristotle and Thomas Aquinas: society truly works when all its members can develop as persons, not just when the average income rises. This concept is central to civil economy and guides Santori's research toward policies oriented toward «civil happiness».</span>
-          <span data-lang="pt">O bem comum não é a soma dos interesses individuais, mas algo mais: é o florescimento de uma comunidade inteira. Uma ideia que vem de Aristóteles e Tomás de Aquino: a sociedade realmente funciona quando todos os seus membros podem se desenvolver como pessoas, não apenas quando a renda média sobe. Esse conceito é central na economia civil e orienta a pesquisa de Santori para políticas voltadas à «felicidade civil».</span>
+      <div class="acc-body">
+        <div class="acc-content">
+          <p>
+            <span data-lang="it">Uno dei risultati più solidi della ricerca empirica sul benessere è che <em>il reddito, oltre una certa soglia, non aumenta la felicità</em>. Contano molto di più le relazioni, la fiducia, il senso di appartenenza a una comunità, la partecipazione alla vita civile.</span>
+            <span data-lang="en">One of the most robust results of empirical well-being research is that <em>income, beyond a certain threshold, does not increase happiness</em>. What matters much more are relationships, trust, a sense of belonging to a community, participation in civic life.</span>
+            <span data-lang="pt">Um dos resultados mais sólidos da pesquisa empírica sobre bem-estar é que <em>a renda, além de certo limite, não aumenta a felicidade</em>. O que importa muito mais são as relações, a confiança, o senso de pertencimento a uma comunidade, a participação na vida cívica.</span>
+          </p>
+          <p>
+            <span data-lang="it">La tradizione dell'Economia Civile chiama questo la <strong>felicità civile</strong>: una felicità che si realizza <em>con</em> gli altri, non <em>contro</em> o <em>nonostante</em> gli altri. Le politiche pubbliche dovrebbero tenerne conto, costruendo condizioni perché questa forma di fiorire sia possibile per tutti.</span>
+            <span data-lang="en">The Civil Economy tradition calls this <strong>civil happiness</strong>: a happiness that is realized <em>with</em> others, not <em>against</em> or <em>despite</em> others. Public policies should take this into account, building conditions for this form of flourishing to be possible for everyone.</span>
+            <span data-lang="pt">A tradição da Economia Civil chama isso de <strong>felicidade civil</strong>: uma felicidade que se realiza <em>com</em> os outros, não <em>contra</em> ou <em>apesar</em> dos outros. As políticas públicas deveriam levar isso em conta, construindo condições para que essa forma de florescimento seja possível para todos.</span>
+          </p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- SECTION 5: AUTORI DI RIFERIMENTO -->
-  <section id="autori">
-    <p class="section-label">
-      <span data-lang="it">Autori di Riferimento</span>
-      <span data-lang="en">Key Authors</span>
-      <span data-lang="pt">Autores de Referência</span>
+  <!-- ⑤  DUE LIBRI -->
+  <section id="libri">
+    <p class="sec-label">
+      <span data-lang="it">Letture fondamentali</span>
+      <span data-lang="en">Foundational readings</span>
+      <span data-lang="pt">Leituras fundamentais</span>
     </p>
-    <h2 class="section-title">
-      <span data-lang="it">Libri Fondamentali per la Ricerca</span>
-      <span data-lang="en">Foundational Books for the Research</span>
-      <span data-lang="pt">Livros Fundamentais para a Pesquisa</span>
+    <h2 class="sec-title">
+      <span data-lang="it">Due Libri per Capire il Dibattito Contemporaneo</span>
+      <span data-lang="en">Two Books to Understand the Contemporary Debate</span>
+      <span data-lang="pt">Dois Livros para Entender o Debate Contemporâneo</span>
     </h2>
-    <p class="section-intro">
-      <span data-lang="it">Due libri recenti costituiscono due pilastri fondamentali per la ricerca e l'insegnamento di Santori, relazionandosi con i temi centrali del dibattito economico e filosofico contemporaneo.</span>
-      <span data-lang="en">Two recent books form two fundamental pillars for Santori's research and teaching, engaging with the central themes of contemporary economic and philosophical debate.</span>
-      <span data-lang="pt">Dois livros recentes constituem dois pilares fundamentais para a pesquisa e o ensino de Santori, relacionando-se com os temas centrais do debate econômico e filosófico contemporâneo.</span>
+    <p class="sec-lead">
+      <span data-lang="it">Queste due opere recenti rappresentano due contributi fondamentali alla riflessione su mercato, istituzioni e vita buona. Sono scritte da filosofi-economisti che dialogano con entrambe le grandi tradizioni.</span>
+      <span data-lang="en">These two recent works represent two fundamental contributions to reflection on market, institutions and the good life. They are written by philosopher-economists who engage with both great traditions.</span>
+      <span data-lang="pt">Essas duas obras recentes representam duas contribuições fundamentais à reflexão sobre mercado, instituições e vida boa. São escritas por filósofos-economistas que dialogam com as duas grandes tradições.</span>
     </p>
-    <div class="books-grid">
-      <div class="book-card">
-        <div class="book-spine">&#128218;</div>
+    <div class="books">
+      <div class="book">
+        <div class="book-icon">&#128218;</div>
         <div>
-          <p class="book-year">2018 &mdash; Robert Sugden</p>
+          <p class="book-meta">Robert Sugden &mdash; 2018</p>
           <h3 class="book-title">The Community of Advantage</h3>
-          <p class="book-author">Robert Sugden</p>
+          <p class="book-author">
+            <span data-lang="it">Economia, libertà e cooperazione</span>
+            <span data-lang="en">Economics, liberty and cooperation</span>
+            <span data-lang="pt">Economia, liberdade e cooperação</span>
+          </p>
           <p class="book-desc">
-            <span data-lang="it">Sugden propone un'economia liberale fondata sulla cooperazione volontaria e sull'autonomia reciproca. Critica l'approccio paternalistico del «nudge» e difende la libertà di scelta come valore fondamentale. Il mercato è visto come una comunità di vantaggio reciproco.</span>
-            <span data-lang="en">Sugden proposes a liberal economics founded on voluntary cooperation and mutual autonomy. He critiques the paternalistic «nudge» approach and defends freedom of choice as a fundamental value. The market is seen as a community of mutual advantage.</span>
-            <span data-lang="pt">Sugden propõe uma economia liberal fundada na cooperação voluntária e na autonomia mútua. Critica a abordagem paternalista do «nudge» e defende a liberdade de escolha como valor fundamental. O mercado é visto como uma comunidade de vantagem mútua.</span>
+            <span data-lang="it">Sugden critica l'approccio <em>paternalistico</em> del «nudge» (la «spintarella» che i governi usano per guidare le scelte delle persone) e difende una visione liberale del mercato come <em>comunità di vantaggio reciproco</em>. Il punto di partenza non è l'individuo isolato, ma le persone che cooperano e contrattano tra loro. La libertà di scelta è un valore in sé, non solo un mezzo per massimizzare l'utilità.</span>
+            <span data-lang="en">Sugden critiques the <em>paternalistic</em> nudge approach (the «little push» governments use to guide people's choices) and defends a liberal vision of the market as a <em>community of mutual advantage</em>. The starting point is not the isolated individual, but people cooperating and bargaining with each other. Freedom of choice is a value in itself, not merely a means to maximize utility.</span>
+            <span data-lang="pt">Sugden critica a abordagem <em>paternalista</em> do «nudge» (o «empurrãozinho» que os governos usam para orientar as escolhas das pessoas) e defende uma visão liberal do mercado como <em>comunidade de vantagem mútua</em>. O ponto de partida não é o indivíduo isolado, mas pessoas que cooperam e negociam entre si. A liberdade de escolha é um valor em si mesma, não apenas um meio para maximizar a utilidade.</span>
           </p>
         </div>
       </div>
-      <div class="book-card">
-        <div class="book-spine">&#128218;</div>
+      <div class="book">
+        <div class="book-icon">&#128218;</div>
         <div>
-          <p class="book-year">2016 &mdash; Francesco Guala</p>
+          <p class="book-meta">Francesco Guala &mdash; 2016</p>
           <h3 class="book-title">Understanding Institutions</h3>
-          <p class="book-author">Francesco Guala</p>
+          <p class="book-author">
+            <span data-lang="it">La filosofia delle istituzioni sociali</span>
+            <span data-lang="en">The philosophy of social institutions</span>
+            <span data-lang="pt">A filosofia das instituições sociais</span>
+          </p>
           <p class="book-desc">
-            <span data-lang="it">Guala esplora la natura delle istituzioni sociali (famiglia, denaro, matrimonio, Stato). Come nascono? Come funzionano? Perché esistono? Un'analisi filosofica rigorosa che collega l'economia con la filosofia sociale, mostrando come le regole condivise strutturano la vita collettiva.</span>
-            <span data-lang="en">Guala explores the nature of social institutions (family, money, marriage, state). How do they arise? How do they work? Why do they exist? A rigorous philosophical analysis that connects economics with social philosophy, showing how shared rules structure collective life.</span>
-            <span data-lang="pt">Guala explora a natureza das instituições sociais (família, dinheiro, casamento, Estado). Como surgem? Como funcionam? Por que existem? Uma análise filosófica rigorosa que conecta a economia com a filosofia social, mostrando como as regras compartilhadas estruturam a vida coletiva.</span>
+            <span data-lang="it">Guala esplora una domanda apparentemente semplice: che cos'è un'istituzione? Il denaro, il matrimonio, la proprietà, lo Stato &mdash; esistono perché le persone credono che esistano e agiscono di conseguenza. Le istituzioni sono <em>regole del gioco</em> condivise che rendono possibile la cooperazione sociale su larga scala. Capirne la natura ci aiuta a capire come cambiarle quando non funzionano.</span>
+            <span data-lang="en">Guala explores an apparently simple question: what is an institution? Money, marriage, property, the State — they exist because people believe they exist and act accordingly. Institutions are shared <em>rules of the game</em> that make large-scale social cooperation possible. Understanding their nature helps us understand how to change them when they don't work.</span>
+            <span data-lang="pt">Guala explora uma pergunta aparentemente simples: o que é uma instituição? Dinheiro, casamento, propriedade, o Estado — existem porque as pessoas acreditam que existem e agem de acordo. As instituições são <em>regras do jogo</em> compartilhadas que tornam possível a cooperação social em larga escala. Entender sua natureza nos ajuda a entender como mudá-las quando não funcionam.</span>
           </p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- SECTION 6: PRINCIPI ETICI -->
+  <!-- ⑥  CINQUE PRINCIPI -->
   <section id="principi">
-    <p class="section-label">
-      <span data-lang="it">Per Iniziare</span>
-      <span data-lang="en">To Get Started</span>
-      <span data-lang="pt">Para Começar</span>
+    <p class="sec-label">
+      <span data-lang="it">Per ricordare</span>
+      <span data-lang="en">To remember</span>
+      <span data-lang="pt">Para lembrar</span>
     </p>
-    <h2 class="section-title">
-      <span data-lang="it">Cinque Principi Chiave</span>
-      <span data-lang="en">Five Key Principles</span>
-      <span data-lang="pt">Cinco Princípios-Chave</span>
+    <h2 class="sec-title">
+      <span data-lang="it">Cinque Principi dell'Etica Economica</span>
+      <span data-lang="en">Five Principles of Economic Ethics</span>
+      <span data-lang="pt">Cinco Princípios da Ética Econômica</span>
     </h2>
-    <p class="section-intro">
-      <span data-lang="it">Questi principi, tratti dalla tradizione dell'economia civile e dalla filosofia etica, sono un punto di partenza per riflettere sul rapporto tra economia e vita buona.</span>
-      <span data-lang="en">These principles, drawn from the civil economy tradition and ethical philosophy, are a starting point for reflecting on the relationship between economics and the good life.</span>
-      <span data-lang="pt">Esses princípios, extraídos da tradição da economia civil e da filosofia ética, são um ponto de partida para refletir sobre a relação entre economia e vida boa.</span>
+    <p class="sec-lead">
+      <span data-lang="it">Questi principi sintetizzano secoli di riflessione. Non sono risposte definitive, ma strumenti per pensare meglio le questioni economiche e sociali.</span>
+      <span data-lang="en">These principles synthesize centuries of reflection. They are not definitive answers, but tools for thinking more clearly about economic and social questions.</span>
+      <span data-lang="pt">Esses princípios sintetizam séculos de reflexão. Não são respostas definitivas, mas ferramentas para pensar melhor as questões econômicas e sociais.</span>
     </p>
-    <div class="cards-grid">
-      <div class="card">
-        <div class="card-icon">&#129309;</div>
-        <h3 class="card-title">
-          <span data-lang="it">1. Reciprocità</span>
-          <span data-lang="en">1. Reciprocity</span>
-          <span data-lang="pt">1. Reciprocidade</span>
-        </h3>
-        <p class="card-text">
-          <span data-lang="it">Le relazioni economiche sane si basano sul dare e ricevere in modo equilibrato. Non solo interesse personale, ma anche dono e gratitudine.</span>
-          <span data-lang="en">Healthy economic relationships are based on balanced giving and receiving. Not just self-interest, but also gift and gratitude.</span>
-          <span data-lang="pt">Relações econômicas saudáveis se baseiam no dar e receber de forma equilibrada. Não apenas interesse pessoal, mas também dádiva e gratidão.</span>
-        </p>
+    <div class="principles">
+      <div class="principle">
+        <p class="principle-num">01</p>
+        <h3><span data-lang="it">Reciprocità</span><span data-lang="en">Reciprocity</span><span data-lang="pt">Reciprocidade</span></h3>
+        <p><span data-lang="it">Gli scambi che durano nel tempo si fondano su un dare e ricevere equilibrato. Non basta l'interesse personale: la fiducia reciproca è il vero motore delle economie sane.</span><span data-lang="en">Exchanges that endure over time are founded on balanced giving and receiving. Self-interest alone is not enough: mutual trust is the true engine of healthy economies.</span><span data-lang="pt">As trocas que duram no tempo se fundam em um dar e receber equilibrado. O interesse próprio sozinho não basta: a confiança mútua é o verdadeiro motor das economias saudáveis.</span></p>
       </div>
-      <div class="card">
-        <div class="card-icon">&#9878;</div>
-        <h3 class="card-title">
-          <span data-lang="it">2. Bene Comune</span>
-          <span data-lang="en">2. Common Good</span>
-          <span data-lang="pt">2. Bem Comum</span>
-        </h3>
-        <p class="card-text">
-          <span data-lang="it">Le scelte economiche devono mirare non solo al profitto personale, ma al benessere dell'intera comunità. Siamo esseri sociali per natura.</span>
-          <span data-lang="en">Economic choices must aim not only at personal profit, but at the well-being of the entire community. We are social beings by nature.</span>
-          <span data-lang="pt">As escolhas econômicas devem visar não apenas ao lucro pessoal, mas ao bem-estar de toda a comunidade. Somos seres sociais por natureza.</span>
-        </p>
+      <div class="principle">
+        <p class="principle-num">02</p>
+        <h3><span data-lang="it">Bene Comune</span><span data-lang="en">Common Good</span><span data-lang="pt">Bem Comum</span></h3>
+        <p><span data-lang="it">Il bene comune non è la somma degli interessi individuali, ma il fiorire dell'intera comunità. Una società prospera è quella in cui ognuno può svilupparsi pienamente come persona.</span><span data-lang="en">The common good is not the sum of individual interests, but the flourishing of the entire community. A prosperous society is one in which everyone can develop fully as a person.</span><span data-lang="pt">O bem comum não é a soma dos interesses individuais, mas o florescimento de toda a comunidade. Uma sociedade próspera é aquela em que cada um pode se desenvolver plenamente como pessoa.</span></p>
       </div>
-      <div class="card">
-        <div class="card-icon">&#9878;</div>
-        <h3 class="card-title">
-          <span data-lang="it">3. Giustizia</span>
-          <span data-lang="en">3. Justice</span>
-          <span data-lang="pt">3. Justiça</span>
-        </h3>
-        <p class="card-text">
-          <span data-lang="it">Dare a ciascuno ciò che gli è dovuto. La giustizia, nella tradizione tomista, è la virtù fondamentale che regola i rapporti tra le persone e nella società.</span>
-          <span data-lang="en">Giving each person what is due to them. Justice, in the Thomistic tradition, is the fundamental virtue that regulates relationships between people and in society.</span>
-          <span data-lang="pt">Dar a cada pessoa o que lhe é devido. A justiça, na tradição tomista, é a virtude fundamental que regula as relações entre as pessoas e na sociedade.</span>
-        </p>
+      <div class="principle">
+        <p class="principle-num">03</p>
+        <h3><span data-lang="it">Giustizia</span><span data-lang="en">Justice</span><span data-lang="pt">Justiça</span></h3>
+        <p><span data-lang="it">Dare a ciascuno ciò che gli è dovuto. La giustizia è una virtù personale prima ancora che una norma: richiede persone disposte ad agire in modo equo anche quando non ci sono controlli.</span><span data-lang="en">Giving each person what is due to them. Justice is a personal virtue before it is a norm: it requires people willing to act fairly even when there are no controls.</span><span data-lang="pt">Dar a cada pessoa o que lhe é devido. A justiça é uma virtude pessoal antes de ser uma norma: requer pessoas dispostas a agir de forma justa mesmo quando não há controles.</span></p>
       </div>
-      <div class="card">
-        <div class="card-icon">&#128161;</div>
-        <h3 class="card-title">
-          <span data-lang="it">4. Felicità Civile</span>
-          <span data-lang="en">4. Civil Happiness</span>
-          <span data-lang="pt">4. Felicidade Civil</span>
-        </h3>
-        <p class="card-text">
-          <span data-lang="it">La felicità non è solo privata: fiorisce nella vita comunitaria, nelle relazioni, nell'impegno per il bene altrui. L'economia civile la pone al centro.</span>
-          <span data-lang="en">Happiness is not only private: it flourishes in community life, in relationships, in commitment to others' good. Civil economy places it at the center.</span>
-          <span data-lang="pt">A felicidade não é apenas privada: floresce na vida comunitária, nas relações, no compromisso com o bem alheio. A economia civil a coloca no centro.</span>
-        </p>
+      <div class="principle">
+        <p class="principle-num">04</p>
+        <h3><span data-lang="it">Limiti del Mercato</span><span data-lang="en">Limits of the Market</span><span data-lang="pt">Limites do Mercado</span></h3>
+        <p><span data-lang="it">Non tutto può e deve avere un prezzo. Alcune dimensioni della vita — l'amicizia, la cura, la dignità, la democrazia — perdono valore se mercificate. Riconoscere questi confini è un atto di saggezza collettiva.</span><span data-lang="en">Not everything can or should have a price. Some dimensions of life — friendship, care, dignity, democracy — lose value if commodified. Recognizing these limits is an act of collective wisdom.</span><span data-lang="pt">Nem tudo pode e deve ter um preço. Algumas dimensões da vida — amizade, cuidado, dignidade, democracia — perdem valor se mercantilizadas. Reconhecer esses limites é um ato de sabedoria coletiva.</span></p>
       </div>
-      <div class="card">
-        <div class="card-icon">&#9997;</div>
-        <h3 class="card-title">
-          <span data-lang="it">5. Virtù e Mercato</span>
-          <span data-lang="en">5. Virtue and Market</span>
-          <span data-lang="pt">5. Virtude e Mercado</span>
-        </h3>
-        <p class="card-text">
-          <span data-lang="it">Il mercato funziona meglio quando le persone che vi partecipano sono virtuose: oneste, responsabili, capaci di fiducia. La virtù non è solo privata, ha effetti sociali ed economici.</span>
-          <span data-lang="en">The market works better when the people participating in it are virtuous: honest, responsible, capable of trust. Virtue is not only private, it has social and economic effects.</span>
-          <span data-lang="pt">O mercado funciona melhor quando as pessoas que nele participam são virtuosas: honestas, responsáveis, capazes de confiança. A virtude não é apenas privada, tem efeitos sociais e econômicos.</span>
-        </p>
+      <div class="principle">
+        <p class="principle-num">05</p>
+        <h3><span data-lang="it">Felicità Civile</span><span data-lang="en">Civil Happiness</span><span data-lang="pt">Felicidade Civil</span></h3>
+        <p><span data-lang="it">La felicità autentica è relazionale: fiorisce nella vita condivisa, nell'impegno civile, nella cura reciproca. Costruire una buona economia significa costruire le condizioni perché questa felicità sia accessibile a tutti.</span><span data-lang="en">Authentic happiness is relational: it flourishes in shared life, civic engagement, mutual care. Building a good economy means building the conditions for this happiness to be accessible to all.</span><span data-lang="pt">A felicidade autêntica é relacional: floresce na vida compartilhada, no engajamento cívico, no cuidado mútuo. Construir uma boa economia significa construir as condições para que essa felicidade seja acessível a todos.</span></p>
       </div>
     </div>
   </section>
 
 </main>
 
-<!-- FOOTER -->
 <footer>
-  <p class="footer-title">Etica &amp; Economia Civile</p>
-  <p class="footer-text">
-    <span data-lang="it">Contenuti ispirati alle ricerche di Paolo Santori. Centro Universitario Cattolico &bull; Pontificia Università Lateranense &bull; The Economy of Francesco.</span>
-    <span data-lang="en">Content inspired by the research of Paolo Santori. Catholic University Centre &bull; Pontifical Lateran University &bull; The Economy of Francesco.</span>
-    <span data-lang="pt">Conteúdo inspirado nas pesquisas de Paolo Santori. Centro Universitário Católico &bull; Pontifícia Universidade Lateranense &bull; The Economy of Francesco.</span>
+  <p><strong>Etica &amp; Economia Civile</strong></p>
+  <p>
+    <span data-lang="it">Percorso divulgativo di filosofia economica ed etica sociale &mdash; Economia Civile, Pensiero Tomista, Political Economy, Meritocrazia, Istituzioni.</span>
+    <span data-lang="en">Popular guide to economic philosophy and social ethics &mdash; Civil Economy, Thomistic Thought, Political Economy, Meritocracy, Institutions.</span>
+    <span data-lang="pt">Guia divulgativo de filosofia econômica e ética social &mdash; Economia Civil, Pensamento Tomista, Economia Política, Meritocracia, Instituições.</span>
   </p>
 </footer>
 
 <script>
-  // ===== LANGUAGE =====
-  let currentLang = 'it';
+  // ── LANGUAGE ──
+  const brands = { it:'Etica & Economia Civile', en:'Ethics & Civil Economy', pt:'Ética & Economia Civil' };
+  const titles  = { it:'Etica & Economia Civile', en:'Ethics & Civil Economy', pt:'Ética & Economia Civil' };
+  let lang = 'it';
 
-  function setLang(lang) {
-    currentLang = lang;
-    document.documentElement.lang = lang;
-
-    // Show/hide content by lang
+  function setLang(l) {
+    lang = l;
+    document.documentElement.lang = l;
+    document.getElementById('brand').textContent = brands[l];
+    document.title = titles[l];
     document.querySelectorAll('[data-lang]').forEach(el => {
-      el.style.display = el.getAttribute('data-lang') === lang ? '' : 'none';
+      el.style.display = el.getAttribute('data-lang') === l ? '' : 'none';
     });
-
-    // Update active button
-    document.querySelectorAll('.lang-btn').forEach(btn => {
-      btn.classList.remove('active');
+    document.querySelectorAll('.lang-btn').forEach((btn, i) => {
+      btn.classList.toggle('active', ['it','en','pt'][i] === l);
     });
-    const map = { it: 0, en: 1, pt: 2 };
-    document.querySelectorAll('.lang-btn')[map[lang]].classList.add('active');
-
-    // Update brand name
-    const brands = { it: 'Etica & Economia Civile', en: 'Ethics & Civil Economy', pt: 'Ética & Economia Civil' };
-    document.querySelector('.nav-brand').textContent = brands[lang];
-
-    // Update page title
-    const titles = { it: 'Etica & Economia Civile', en: 'Ethics & Civil Economy | Paolo Santori', pt: 'Ética & Economia Civil | Paolo Santori' };
-    document.title = titles[lang];
   }
 
-  // ===== THEME =====
+  // ── THEME ──
   function toggleTheme() {
-    const body = document.body;
-    const btn = document.getElementById('theme-btn');
-    const isDark = body.getAttribute('data-theme') === 'dark';
-    body.setAttribute('data-theme', isDark ? 'light' : 'dark');
-    btn.textContent = isDark ? '☂' : '☼';
-    btn.title = isDark ? 'Passa al tema scuro' : 'Passa al tema chiaro';
-    localStorage.setItem('theme', isDark ? 'light' : 'dark');
+    const dark = document.body.getAttribute('data-theme') === 'dark';
+    const next = dark ? 'light' : 'dark';
+    document.body.setAttribute('data-theme', next);
+    document.getElementById('theme-btn').textContent = next === 'dark' ? '☼' : '☂';
+    localStorage.setItem('theme', next);
   }
 
-  // ===== ACCORDION =====
-  function toggleAccordion(btn) {
-    const isOpen = btn.getAttribute('aria-expanded') === 'true';
-    // Close all
-    document.querySelectorAll('.accordion-header').forEach(b => {
-      b.setAttribute('aria-expanded', 'false');
+  // ── ACCORDION ──
+  function toggleAcc(btn) {
+    const open = btn.getAttribute('aria-expanded') === 'true';
+    document.querySelectorAll('.acc-head').forEach(b => {
+      b.setAttribute('aria-expanded','false');
       b.nextElementSibling.classList.remove('open');
     });
-    if (!isOpen) {
-      btn.setAttribute('aria-expanded', 'true');
+    if (!open) {
+      btn.setAttribute('aria-expanded','true');
       btn.nextElementSibling.classList.add('open');
     }
   }
 
-  // ===== INIT =====
-  (function init() {
-    // Restore theme
+  // ── INIT ──
+  (function () {
     const saved = localStorage.getItem('theme');
-    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const theme = saved || (prefersDark ? 'dark' : 'light');
+    const sys   = window.matchMedia && window.matchMedia('(prefers-color-scheme:dark)').matches;
+    const theme = saved || (sys ? 'dark' : 'light');
     document.body.setAttribute('data-theme', theme);
     document.getElementById('theme-btn').textContent = theme === 'dark' ? '☼' : '☂';
 
-    // Detect browser language
-    const nav = navigator.language || 'it';
-    let lang = 'it';
-    if (nav.startsWith('en')) lang = 'en';
-    else if (nav.startsWith('pt')) lang = 'pt';
-    setLang(lang);
+    const nav = (navigator.language || 'it').slice(0,2);
+    setLang(nav === 'en' ? 'en' : nav === 'pt' ? 'pt' : 'it');
   })();
 </script>
-
 </body>
 </html>
