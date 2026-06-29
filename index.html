@@ -512,7 +512,15 @@ var MODULES = [
         {q:'Quando due valori importanti entrano in conflitto, l\'etica offre...',
          opts:['Una risposta matematica e certa','Strumenti per argomentare e confrontare scelte','Un manuale di regole valide sempre','La risposta della maggioranza'],
          ans:1,
-         fb:'L\'etica non d&#224; risposte matematiche. Ci d&#224; strumenti &#8212; teorie, distinzioni, domande &#8212; per argomentare meglio, non per eliminare la difficolt&#224;.'}
+         fb:'L\'etica non d&#224; risposte matematiche. Ci d&#224; strumenti &#8212; teorie, distinzioni, domande &#8212; per argomentare meglio, non per eliminare la difficolt&#224;.'},
+        {q:'Qual &#232; la differenza principale tra <em>morale</em> ed <em>etica</em>?',
+         opts:['Sono sinonimi perfetti, si usano indifferentemente','La morale &#232; l\'insieme dei valori vissuti; l\'etica &#232; la riflessione filosofica critica su di essi','L\'etica &#232; religiosa, la morale &#232; laica','La morale vale per tutti, l\'etica solo per i filosofi'],
+         ans:1,
+         fb:'La morale indica i valori e le norme che una persona o una comunit&#224; vive concretamente. L\'etica &#232; la disciplina filosofica che studia quei valori criticamente, chiedendo: sono fondati? Coerenti? Universalizzabili?'},
+        {q:'Nascondere perseguitati sotto il nazismo era illegale ma molti lo considerano eticamente giusto. Questo esempio dimostra che:',
+         opts:['La legge riflette sempre la moralit&#224; di un\'epoca','Etica e legalit&#224; sono sfere distinte che possono divergere','La disobbedienza civile &#232; sempre sbagliata','L\'etica non pu&#242; contraddire la legge'],
+         ans:1,
+         fb:'Etica e legge sono sfere distinte: la legge stabilisce ci&#242; che &#232; permesso dallo Stato; l\'etica valuta ci&#242; che &#232; giusto in senso morale. In casi estremi (come il nazismo) le due possono nettamente divergere.'}
       ]}
     ]
   },
@@ -575,7 +583,15 @@ var MODULES = [
         {q:'L\'etica della cura si concentra principalmente su:',
          opts:['I doveri verso lo Stato','Il calcolo delle conseguenze','Le relazioni e i bisogni concreti delle persone','Le virt&#249; del carattere'],
          ans:2,
-         fb:'L\'etica della cura (Gilligan, Noddings) parte dall\'idea che siamo esseri in relazione e che la morale nasce dall\'attenzione ai bisogni specifici delle persone con cui siamo in relazione.'}
+         fb:'L\'etica della cura (Gilligan, Noddings) parte dall\'idea che siamo esseri in relazione e che la morale nasce dall\'attenzione ai bisogni specifici delle persone con cui siamo in relazione.'},
+        {q:'Per l\'etica delle virt&#249; (Aristotele), una persona moralmente buona &#232; colei che:',
+         opts:['Segue le regole per paura della punizione','Calcola le conseguenze prima di ogni azione','Ha sviluppato il giusto carattere attraverso l\'abitudine','Firma un contratto sociale con gli altri cittadini'],
+         ans:2,
+         fb:'Aristotele: la virt&#249; non &#232; un atto isolato ma un\'abitudine stabile del carattere (hexis). Non si nasce coraggiosi o giusti &#8212; lo si diventa esercitandosi ripetutamente. Il punto non &#232; seguire regole, ma diventare un certo tipo di persona.'},
+        {q:'Il "velo di ignoranza" di Rawls serve a:',
+         opts:['Nascondere la propria identit&#224; nelle discussioni online','Scegliere principi di giustizia senza sapere quale posizione si occuper&#224; nella societ&#224;','Ignorare le conseguenze delle proprie azioni','Stabilire quale teoria etica sia la migliore'],
+         ans:1,
+         fb:'Rawls chiede: quali regole sceglieresti se non sapessi se saresti ricco o povero, uomo o donna, sano o malato? L\'ignoranza della propria posizione futura obbliga a scegliere principi davvero imparziali, che proteggano tutti &#8212; inclusi i pi&#249; vulnerabili.'}
       ]}
     ]
   },
@@ -653,7 +669,11 @@ var MODULES = [
         {q:'"Se abbassiamo il limite di velocit&#224;, poi vorranno vietare anche le auto, poi vietare tutto." Questa fallacia si chiama:',
          opts:['Ad hominem','Falsa dicotomia','Pendio scivoloso','Appello all\'autorit&#224;'],
          ans:2,
-         fb:'Pendio scivoloso: si afferma che una misura port&#224; inevitabilmente a conseguenze estreme, senza giustificare la catena causale. La logica del "e poi... e poi..." senza prove &#232; una fallacia.'}
+         fb:'Pendio scivoloso: si afferma che una misura port&#224; inevitabilmente a conseguenze estreme, senza giustificare la catena causale. La logica del "e poi... e poi..." senza prove &#232; una fallacia.'},
+        {q:'"&#200; naturale che i forti dominino i deboli, quindi &#232; giusto cos&#236;." Quale errore logico contiene questo ragionamento?',
+         opts:['Falsa dicotomia: ignora le opzioni intermedie','Appello alla natura: confonde ci&#242; che accade con ci&#242; che dovrebbe accadere','Ad hominem: attacca la persona invece dell\'argomento','Appello all\'autorit&#224;: cita una fonte non competente'],
+         ans:1,
+         fb:'Appello alla natura (o fallacia naturalistica): la natura descrive come sono le cose &#8212; non come dovrebbero essere. Molte cose "naturali" (malattie, predazione) non sono per questo eticamente desiderabili; molte cose "artificiali" (medicina, giustizia) sono moralmente importanti.'}
       ]}
     ]
   }
@@ -1098,10 +1118,34 @@ function buildCompTable(sec) {
 }
 
 /* ─── MINI QUIZ ─────────────────────────── */
+function shuffleOpts(origOpts, origAns, lastCorrectPos) {
+  var n=origOpts.length;
+  var indices=origOpts.map(function(_,i){return i;});
+  // Fisher-Yates shuffle, retry if correct lands on lastCorrectPos
+  var attempts=0;
+  do {
+    for(var i=n-1;i>0;i--){
+      var j=Math.floor(Math.random()*(i+1));
+      var tmp=indices[i]; indices[i]=indices[j]; indices[j]=tmp;
+    }
+    attempts++;
+  } while(indices.indexOf(origAns)===lastCorrectPos && attempts<20);
+  return {
+    opts: indices.map(function(i){return origOpts[i];}),
+    ans: indices.indexOf(origAns)
+  };
+}
+
 function buildMiniQuiz(sec) {
   var d=document.createElement('div');
   d.appendChild(sectionTag('&#10003; '+sec.label,'tag-c'));
-  var state={idx:0, answered:[]};
+  var state={idx:0, answered:[], shuffled:[], lastCorrectPos:-1};
+  // pre-shuffle all questions once
+  sec.qs.forEach(function(q){
+    var s=shuffleOpts(q.opts, q.ans, state.lastCorrectPos);
+    state.lastCorrectPos=s.ans;
+    state.shuffled.push(s);
+  });
   var container=tag('div','quiz-card');
   function renderQ() {
     if(state.idx>=sec.qs.length){
@@ -1113,6 +1157,7 @@ function buildMiniQuiz(sec) {
       return;
     }
     var q=sec.qs[state.idx];
+    var sh=state.shuffled[state.idx];
     var prog=tag('div','quiz-progress');
     var fill=tag('div','quiz-prog-bar'); var f2=tag('div','quiz-prog-fill');
     f2.style.width=(state.idx/sec.qs.length*100)+'%'; fill.appendChild(f2); prog.appendChild(fill);
@@ -1120,14 +1165,14 @@ function buildMiniQuiz(sec) {
     container.innerHTML=''; container.appendChild(prog);
     var qel=tag('div','quiz-q'); qel.innerHTML=q.q; container.appendChild(qel);
     var opts=tag('div','quiz-opts');
-    q.opts.forEach(function(opt,oi){
+    sh.opts.forEach(function(opt,oi){
       var btn=tag('button','quiz-opt'); btn.innerHTML=opt;
       btn.onclick=function(){
         if(state.answered[state.idx]!==undefined) return;
         state.answered[state.idx]=oi;
-        var correct=(oi===q.ans);
+        var correct=(oi===sh.ans);
         container.querySelectorAll('.quiz-opt').forEach(function(b,bi){
-          if(bi===q.ans) b.classList.add('correct');
+          if(bi===sh.ans) b.classList.add('correct');
           else if(bi===oi&&!correct) b.classList.add('wrong');
         });
         var fb=tag('div','quiz-feedback show '+(correct?'ok':'ko'));
