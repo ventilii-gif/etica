@@ -30,9 +30,19 @@
 body{font-family:var(--fs);background:var(--bg);color:var(--tx);line-height:1.75;transition:background .3s,color .3s;min-height:100vh}
 
 /* ── NAV ──────────────────────────────── */
-nav{position:sticky;top:0;z-index:200;background:var(--bgn);border-bottom:1px solid var(--bd);padding:.6rem 1.2rem;display:flex;align-items:center;justify-content:space-between;gap:.8rem;box-shadow:0 1px 8px var(--sh)}
+nav{position:sticky;top:0;z-index:200;background:var(--bgn);border-bottom:1px solid var(--bd);padding:.5rem 1.2rem .35rem;display:flex;flex-direction:column;gap:0;box-shadow:0 1px 8px var(--sh)}
+.nav-main{display:flex;align-items:center;justify-content:space-between;gap:.8rem;padding:.1rem 0 .35rem}
 .nav-brand{font-family:var(--fm);font-size:1rem;font-weight:700;color:var(--ac);white-space:nowrap;cursor:pointer}
 .nav-right{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap}
+/* ── TOPIC NAV ROW ────────────────────── */
+.topic-nav{display:flex;overflow-x:auto;gap:.3rem;padding:.25rem 0 .2rem;scrollbar-width:none;-ms-overflow-style:none;border-top:1px solid var(--bd);margin:0 -1.2rem;padding-left:1.2rem;padding-right:1.2rem}
+.topic-nav::-webkit-scrollbar{display:none}
+.topic-btn{flex-shrink:0;background:transparent;border:1px solid var(--bd);color:var(--mu);font-size:.72rem;font-weight:600;padding:.22rem .65rem;border-radius:99px;cursor:pointer;transition:all .2s;white-space:nowrap;line-height:1.5}
+.topic-btn:hover{border-color:var(--ac);color:var(--ac)}
+.topic-btn.t-active{background:var(--ac);color:#fff;border-color:var(--ac)}
+.topic-sep{flex-shrink:0;width:1px;height:16px;background:var(--bd);margin:auto .3rem}
+.topic-quiz-btn{border-style:dashed;color:var(--ac);border-color:var(--ac)}
+.topic-quiz-btn:hover,.topic-quiz-btn.t-active{background:var(--ac);color:#fff;border-color:var(--ac);border-style:solid}
 .lang-btn{background:var(--tb);border:1px solid var(--bd);color:var(--mu);font-size:.72rem;font-weight:700;padding:.26rem .55rem;border-radius:4px;cursor:pointer;transition:all .2s;letter-spacing:.04em}
 .lang-btn:hover,.lang-btn.active{background:var(--ac);color:#fff;border-color:var(--ac)}
 .theme-btn{width:32px;height:32px;border-radius:50%;background:var(--tb);border:1px solid var(--bd);color:var(--tx);font-size:.95rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0}
@@ -317,12 +327,15 @@ footer strong{color:var(--ac)}
 
 <!-- NAV -->
 <nav>
-  <span class="nav-brand" id="nav-brand" onclick="goHome()">&#934; Etica</span>
-  <div class="nav-right">
-    <button class="home-btn" id="home-btn" onclick="goHome()">&#8592; Home</button>
-    <button class="diario-btn" onclick="openDiario()">&#128221; Diario</button>
-    <button class="theme-btn" id="theme-btn" onclick="toggleTheme()" title="Tema chiaro/scuro">&#9788;</button>
+  <div class="nav-main">
+    <span class="nav-brand" id="nav-brand" onclick="goHome()">&#934; Etica</span>
+    <div class="nav-right">
+      <button class="home-btn" id="home-btn" onclick="goHome()">&#8592; Home</button>
+      <button class="diario-btn" onclick="openDiario()">&#128221; Diario</button>
+      <button class="theme-btn" id="theme-btn" onclick="toggleTheme()" title="Tema chiaro/scuro">&#9788;</button>
+    </div>
   </div>
+  <div class="topic-nav" id="topic-nav"><!-- populated by JS --></div>
 </nav>
 <div class="progress-wrap" id="prog-wrap"><div class="progress-bar" id="prog-bar"></div></div>
 
@@ -365,61 +378,20 @@ footer strong{color:var(--ac)}
       </div>
     </section>
 
-    <!-- 4 MODULE CARDS -->
+    <!-- ARGOMENTI DEL PERCORSO -->
     <section class="section-home">
       <p class="sec-label">Percorso</p>
-      <h2 class="sec-title">I cinque moduli</h2>
-      <p class="sec-lead">Ogni modulo segue lo stesso schema: domanda iniziale &#8594; concetti chiave &#8594; caso concreto &#8594; analisi &#8594; attivit&#224;.</p>
+      <h2 class="sec-title">Gli argomenti del percorso</h2>
+      <p class="sec-lead">Cinque moduli tematici, ognuno con domanda iniziale &#8594; concetti chiave &#8594; caso concreto &#8594; analisi &#8594; attivit&#224;.</p>
       <div class="module-grid" id="module-grid">
         <!-- populated by JS -->
       </div>
-    </section>
-
-    <!-- APPROFONDIMENTO: ECONOMIA CIVILE -->
-    <section class="section-home">
-      <p class="sec-label">Approfondimento</p>
-      <h2 class="sec-title">Economia Civile e San Francesco</h2>
-      <p class="sec-lead">Un percorso aggiuntivo sulle radici etiche dell&#8217;economia: dal pensiero medievale all&#8217;Economia Civile napoletana, da san Francesco ai movimenti contemporanei.</p>
-      <div id="eco-acc">
-        <div class="acc-item">
-          <button class="acc-head" onclick="toggleAcc(this)" aria-expanded="false">
-            <span>Che cos&#8217;&#232; l&#8217;Economia Civile?</span><span class="acc-arrow">&#9660;</span>
-          </button>
-          <div class="acc-body"><div class="acc-content">
-            <p>L&#8217;Economia Civile &#232; una tradizione di pensiero nata a Napoli nel Settecento con <strong>Antonio Genovesi</strong> (1713&#8211;1769), il primo professore di economia in Italia. La sua tesi: il mercato funziona bene quando le persone si comportano da <em>cittadini</em>, con fiducia reciproca e senso civico. Non basta l&#8217;interesse personale &#8212; servono reciprocit&#224; e cura del bene comune.</p>
-            <p>Questa tradizione &#232; rimasta ai margini per quasi due secoli, oscurata dall&#8217;economia anglosassone. &#200; stata riscoperta negli anni Novanta e oggi offre una delle prospettive pi&#249; innovative per ripensare il capitalismo dopo le crisi del XXI secolo.</p>
-          </div></div>
+      <div style="margin-top:1.5rem;padding:1.2rem 1.4rem;background:var(--ac3);border:1px solid var(--ac);border-radius:var(--r);display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap">
+        <div>
+          <p style="font-weight:700;color:var(--ac);margin-bottom:.2rem">&#9989; Quiz finale</p>
+          <p style="font-size:.87rem;color:var(--mu)">8 domande su etica, teorie e dilemmi per mettere alla prova l&#8217;intero percorso.</p>
         </div>
-        <div class="acc-item">
-          <button class="acc-head" onclick="toggleAcc(this)" aria-expanded="false">
-            <span>San Tommaso d&#8217;Aquino: giusto prezzo e bene comune</span><span class="acc-arrow">&#9660;</span>
-          </button>
-          <div class="acc-body"><div class="acc-content">
-            <p>Vissuto nel XIII secolo, Tommaso d&#8217;Aquino ha posto domande che sembrano scritte per oggi: cos&#8217;&#232; un prezzo giusto? La propriet&#224; privata pu&#242; avere dei limiti? Esiste un obbligo di condivisione per chi ha molto?</p>
-            <p>La sua risposta: la propriet&#224; privata &#232; legittima ma non assoluta. I beni della terra appartengono originariamente a tutti. Chi ha molto ha responsabilit&#224; verso chi ha poco. Questo principio &#8212; la <em>funzione sociale della propriet&#224;</em> &#8212; &#232; entrato in molte costituzioni democratiche, inclusa quella italiana (art.&nbsp;42).</p>
-          </div></div>
-        </div>
-        <div class="acc-item">
-          <button class="acc-head" onclick="toggleAcc(this)" aria-expanded="false">
-            <span>San Francesco d&#8217;Assisi: povert&#224;, fraternit&#224; e profezia</span><span class="acc-arrow">&#9660;</span>
-          </button>
-          <div class="acc-body"><div class="acc-content">
-            <p>A 800 anni dalla morte (1226&#8211;2026), il pensiero economico di Francesco d&#8217;Assisi risuona con sorprendente attualit&#224;. L&#8217;<em>Altissima Povert&#224;</em> francescana non &#232; miseria: &#232; la scelta di non possedere come condizione di libert&#224; totale. I frati non compravano, non vendevano, non accumulavano: ricevevano e davano come dono.</p>
-            <p>Nel <em>Cantico delle Creature</em> Francesco chiama il sole &#171;frate&#187;, la luna &#171;sora&#187;: tutto il creato &#232; famiglia. Questa visione di <em>fraternit&#224; universale</em> anticipa di secoli le preoccupazioni contemporanee su disuguaglianza, ambiente e limiti della crescita.</p>
-            <p>Oggi il movimento internazionale <strong>The Economy of Francesco</strong> (2020) riunisce migliaia di giovani economisti e imprenditori che si ispirano a questa tradizione per costruire un&#8217;economia pi&#249; giusta.</p>
-          </div></div>
-        </div>
-        <div class="acc-item">
-          <button class="acc-head" onclick="toggleAcc(this)" aria-expanded="false">
-            <span>Mappa del pensiero: da Aristotele a oggi</span><span class="acc-arrow">&#9660;</span>
-          </button>
-          <div class="acc-body"><div class="acc-content">
-            <p><strong>IV sec. a.C. &#8212; Aristotele</strong> distingue <em>oikonomia</em> (gestione saggia della casa e della citt&#224;) da <em>crematistica</em> (accumulazione senza fine di denaro). La seconda, dice, corrompe l&#8217;anima.</p>
-            <p><strong>XIII sec. &#8212; Tommaso d&#8217;Aquino</strong> sintetizza Aristotele e il Vangelo: mercato giusto, giusto prezzo, bene comune. La ricchezza deve servire tutti.</p>
-            <p><strong>1776 &#8212; Adam Smith</strong> propone la &#171;mano invisibile&#187;: l&#8217;interesse personale di ciascuno produce, quasi per magia, benessere collettivo. Un&#8217;idea potente e controversa.</p>
-            <p><strong>Oggi</strong> &#8212; Dopo la crisi del 2008 e la pandemia, molti economisti riscopronola tradizione dell&#8217;Economia Civile: un mercato che include reciprocit&#224;, fiducia e cura del bene comune come elementi essenziali, non optional.</p>
-          </div></div>
-        </div>
+        <button class="btn btn-primary" onclick="startQuiz()" style="flex-shrink:0">Inizia il quiz &#8594;</button>
       </div>
     </section>
 
@@ -607,19 +579,68 @@ var MODULES = [
     ]
   },
 
-  /* ─── MODULO 4: QUIZ FINALE ─── */
+  /* ─── MODULO 4: ECONOMIA CIVILE ─── */
   {
-    id:'m4', icon:'&#9989;', num:4,
-    title:'Quiz finale',
-    lead:'Metti alla prova tutto ci&#242; che hai imparato. 8 domande su etica, teorie e dilemmi.',
+    id:'m4', icon:'&#127807;', num:4,
+    nav:'Economia Civile',
+    title:'Economia Civile e San Francesco',
+    lead:'Il mercato pu&#242; essere fondato sulla fraternit&#224;? Dal pensiero medievale all\'economia napoletana, fino ai movimenti del XXI secolo.',
     sections:[
-      {type:'finalquiz'}
+      {type:'bigq', text:'Pu&#242; il mercato funzionare bene senza moralit&#224;? Cosa hanno da insegnare all\'economia di oggi un frate del XIII secolo e un filosofo napoletano del Settecento?'},
+      {type:'concepts', label:'Concetti chiave', items:[
+        {term:'Economia Civile',def:'Tradizione di pensiero fondata da Antonio Genovesi a Napoli (XVIII sec.). Tesi centrale: il mercato funziona davvero bene quando le persone si comportano da <em>cittadini</em>, con fiducia reciproca e senso civico &#8212; non solo da individui in cerca di profitto.'},
+        {term:'Reciprocit&#224;',def:'Il principio per cui gli scambi economici non sono solo transazioni di interesse, ma relazioni di mutuo aiuto. Diversa dalla carit&#224; (dono unilaterale) e dallo scambio puro: implica un legame e una responsabilit&#224; reciproca.'},
+        {term:'Bene comune',def:'Ci&#242; che &#232; vantaggioso per tutti i membri di una comunit&#224;. Per l\'Economia Civile, il mercato deve servire il bene comune come fine ultimo &#8212; non solo l\'accumulazione privata.'},
+        {term:'Fraternit&#224; universale',def:'La visione di san Francesco d\'Assisi che tutto il creato sia una grande famiglia. Ha implicazioni economiche: se siamo tutti fratelli, l\'accumulazione illimitata e lo sfruttamento diventano eticamente problematici.'},
+        {term:'Altissima Povert&#224;',def:'Il principio francescano di non possedere nulla come scelta di libert&#224; totale: i frati non compravano, non vendevano, non accumulavano. Non miseria, ma distacco dal possesso come condizione di autenticit&#224;.'}
+      ]},
+      {type:'acc', label:'Approfondimento storico', items:[
+        {q:'Che cos\'&#232; l\'Economia Civile?',
+         a:'L\'Economia Civile &#232; una tradizione di pensiero nata a Napoli con <strong>Antonio Genovesi</strong> (1713&#8211;1769), primo professore di economia in Italia. La sua tesi: il mercato funziona bene quando le persone si comportano da <em>cittadini</em>, con fiducia reciproca e senso civico. Non basta l\'interesse personale &#8212; servono reciprocit&#224; e cura del bene comune.<br>Rimasta ai margini per due secoli, &#232; stata riscoperta negli anni Novanta e offre oggi una delle prospettive pi&#249; innovative per ripensare il capitalismo dopo le crisi del XXI secolo.'},
+        {q:'San Tommaso d\'Aquino: giusto prezzo e bene comune',
+         a:'Vissuto nel XIII secolo, Tommaso ha posto domande che sembrano scritte per oggi: cos\'&#232; un prezzo giusto? La propriet&#224; privata pu&#242; avere limiti? Esiste un obbligo di condivisione per chi ha molto?<br>La sua risposta: la propriet&#224; privata &#232; legittima ma non assoluta. I beni della terra appartengono originariamente a tutti. Chi ha molto ha responsabilit&#224; verso chi ha poco &#8212; la <em>funzione sociale della propriet&#224;</em>, entrata nell\'art.&nbsp;42 della Costituzione italiana.'},
+        {q:'San Francesco d\'Assisi: povert&#224;, fraternit&#224; e profezia',
+         a:'A 800 anni dalla morte (1226&#8211;2026), il pensiero di Francesco risuona con sorprendente attualit&#224;. L\'<em>Altissima Povert&#224;</em> non &#232; miseria: &#232; la scelta di non possedere come condizione di libert&#224; totale.<br>Nel <em>Cantico delle Creature</em> Francesco chiama il sole &#171;frate&#187;, la luna &#171;sora&#187;: tutto il creato &#232; famiglia. Questa visione di <em>fraternit&#224; universale</em> anticipa di secoli le preoccupazioni su disuguaglianza, ambiente e limiti della crescita.<br>Oggi il movimento <strong>The Economy of Francesco</strong> (2020) riunisce migliaia di giovani economisti e imprenditori ispirati a questa tradizione.'},
+        {q:'Mappa del pensiero: da Aristotele a oggi',
+         a:'<strong>IV sec. a.C. &#8212; Aristotele</strong> distingue <em>oikonomia</em> (gestione saggia) da <em>crematistica</em> (accumulazione senza fine). La seconda, dice, corrompe l\'anima.<br><strong>XIII sec. &#8212; Tommaso d\'Aquino</strong>: mercato giusto, giusto prezzo, bene comune. La ricchezza deve servire tutti.<br><strong>1776 &#8212; Adam Smith</strong>: la &#171;mano invisibile&#187; &#8212; l\'interesse personale produce benessere collettivo. Un\'idea potente e controversa.<br><strong>Oggi</strong>: dopo il 2008 e la pandemia, molti economisti riscoprono l\'Economia Civile: un mercato che include reciprocit&#224; e bene comune come elementi essenziali, non optional.'}
+      ]},
+      {type:'case', label:'Caso concreto', title:'The Economy of Francesco (2020)',
+       text:'Nel 2020 papa Francesco ha convocato ad Assisi migliaia di giovani economisti, imprenditori e ricercatori da tutto il mondo. Obiettivo: costruire insieme un\'economia diversa. Il movimento prende il nome dal santo di Assisi e si ispira all\'enciclica <em>Laudato Si\'</em>.<br><br>I partecipanti si dividono in 12 &#171;villaggi tematici&#187;: profitto e vocation, donne per l\'economia, management e dono, finanza e umanit&#224;, business e pace, energia e povert&#224;, cibo e giustizia, CO2 della disuguaglianza, digital economy e relazioni&#8230;<br><br>La tesi centrale: non &#232; possibile risolvere le crisi del XXI secolo (disuguaglianza, crisi climatica, esclusione) con gli stessi strumenti concettuali che le hanno create. Serve un cambio di paradigma.'},
+      {type:'analysis', label:'Analisi guidata', questions:[
+        'L\'interesse personale &#232; sufficiente per far funzionare bene un\'economia? Quali sono i suoi limiti?',
+        'Reciprocit&#224; &#232; diversa da carit&#224; e da scambio commerciale: in che modo? Fai un esempio concreto.',
+        '"Chi ha molto ha responsabilit&#224; verso chi ha poco" (Tommaso). Questo principio &#232; ancora valido? Chi dovrebbe farlo rispettare?',
+        'San Francesco rinunciava a possedere anche oggetti di uso quotidiano. Questa scelta ha ancora senso oggi? In quali contesti?',
+        'The Economy of Francesco propone un "cambio di paradigma". Cosa significa? Quali valori dovrebbe mettere al centro?'
+      ]},
+      {type:'miniquiz', label:'Metti alla prova', qid:'q4', qs:[
+        {q:'Chi fu il primo professore di economia in Italia e fondatore dell\'Economia Civile?',
+         opts:['Adam Smith','Karl Marx','Antonio Genovesi','Aristotele'],
+         ans:2,
+         fb:'Antonio Genovesi (1713&#8211;1769), filosofo napoletano, ottenne nel 1754 la prima cattedra di economia in Italia all\'Universit&#224; di Napoli. La sua opera principale: "Lezioni di Commercio o sia di Economia Civile" (1765&#8211;67).'},
+        {q:'Qual &#232; la tesi centrale dell\'Economia Civile di Genovesi?',
+         opts:['Il mercato si autoregola attraverso l\'interesse personale','Lo Stato deve pianificare ogni scambio','La propriet&#224; privata va abolita','Il mercato funziona bene quando include reciprocit&#224;, fiducia e bene comune'],
+         ans:3,
+         fb:'Per Genovesi il mercato non &#232; solo meccanismo di interessi privati. Funziona davvero bene quando le persone si comportano da cittadini, con fiducia reciproca e senso civico. Senza questi elementi si deteriora nel lungo periodo.'},
+        {q:'La "funzione sociale della propriet&#224;" (Tommaso d\'Aquino) significa che:',
+         opts:['La propriet&#224; privata &#232; peccato','Chi ha molto ha responsabilit&#224; verso chi ha poco &#8212; la propriet&#224; &#232; legittima ma non assoluta','La ricchezza appartiene allo Stato','La propriet&#224; privata &#232; sempre frutto di ingiustizia'],
+         ans:1,
+         fb:'Tommaso riconosce la legittimit&#224; della propriet&#224; privata, ma non come assoluta: i beni della terra appartengono originariamente a tutti. Chi possiede molto ha obblighi verso chi ha poco. Questo principio &#232; entrato nell\'art.&nbsp;42 della Costituzione italiana.'},
+        {q:'Nel Cantico delle Creature san Francesco chiama il sole "frate" e la luna "sora". Questo esprime:',
+         opts:['Una poesia senza implicazioni etiche','Un rifiuto del mondo materiale','La fraternit&#224; universale con tutto il creato, base etica per la cura dell\'ambiente','Una critica al mercato medievale'],
+         ans:2,
+         fb:'La fraternit&#224; universale francescana ha implicazioni economiche ed ecologiche profonde: se siamo tutti fratelli &#8212; esseri umani, animali, pianeta &#8212; l\'accumulazione illimitata e lo sfruttamento delle risorse diventano eticamente problematici.'},
+        {q:'"The Economy of Francesco" (2020) &#232;:',
+         opts:['Un romanzo storico su san Francesco','Una teoria economica marxista','Un progetto dell\'Unione Europea','Un movimento di giovani economisti e imprenditori per un\'economia pi&#249; giusta, ispirata alla tradizione francescana'],
+         ans:3,
+         fb:'The Economy of Francesco &#232; un movimento globale convocato da papa Francesco nel 2020 ad Assisi. Riunisce migliaia di giovani economisti, imprenditori e ricercatori ispirati alla tradizione francescana e all\'Economia Civile, per costruire un\'economia che metta al centro le persone e il pianeta.'}
+      ]}
     ]
   },
 
   /* ─── MODULO 5: ARGOMENTAZIONE MORALE ─── */
   {
-    id:'m5', icon:'&#128172;', num:5,
+    id:'m5', icon:'&#128172;', num:5, nav:'Argomentazione',
     title:'Argomentare in etica',
     lead:'Come si costruisce un buon argomento morale? Come si riconoscono i ragionamenti sbagliati?',
     sections:[
@@ -676,8 +697,17 @@ var MODULES = [
          fb:'Appello alla natura (o fallacia naturalistica): la natura descrive come sono le cose &#8212; non come dovrebbero essere. Molte cose "naturali" (malattie, predazione) non sono per questo eticamente desiderabili; molte cose "artificiali" (medicina, giustizia) sono moralmente importanti.'}
       ]}
     ]
+  },
+
+  /* ─── QUIZ FINALE (nascosto dal percorso, accesso diretto) ─── */
+  {
+    id:'mq', icon:'&#9989;', hidden:true,
+    title:'Quiz finale',
+    lead:'Metti alla prova tutto ci&#242; che hai imparato. 8 domande su etica, teorie e dilemmi.',
+    sections:[{type:'finalquiz'}]
   }
 ];
+var QUIZ_IDX = MODULES.findIndex(function(m){ return m.hidden; });
 
 /* ─── DILEMMI ──────────────────────────────── */
 var DILEMMAS = [
@@ -877,7 +907,7 @@ var S = {
   quizIdx: 0,      // domanda corrente nel quiz finale
   quizScore: 0,
   quizAnswered: [], // true/false per ogni domanda
-  m1done:false, m2done:false, m3done:false, m4done:false, m5done:false
+  m1done:false, m2done:false, m3done:false, m4done:false, m5done:false, quizdone:false
 };
 
 /* ═══════════════════════════════════════════════════
@@ -888,33 +918,71 @@ function showScreen(id) {
   document.getElementById(id).classList.add('active');
   window.scrollTo(0,0);
 }
+var TOPIC_MODS = MODULES.filter(function(m){ return !m.hidden; });
+
+function htmlText(s){ var d=document.createElement('span');d.innerHTML=s;return d.textContent; }
+
+function renderTopicNav() {
+  var nav=document.getElementById('topic-nav');
+  nav.innerHTML='';
+  var isModule=document.getElementById('screen-module').classList.contains('active');
+  TOPIC_MODS.forEach(function(m){
+    var idx=MODULES.indexOf(m);
+    var btn=document.createElement('button');
+    btn.className='topic-btn'+(isModule&&S.mod===idx?' t-active':'');
+    btn.textContent=htmlText(m.nav||m.title);
+    btn.onclick=function(){startModule(idx);};
+    nav.appendChild(btn);
+  });
+  var sep=document.createElement('div'); sep.className='topic-sep'; nav.appendChild(sep);
+  var qb=document.createElement('button');
+  qb.className='topic-btn topic-quiz-btn'+(isModule&&S.mod===QUIZ_IDX?' t-active':'');
+  qb.innerHTML='&#9989;&nbsp;Quiz finale';
+  qb.onclick=startQuiz;
+  nav.appendChild(qb);
+}
+function startQuiz() {
+  S.mod=QUIZ_IDX; S.quizIdx=0; S.quizScore=0; S.quizAnswered=[];
+  showScreen('screen-module');
+  document.getElementById('home-btn').classList.add('show');
+  renderModule();
+  renderTopicNav();
+}
 function goHome() {
   showScreen('screen-home');
   document.getElementById('prog-wrap').classList.remove('show');
   document.getElementById('home-btn').classList.remove('show');
   renderHomeCards();
+  renderTopicNav();
 }
 function startModule(idx) {
   S.mod = idx;
   showScreen('screen-module');
   document.getElementById('home-btn').classList.add('show');
   renderModule();
+  renderTopicNav();
 }
 function prevModule() {
-  if (S.mod > 0) { S.mod--; renderModule(); window.scrollTo(0,0); }
+  if(S.mod===QUIZ_IDX){ startModule(TOPIC_MODS.length-1); return; }
+  if(S.mod>0){ S.mod--; renderModule(); renderTopicNav(); window.scrollTo(0,0); }
   else goHome();
 }
 function nextModule() {
-  if (S.mod < MODULES.length - 1) { S.mod++; S.dilChoice=null; S.dil=0; S.quizIdx=0; S.quizScore=0; S.quizAnswered=[]; renderModule(); window.scrollTo(0,0); }
+  S.dilChoice=null; S.dil=0; S.quizIdx=0; S.quizScore=0; S.quizAnswered=[];
+  if(S.mod < TOPIC_MODS.length-1){ S.mod++; renderModule(); renderTopicNav(); window.scrollTo(0,0); }
+  else if(S.mod === TOPIC_MODS.length-1){ startQuiz(); }
   else goHome();
 }
 function updateProgress() {
-  var pct = ((S.mod+1) / MODULES.length) * 100;
+  var isQuiz=(S.mod===QUIZ_IDX);
+  var pct=isQuiz?100:((S.mod+1)/TOPIC_MODS.length*100);
   document.getElementById('prog-wrap').classList.add('show');
-  document.getElementById('prog-bar').style.width = pct + '%';
-  document.getElementById('mod-counter').textContent = 'Modulo ' + (S.mod+1) + ' di ' + MODULES.length;
-  document.getElementById('btn-prev').disabled = false;
-  document.getElementById('btn-next').textContent = S.mod < MODULES.length-1 ? 'Successivo →' : 'Torna alla home';
+  document.getElementById('prog-bar').style.width=pct+'%';
+  document.getElementById('mod-counter').textContent=isQuiz?'Quiz finale':'Modulo '+(S.mod+1)+' di '+TOPIC_MODS.length;
+  document.getElementById('btn-prev').disabled=false;
+  document.getElementById('btn-next').textContent=
+    isQuiz?'Torna alla home':
+    S.mod<TOPIC_MODS.length-1?'Successivo →':'Vai al Quiz →';
 }
 
 /* ═══════════════════════════════════════════════════
@@ -924,6 +992,7 @@ function renderHomeCards() {
   var g = document.getElementById('module-grid');
   g.innerHTML = '';
   MODULES.forEach(function(m, i) {
+    if(m.hidden) return;
     var done = S['m'+(i+1)+'done'];
     var el = document.createElement('div');
     el.className = 'mcard' + (done ? ' done' : '');
@@ -1339,7 +1408,7 @@ function renderFinalQuizQ(container) {
 }
 
 function renderScore(container) {
-  S.m4done=true;
+  S.quizdone=true;
   var pct=Math.round(S.quizScore/FINAL_QUIZ.length*100);
   var msg = pct>=80
     ? 'Ottimo! Hai una solida comprensione dei concetti fondamentali dell\'etica.'
@@ -1538,6 +1607,7 @@ document.addEventListener('keydown',function(e){
   // home
   renderHomeCards();
   renderAuthorsGrid();
+  renderTopicNav();
 })();
 </script>
 
