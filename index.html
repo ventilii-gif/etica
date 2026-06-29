@@ -266,20 +266,7 @@ footer strong{color:var(--ac)}
   .comp-table th,.comp-table td{padding:.45rem .55rem}
 }
 
-/* ── WARNING MODAL ───────────────────── */
-.warn-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.72);z-index:600;align-items:center;justify-content:center;padding:1rem}
-.warn-overlay.open{display:flex}
-.warn-box{background:var(--bgc);border:1px solid var(--bd);border-radius:14px;max-width:580px;width:100%;max-height:90vh;overflow-y:auto;padding:2rem 2rem 1.6rem;box-shadow:0 16px 56px rgba(0,0,0,.35)}
-.warn-title{font-family:var(--fm);font-size:1.2rem;color:var(--ac);margin-bottom:.3rem}
-.warn-subtitle{font-size:.8rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--fa);margin-bottom:1.1rem}
-.warn-body{font-size:.88rem;color:var(--mu);line-height:1.8}
-.warn-body p{margin-bottom:.8rem}
-.warn-body strong{color:var(--tx)}
-.warn-body ul{padding-left:1.3rem;margin:.2rem 0 .8rem}
-.warn-body ul li{margin-bottom:.3rem}
-.warn-footer{margin-top:1.4rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap}
-.warn-check{display:flex;align-items:center;gap:.5rem;font-size:.8rem;color:var(--mu);cursor:pointer}
-.warn-check input{accent-color:var(--ac);width:15px;height:15px;cursor:pointer}
+
 
 /* ── THEORY MODAL ────────────────────── */
 .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:500;align-items:center;justify-content:center;padding:1rem}
@@ -462,7 +449,7 @@ footer strong{color:var(--ac)}
 var MODULES = [
   /* ─── MODULO 0: NOTA INTRODUTTIVA ─── */
   {
-    id:'m0', icon:'&#9432;', num:0, nav:'M0 · Nota',
+    id:'m0', icon:'&#9432;', num:0, nav:'Nota introduttiva',
     title:'Nota introduttiva',
     lead:'Prima di iniziare: cosa pu&#242; fare questo percorso &#8212; e cosa non pu&#242; fare.',
     sections:[
@@ -1587,22 +1574,6 @@ function toggleTheme(){
   try{localStorage.setItem('theme',next);}catch(e){}
 }
 
-/* ═══════════════════════════════════════════════════
-   WARNING MODAL
-═══════════════════════════════════════════════════ */
-function closeWarning(){
-  var ov=document.getElementById('warn-overlay');
-  ov.classList.remove('open');
-  document.body.style.overflow='';
-  var cb=document.getElementById('warn-noshow');
-  if(cb&&cb.checked){ try{localStorage.setItem('etica-warn-seen','1');}catch(e){} }
-}
-function maybeShowWarning(){
-  var seen; try{seen=localStorage.getItem('etica-warn-seen');}catch(e){}
-  if(seen) return;
-  document.getElementById('warn-overlay').classList.add('open');
-  document.body.style.overflow='hidden';
-}
 
 /* ═══════════════════════════════════════════════════
    TOOLTIP
@@ -1738,9 +1709,7 @@ function clearDiarioEntry(key){
 ═══════════════════════════════════════════════════ */
 document.addEventListener('keydown',function(e){
   if(e.key==='Escape'){
-    var wo=document.getElementById('warn-overlay');
-    if(wo&&wo.classList.contains('open')){ closeWarning(); return; }
-    var ov=document.getElementById('theory-modal-overlay');
+var ov=document.getElementById('theory-modal-overlay');
     if(ov&&ov.classList.contains('open')){ closeTheoryModal(); return; }
     var go=document.getElementById('glossario-overlay');
     if(go&&go.classList.contains('open')){ closeGlossario(); return; }
@@ -1760,35 +1729,9 @@ document.addEventListener('keydown',function(e){
   renderHomeCards();
   renderAuthorsGrid();
   renderTopicNav();
-  setTimeout(maybeShowWarning, 0);
 })();
 </script>
 
-<!-- WARNING MODAL -->
-<div class="warn-overlay" id="warn-overlay">
-  <div class="warn-box" role="dialog" aria-modal="true" aria-labelledby="warn-title">
-    <p class="warn-subtitle">&#9432; Nota introduttiva &mdash; Da leggere prima di iniziare</p>
-    <h2 class="warn-title" id="warn-title">Un percorso didattico, non un trattato</h2>
-    <div class="warn-body">
-      <p>Questo percorso &#232; un&#8217;<strong>introduzione alla filosofia morale</strong> pensata per studenti alle prime armi. I concetti, le teorie e i dilemmi presentati sono semplificazioni didattiche: servono ad <strong>aprire domande</strong>, non a chiuderle.</p>
-      <p>La filosofia etica ha una storia di oltre 2500 anni, con correnti, scuole e autori a cui non &#232; possibile fare pienamente giustizia in un percorso di questo tipo. Le cinque teorie presentate sono solo alcune delle grandi famiglie del pensiero morale occidentale; tra l&#8217;altro, considerare il &#171;pensiero morale occidentale&#187; &#232; gi&#224; di per s&#233; una limitazione importante: esistono tradizioni etiche africane, asiatiche, indigene altrettanto ricche e articolate.</p>
-      <p>Anche all&#8217;interno di ogni teoria ci sono posizioni, revisioni, critiche interne e sviluppi contemporanei che qui non vengono affrontati.</p>
-      <p><strong>Questo strumento non sostituisce:</strong></p>
-      <ul>
-        <li>un corso di filosofia con un docente</li>
-        <li>la lettura diretta dei testi originali</li>
-        <li>il confronto in classe con compagni e insegnanti</li>
-      </ul>
-      <p>&#200; un punto di partenza. La filosofia vera si fa insieme, con lentezza e con guida.</p>
-    </div>
-    <div class="warn-footer">
-      <label class="warn-check">
-        <input type="checkbox" id="warn-noshow"> Non mostrare pi&#249; questo avviso
-      </label>
-      <button class="btn btn-primary" onclick="closeWarning()">Ho capito, inizia &#8594;</button>
-    </div>
-  </div>
-</div>
 
 <!-- THEORY MODAL -->
 <div class="modal-overlay" id="theory-modal-overlay" onclick="if(event.target===this)closeTheoryModal();">
