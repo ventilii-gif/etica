@@ -811,30 +811,95 @@ var THEORY_BADGES = {
 
 /* ─── QUIZ FINALE ──────────────────────────── */
 var FINAL_QUIZ = [
-  {q:'Qual &#232; la definizione pi&#249; precisa di "etica"?',
-   opts:['L\'insieme delle leggi di uno Stato','La riflessione filosofica razionale su valori morali e criteri per agire bene','Le tradizioni e i costumi di una comunit&#224;','Le norme religiose di un gruppo'],
-   ans:1, fb:'L\'etica &#232; una disciplina filosofica: studia razionalmente il bene, il male e come dovremmo agire. La legge, il costume e la religione sono sfere distinte &#8212; spesso collegate, ma non identiche.'},
-  {q:'Quale affermazione descrive meglio l\'utilitarismo?',
-   opts:['Le azioni sono giuste se rispettano doveri assoluti','Un\'azione &#232; giusta se massimizza il benessere del maggior numero','La morale dipende dal carattere virtuoso della persona','Le norme morali nascono dalle relazioni di cura'],
-   ans:1, fb:'L\'utilitarismo (Bentham, Mill) valuta le azioni in base alle conseguenze: &#232; giusta l\'azione che produce il maggior benessere per il maggior numero di persone coinvolte.'},
-  {q:'Kant sosteneva che le azioni morali devono seguire doveri:',
-   opts:['Che cambiano a seconda delle conseguenze','Assoluti e universalizzabili, indipendentemente dagli effetti','Stabiliti dalla maggioranza democratica','Derivati dall\'etica della cura e delle relazioni'],
-   ans:1, fb:'La deontologia kantiana: agisci solo secondo una massima che potresti volere diventi legge per tutti. I doveri morali non dipendono dai risultati.'},
-  {q:'Nel dilemma del carrello, chi predilige la regola "non usare mai una persona come mezzo" appartiene a quale teoria?',
-   opts:['Utilitarismo','Contrattualismo','Etica della cura','Deontologia'],
-   ans:3, fb:'La deontologia di Kant vieta di usare un essere umano come semplice strumento, anche per salvarne altri. Non tiro la leva perch&#233; non &#232; moralmente lecito causare deliberatamente una morte, anche per un fine buono.'},
-  {q:'L\'Economia Civile napoletana (Antonio Genovesi) sostiene che il mercato funziona bene quando si basa su:',
-   opts:['Solo sull\'interesse personale di ciascuno','Reciprocit&#224;, fiducia e cura del bene comune','L\'intervento diretto dello Stato in ogni scambio','Il massimo profitto individuale'],
-   ans:1, fb:'Genovesi, primo professore di economia in Italia (XVIII sec.), vedeva il mercato come spazio di relazioni civili. La sua tesi: senza reciprocit&#224; e senso civico, il mercato non funziona bene nel lungo periodo.'},
-  {q:'L\'esperimento mentale del "velo di ignoranza" &#232; associato a quale filosofo e quale teoria?',
-   opts:['Aristotele &#8212; Etica delle virt&#249;','Kant &#8212; Deontologia','John Rawls &#8212; Contrattualismo','Carol Gilligan &#8212; Etica della cura'],
-   ans:2, fb:'John Rawls nel 1971 propose di scegliere le regole della societ&#224; immaginando di non sapere quale posizione si occuper&#224; &#8212; ricco o povero, uomo o donna. Questo garantisce imparzialit&#224;.'},
-  {q:'Quale termine indica le abitudini di un gruppo che non coincidono necessariamente con ci&#242; che &#232; moralmente giusto?',
-   opts:['Etica','Diritto','Costume','Virt&#249;'],
-   ans:2, fb:'Il "costume" indica le tradizioni e le abitudini di una comunit&#224;. Non coincidono sempre con l\'etica: in passato molte pratiche accettate come costume (schiavit&#249;, discriminazioni) erano moralmente sbagliate.'},
-  {q:'Un algoritmo di selezione del personale addestrato su dati storici discriminatori. Un utilitarista <em>corretto</em> dovrebbe:',
-   opts:['Mantenerlo perch&#233; &#232; pi&#249; efficiente','Sospenderlo: perpetua disuguaglianze, peggiorando il benessere complessivo','Ignorare il problema: &#232; responsabilit&#224; dei programmatori','Usarlo solo per i candidati maschi'],
-   ans:1, fb:'Un utilitarismo corretto considera <em>tutte</em> le conseguenze, incluse quelle a lungo termine sulle disuguaglianze. Un algoritmo che discrimina sistematicamente non massimizza il benessere complessivo &#8212; anche se sembra efficiente nel breve.'}
+  /* ── M1: Che cos'è l'etica ── */
+  {topic:'M1',
+   q:'Qual &#232; la definizione pi&#249; precisa di "etica"?',
+   opts:['L\'insieme delle norme giuridiche di uno Stato','Le tradizioni e i costumi di una comunit&#224;','La riflessione filosofica razionale su valori morali e criteri per agire bene','Le credenze religiose di un gruppo'],
+   ans:2, fb:'L\'etica &#232; una disciplina filosofica: studia razionalmente il bene, il male e come dovremmo agire. La legge, il costume e la religione sono sfere distinte &#8212; spesso collegate, ma non identiche.'},
+  {topic:'M1',
+   q:'Qual &#232; la differenza principale tra <em>morale</em> ed <em>etica</em>?',
+   opts:['Sono sinonimi perfetti','L\'etica &#232; religiosa, la morale &#232; laica','La morale vale per tutti, l\'etica solo per i filosofi','La morale &#232; l\'insieme dei valori vissuti; l\'etica &#232; la riflessione filosofica critica su di essi'],
+   ans:3, fb:'La morale indica i valori e le norme che una persona o una comunit&#224; vive concretamente. L\'etica &#232; la disciplina che studia quei valori criticamente: sono fondati? Coerenti? Universalizzabili?'},
+  {topic:'M1',
+   q:'Nascondere perseguitati durante una dittatura era illegale, ma molti lo considerano eticamente giusto. Questo dimostra che:',
+   opts:['Etica e legalit&#224; sono sfere distinte che possono divergere','La legge riflette sempre la moralit&#224; di un\'epoca','Chi disobbedisce alla legge &#232; sempre nel torto','L\'etica dipende dalla maggioranza'],
+   ans:0, fb:'Legge ed etica sono sfere distinte. Molte cose legali sono eticamente discutibili; alcune cose illegali (come proteggere perseguitati) possono essere eticamente giuste. La storia &#232; piena di esempi di leggi ingiuste.'},
+  {topic:'M1',
+   q:'Un dilemma morale si distingue da un semplice problema pratico perch&#233;:',
+   opts:['Non ha soluzioni tecniche possibili','Riguarda solo situazioni di vita o di morte','La risposta dipende sempre dalla legge','Implica un conflitto tra valori morali importanti: qualunque scelta comporta un sacrificio'],
+   ans:3, fb:'Nel dilemma morale non si sceglie tra bene e male, ma spesso tra due beni che non possiamo avere entrambi, o tra due mali di cui dobbiamo scegliere il minore. &#200; questa tensione tra valori a renderlo genuinamente difficile.'},
+
+  /* ── M2: Teorie etiche ── */
+  {topic:'M2',
+   q:'Quale teoria valuta le azioni esclusivamente in base alle <em>conseguenze</em> sul benessere complessivo?',
+   opts:['Utilitarismo','Deontologia','Etica delle virt&#249;','Contrattualismo'],
+   ans:0, fb:'L\'utilitarismo (Bentham, Mill) misura la moralit&#224; di un\'azione dai suoi effetti: &#232; giusta se massimizza il benessere del maggior numero di persone coinvolte. Le conseguenze sono tutto &#8212; non le regole, non il carattere.'},
+  {topic:'M2',
+   q:'"Agisci solo secondo una massima che potresti volere diventi legge universale." Questa &#232;:',
+   opts:['La regola d\'oro di Confucio','Il principio di utilit&#224; di Mill','La massima della cura di Gilligan','L\'imperativo categorico di Kant'],
+   ans:3, fb:'L\'imperativo categorico di Kant &#232; il principio fondamentale della deontologia: agisci solo secondo una regola che potresti volere valesse per tutti, sempre. Non dipende dalle conseguenze &#8212; &#232; un dovere assoluto della ragione.'},
+  {topic:'M2',
+   q:'Per l\'etica delle virt&#249; (Aristotele), una persona moralmente buona &#232; chi:',
+   opts:['Ha sviluppato un buon carattere attraverso l\'abitudine','Calcola le conseguenze di ogni azione','Rispetta i doveri assoluti stabiliti dalla ragione','Ha firmato un contratto sociale con la comunit&#224;'],
+   ans:0, fb:'Aristotele: la virt&#249; non &#232; un atto isolato ma un\'abitudine stabile del carattere (hexis). Non si nasce coraggiosi o giusti &#8212; lo si diventa esercitandosi. Il punto non &#232; seguire regole, ma diventare un certo tipo di persona.'},
+  {topic:'M2',
+   q:'L\'etica della cura (Gilligan) critica le teorie etiche tradizionali perch&#233;:',
+   opts:['Si basano su principi astratti ignorando le relazioni concrete e i bisogni specifici delle persone','Sono troppo permissive verso i comportamenti immorali','Non prendono in considerazione le conseguenze','Danno troppa importanza ai sentimenti individuali'],
+   ans:0, fb:'Gilligan mostra che le teorie tradizionali (Kant, Rawls) partono da individui isolati che ragionano con principi astratti. L\'etica della cura parte invece dalle relazioni: siamo esseri interdipendenti, e la morale nasce dall\'attenzione ai bisogni concreti delle persone con cui siamo in relazione.'},
+
+  /* ── M3: Dilemmi morali ── */
+  {topic:'M3',
+   q:'Nel dilemma del carrello, un utilitarista probabilmente:',
+   opts:['Chiede il consenso alle cinque persone prima di agire','Tira la leva: salvare cinque a scapito di uno massimizza il benessere','Si rifiuta di agire per non causare una morte deliberata','Sceglie in base alla propria relazione con le persone coinvolte'],
+   ans:1, fb:'L\'utilitarismo valuta: 5 vite salvate > 1 vita persa. L\'azione che massimizza il benessere complessivo &#232; tirare la leva. Il singolo pu&#242; essere sacrificato se questo benefica il gruppo &#8212; &#232; esattamente il limite che i critici dell\'utilitarismo evidenziano.'},
+  {topic:'M3',
+   q:'Nel dilemma del medico (5 pazienti vs 1 sano), chi applica l\'imperativo categorico di Kant:',
+   opts:['Usa gli organi del sano: salva pi&#249; vite','Valuta le conseguenze emotive sui familiari','Non usa gli organi: ogni persona &#232; un fine in s&#233;, mai un mezzo','Considera la scelta da dietro il velo di ignoranza'],
+   ans:2, fb:'Kant: non si pu&#242; usare un essere umano come semplice strumento, nemmeno per un fine buono. Uccidere il sano per ricavarne organi significa trattarlo come mezzo &#8212; violazione assoluta della sua dignit&#224;. Il fine non giustifica i mezzi.'},
+  {topic:'M3',
+   q:'In un dilemma morale sulla lealt&#224; all\'amico vs l\'onest&#224; con l\'insegnante, quale coppia di valori &#232; in conflitto?',
+   opts:['Benessere e bellezza','Ricchezza e libert&#224;','Lealt&#224; (verso l\'amico) e onest&#224; (verso l\'insegnante)','Giustizia e tradizione'],
+   ans:2, fb:'I dilemmi morali nascono quando valori entrambi legittimi si scontrano. Qui: la lealt&#224; all\'amico (valore della relazione) e l\'onest&#224; verso chi ti fa una domanda diretta (valore della verit&#224;). Non esiste una risposta "giusta" per tutte le teorie etiche.'},
+  {topic:'M3',
+   q:'Un algoritmo di selezione addestrato su dati discriminatori. Un utilitarista corretto dovrebbe:',
+   opts:['Mantenerlo perch&#233; &#232; efficiente','Usarlo solo in certi contesti','Ignorare il problema','Sospenderlo: perpetua disuguaglianze e peggiora il benessere complessivo nel lungo periodo'],
+   ans:3, fb:'Un utilitarismo corretto considera <em>tutte</em> le conseguenze, incluse quelle a lungo termine. Un algoritmo che discrimina sistematicamente non massimizza il benessere complessivo &#8212; anche se sembra efficiente nel breve. Le disuguaglianze sistematiche hanno costi sociali enormi.'},
+
+  /* ── M4: Economia Civile ── */
+  {topic:'M4',
+   q:'Antonio Genovesi &#232; importante nella storia dell\'economia perch&#233;:',
+   opts:['Scrisse "La ricchezza delle nazioni"','Fondò la Banca d\'Italia','Fu il primo professore di economia in Italia e teorizzò l\'Economia Civile come scienza del bene comune','Introdusse la moneta unica europea'],
+   ans:2, fb:'Genovesi (1713&#8211;1769), filosofo napoletano, ottenne nel 1754 la prima cattedra universitaria di economia in Italia. La sua tesi: il mercato funziona bene quando si basa su reciprocit&#224;, fiducia e cura del bene comune &#8212; non solo sull\'interesse personale.'},
+  {topic:'M4',
+   q:'Secondo Tommaso d\'Aquino, chi ha molta ricchezza:',
+   opts:['Ha il diritto assoluto di tenerla tutta per s&#233;','Ha responsabilit&#224; verso chi ha poco: la propriet&#224; &#232; legittima ma non assoluta','Deve obbligatoriamente darla alla Chiesa','Ha dimostrato di meritarla con il lavoro'],
+   ans:1, fb:'Tommaso riconosce la legittimit&#224; della propriet&#224; privata, ma non come assoluta. I beni della terra appartengono originariamente a tutti: chi possiede molto ha obblighi verso chi ha poco &#8212; la "funzione sociale della propriet&#224;", poi entrata nell\'art.&nbsp;42 della Costituzione italiana.'},
+  {topic:'M4',
+   q:'L\'"Altissima Povert&#224;" francescana non significa miseria, ma:',
+   opts:['Vivere senza lavorare','La scelta di non possedere nulla come condizione di libert&#224; e autenticit&#224;','Chiedere l\'elemosina per sopravvivere','Il rifiuto di qualsiasi forma di scambio economico'],
+   ans:1, fb:'I frati francescani non compravano, non vendevano, non accumulavano: ricevevano e davano come dono. Non &#232; miseria imposta, ma distacco volontario dal possesso come condizione di libert&#224; totale e autenticit&#224; evangelica.'},
+  {topic:'M4',
+   q:'La differenza tra "reciprocit&#224;" (Economia Civile) e "carit&#224;" &#232; che:',
+   opts:['Non c\'&#232; differenza: sono sinonimi','La carit&#224; &#232; obbligatoria per legge, la reciprocit&#224; &#232; volontaria','La reciprocit&#224; implica un legame e una responsabilit&#224; mutua; la carit&#224; &#232; un dono unilaterale','La reciprocit&#224; riguarda solo gli scambi economici formali'],
+   ans:2, fb:'La carit&#224; &#232; un dono che va in una sola direzione: il donatore d&#224;, il ricevente riceve senza obbligo di restituzione. La reciprocit&#224; implica un legame continuativo, una responsabilit&#224; reciproca: mi prendo cura di te perch&#233; siamo in relazione, non per calcolo n&#233; per piet&#224;.'},
+
+  /* ── M5: Argomentazione ── */
+  {topic:'M5',
+   q:'Un argomento &#232; "valido" quando:',
+   opts:['Le premesse sono tutte vere','&#200; condiviso dalla maggioranza','L\'autore &#232; un esperto credibile','La conclusione segue logicamente dalle premesse, indipendentemente dalla loro verit&#224;'],
+   ans:3, fb:'La validit&#224; riguarda la struttura logica, non la verit&#224; del contenuto. Un argomento pu&#242; essere valido anche partendo da premesse false &#8212; ma allora non sar&#224; solido. Validit&#224; + premesse vere = solidit&#224;.'},
+  {topic:'M5',
+   q:'"Non puoi criticare il governo se non ti sei mai candidato." Questa &#232; una fallacia:',
+   opts:['Ad hominem: attacca la persona invece dell\'argomento','Pendio scivoloso','Falsa dicotomia','Appello alla natura'],
+   ans:0, fb:'Ad hominem: invece di confutare l\'argomento, si attacca la coerenza o le qualifiche di chi parla. L\'eventuale mancanza di esperienza politica del critico non rende invalide le sue argomentazioni sul governo.'},
+  {topic:'M5',
+   q:'"Se legalizziamo la cannabis leggera, presto sar&#224; legale anche l\'eroina, poi tutto." Questa fallacia si chiama:',
+   opts:['Ad hominem','Falsa dicotomia','Appello all\'autorit&#224;','Pendio scivoloso'],
+   ans:3, fb:'Pendio scivoloso: si afferma che una misura porter&#224; inevitabilmente a conseguenze estreme, senza giustificare la catena causale. La logica del "e poi&#8230; e poi&#8230;" senza prove &#232; una fallacia: ogni passo richiederebbe una giustificazione separata.'},
+  {topic:'M5',
+   q:'Un argomento &#232; "solido" quando &#232;:',
+   opts:['Condiviso da molte persone autorevoli','Valido logicamente <em>e</em> basato su premesse vere','Difficile da confutare anche se le premesse sono false','Espresso con linguaggio tecnico preciso'],
+   ans:1, fb:'Solidit&#224; = validit&#224; + premesse vere. Entrambi i requisiti sono necessari: un argomento valido con premesse false pu&#242; portare a conclusioni sbagliate; premesse vere con struttura logica invalida non producono una conclusione garantita.'}
 ];
 
 /* ─── GLOSSARIO ────────────────────────────────── */
@@ -941,8 +1006,17 @@ function renderTopicNav() {
   qb.onclick=startQuiz;
   nav.appendChild(qb);
 }
+function shuffleFinalQuiz() {
+  var last=-1;
+  S.fqShuffled=FINAL_QUIZ.map(function(q){
+    var s=shuffleOpts(q.opts,q.ans,last);
+    last=s.ans;
+    return s;
+  });
+}
 function startQuiz() {
   S.mod=QUIZ_IDX; S.quizIdx=0; S.quizScore=0; S.quizAnswered=[];
+  shuffleFinalQuiz();
   showScreen('screen-module');
   document.getElementById('home-btn').classList.add('show');
   renderModule();
@@ -1368,27 +1442,29 @@ function buildFinalQuiz() {
 
 function renderFinalQuizQ(container) {
   container.innerHTML='';
-  if(S.quizIdx>=FINAL_QUIZ.length){
-    renderScore(container); return;
-  }
+  if(S.quizIdx>=FINAL_QUIZ.length){ renderScore(container); return; }
+  if(!S.fqShuffled||S.fqShuffled.length!==FINAL_QUIZ.length) shuffleFinalQuiz();
   var q=FINAL_QUIZ[S.quizIdx];
+  var sh=S.fqShuffled[S.quizIdx];
   var prog=tag('div','quiz-progress');
   var fill=tag('div','quiz-prog-bar'); var f2=tag('div','quiz-prog-fill');
   f2.style.width=(S.quizIdx/FINAL_QUIZ.length*100)+'%'; fill.appendChild(f2); prog.appendChild(fill);
-  prog.insertAdjacentHTML('afterbegin','Domanda '+(S.quizIdx+1)+' di '+FINAL_QUIZ.length+'&emsp;Punteggio: '+S.quizScore);
+  prog.insertAdjacentHTML('afterbegin','Domanda '+(S.quizIdx+1)+' di '+FINAL_QUIZ.length
+    +'&emsp;<span style="color:var(--fa);font-size:.8em">'+q.topic+'</span>'
+    +'&emsp;Punteggio: '+S.quizScore);
   container.appendChild(prog);
   var card=tag('div','quiz-card');
   var qel=tag('div','quiz-q'); qel.innerHTML=q.q; card.appendChild(qel);
   var opts=tag('div','quiz-opts');
-  q.opts.forEach(function(opt,oi){
+  sh.opts.forEach(function(opt,oi){
     var btn=tag('button','quiz-opt'); btn.innerHTML=opt;
     btn.onclick=function(){
       if(S.quizAnswered[S.quizIdx]!==undefined) return;
       S.quizAnswered[S.quizIdx]=oi;
-      var correct=(oi===q.ans);
+      var correct=(oi===sh.ans);
       if(correct) S.quizScore++;
       card.querySelectorAll('.quiz-opt').forEach(function(b,bi){
-        if(bi===q.ans) b.classList.add('correct');
+        if(bi===sh.ans) b.classList.add('correct');
         else if(bi===oi&&!correct) b.classList.add('wrong');
       });
       var fb=tag('div','quiz-feedback show '+(correct?'ok':'ko'));
@@ -1421,7 +1497,7 @@ function renderScore(container) {
     +'<p class="score-label">'+pct+'% di risposte corrette</p>'
     +'<p class="score-msg">'+msg+'</p>'
     +'<div class="score-panel btn-row">'
-    +'<button class="btn btn-outline" onclick="S.quizIdx=0;S.quizScore=0;S.quizAnswered=[];renderFinalQuizQ(this.closest(\'.mod-section\').firstChild)">&#8635; Ricomincia</button>'
+    +'<button class="btn btn-outline" onclick="S.quizIdx=0;S.quizScore=0;S.quizAnswered=[];shuffleFinalQuiz();renderFinalQuizQ(this.closest(\'.mod-section\').firstChild)">&#8635; Ricomincia</button>'
     +'<button class="btn btn-primary" onclick="goHome()">Torna alla home &#8592;</button>'
     +'</div></div>';
 }
