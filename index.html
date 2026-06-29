@@ -1,535 +1,1174 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Etica & Economia Civile</title>
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Etica &#8212; Percorso Didattico</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --fs:'Segoe UI',system-ui,sans-serif;
+  --fm:Georgia,'Times New Roman',serif;
+  --bg:#faf8f4;--bgc:#fff;--bga:#f3ede2;--bgn:#fff;
+  --tx:#1e1810;--mu:#6b5e4a;--fa:#a09080;
+  --ac:#7b5e3a;--ac2:#a07848;--ac3:#e8d5b0;
+  --bd:#e0d8c8;--sh:rgba(60,40,10,.08);
+  --tb:#f0e8d8;--tt:#7b5e3a;--qb:#f5f0e8;
+  --ok:#2d7a4a;--err:#c0392b;--warn:#b8860b;
+  --u:#3a6bbf;--ud:#2955a0;
+  --r:10px;--gap:1.1rem;
+}
+[data-theme=dark]{
+  --bg:#080808;--bgc:#111;--bga:#0e0e0e;--bgn:#080808;
+  --tx:#e8e0d0;--mu:#a09080;--fa:#5a5040;
+  --ac:#c8924a;--ac2:#d4a460;--ac3:#2a1e0a;
+  --bd:#1e1a12;--sh:rgba(0,0,0,.5);
+  --tb:#181410;--tt:#c8924a;--qb:#0e0b06;
+  --ok:#3d9960;--err:#e74c3c;--warn:#d4a017;
+  --u:#6a9fd8;--ud:#8ab8f0;
+}
+body{font-family:var(--fs);background:var(--bg);color:var(--tx);line-height:1.75;transition:background .3s,color .3s;min-height:100vh}
 
-    :root {
-      --font-main: Georgia, 'Times New Roman', serif;
-      --font-sans: 'Segoe UI', system-ui, sans-serif;
-      --bg:        #faf8f4;
-      --bg-card:   #ffffff;
-      --bg-alt:    #f3ede2;
-      --bg-nav:    #ffffff;
-      --text:      #1e1810;
-      --text-muted:#6b5e4a;
-      --text-faint:#a09080;
-      --accent:    #7b5e3a;
-      --accent2:   #a07848;
-      --border:    #e0d8c8;
-      --shadow:    rgba(60,40,10,.08);
-      --tag-bg:    #f0e8d8;
-      --tag-text:  #7b5e3a;
-      --quote-bg:  #f5f0e8;
-    }
-    [data-theme="dark"] {
-      --bg:        #080808;
-      --bg-card:   #111111;
-      --bg-alt:    #0e0e0e;
-      --bg-nav:    #080808;
-      --text:      #e8e0d0;
-      --text-muted:#a09080;
-      --text-faint:#5a5040;
-      --accent:    #c8924a;
-      --accent2:   #d4a460;
-      --border:    #1e1a12;
-      --shadow:    rgba(0,0,0,.5);
-      --tag-bg:    #181410;
-      --tag-text:  #c8924a;
-      --quote-bg:  #0e0b06;
-    }
+/* ── NAV ──────────────────────────────── */
+nav{position:sticky;top:0;z-index:200;background:var(--bgn);border-bottom:1px solid var(--bd);padding:.6rem 1.2rem;display:flex;align-items:center;justify-content:space-between;gap:.8rem;box-shadow:0 1px 8px var(--sh)}
+.nav-brand{font-family:var(--fm);font-size:1rem;font-weight:700;color:var(--ac);white-space:nowrap;cursor:pointer}
+.nav-right{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap}
+.lang-btn{background:var(--tb);border:1px solid var(--bd);color:var(--mu);font-size:.72rem;font-weight:700;padding:.26rem .55rem;border-radius:4px;cursor:pointer;transition:all .2s;letter-spacing:.04em}
+.lang-btn:hover,.lang-btn.active{background:var(--ac);color:#fff;border-color:var(--ac)}
+.theme-btn{width:32px;height:32px;border-radius:50%;background:var(--tb);border:1px solid var(--bd);color:var(--tx);font-size:.95rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0}
+.theme-btn:hover{background:var(--ac);color:#fff}
+.home-btn{display:none;background:var(--tb);border:1px solid var(--bd);color:var(--mu);font-size:.72rem;font-weight:700;padding:.26rem .65rem;border-radius:4px;cursor:pointer;transition:all .2s}
+.home-btn:hover{background:var(--ac);color:#fff;border-color:var(--ac)}
+.home-btn.show{display:block}
 
-    body {
-      font-family: var(--font-sans);
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.75;
-      transition: background .3s, color .3s;
-    }
+/* ── PROGRESS BAR ─────────────────────── */
+.progress-wrap{height:3px;background:var(--bd);transition:opacity .3s;opacity:0}
+.progress-wrap.show{opacity:1}
+.progress-bar{height:100%;background:linear-gradient(90deg,var(--ac),var(--ac2));width:0%;transition:width .4s ease}
 
-    /* NAV */
-    nav {
-      position: sticky; top: 0; z-index: 100;
-      background: var(--bg-nav);
-      border-bottom: 1px solid var(--border);
-      padding: .7rem 1.5rem;
-      display: flex; align-items: center; justify-content: space-between; gap: 1rem;
-      box-shadow: 0 1px 8px var(--shadow);
-      transition: background .3s;
-    }
-    .nav-brand { font-family: var(--font-main); font-size: 1.1rem; font-weight: 700; color: var(--accent); }
-    .nav-controls { display: flex; align-items: center; gap: .6rem; flex-wrap: wrap; }
-    .lang-btn {
-      background: var(--tag-bg); border: 1px solid var(--border);
-      color: var(--text-muted); font-size: .75rem; font-weight: 700;
-      padding: .28rem .6rem; border-radius: 4px; cursor: pointer;
-      transition: all .2s; letter-spacing: .04em;
-    }
-    .lang-btn:hover, .lang-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
-    .theme-btn {
-      width: 34px; height: 34px; border-radius: 50%;
-      background: var(--tag-bg); border: 1px solid var(--border);
-      color: var(--text); font-size: 1rem; cursor: pointer;
-      display: flex; align-items: center; justify-content: center;
-      transition: all .2s;
-    }
-    .theme-btn:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
+/* ── HOME ─────────────────────────────── */
+.screen{display:none}
+.screen.active{display:block}
+.hero{background:var(--bga);padding:3.5rem 1.5rem 2.5rem;text-align:center;transition:background .3s}
+.eyebrow{font-size:.7rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ac);margin-bottom:.8rem}
+.hero h1{font-family:var(--fm);font-size:clamp(1.7rem,4.5vw,2.8rem);line-height:1.2;max-width:720px;margin:0 auto 1rem}
+.hero-lead{font-size:1rem;color:var(--mu);max-width:600px;margin:0 auto 2rem}
+.cta-row{display:flex;gap:.8rem;justify-content:center;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:.4rem;padding:.65rem 1.4rem;border-radius:6px;font-size:.9rem;font-weight:600;cursor:pointer;border:none;transition:all .2s;text-decoration:none}
+.btn-primary{background:var(--ac);color:#fff}
+.btn-primary:hover{background:var(--ac2);transform:translateY(-1px)}
+.btn-outline{background:transparent;color:var(--ac);border:2px solid var(--ac)}
+.btn-outline:hover{background:var(--ac);color:#fff}
 
-    /* HERO */
-    .hero {
-      background: var(--bg-alt);
-      padding: 4.5rem 1.5rem 3.5rem;
-      text-align: center;
-      transition: background .3s;
-    }
-    .eyebrow {
-      font-size: .72rem; font-weight: 700;
-      letter-spacing: .14em; text-transform: uppercase;
-      color: var(--accent); margin-bottom: .9rem;
-    }
-    .hero h1 {
-      font-family: var(--font-main);
-      font-size: clamp(1.9rem, 5vw, 3.1rem);
-      line-height: 1.22;
-      max-width: 780px; margin: 0 auto 1.25rem;
-    }
-    .hero-lead {
-      font-size: 1.07rem; color: var(--text-muted);
-      max-width: 640px; margin: 0 auto 2rem;
-    }
-    .tag-row { display: flex; flex-wrap: wrap; gap: .45rem; justify-content: center; }
-    .tag {
-      background: var(--tag-bg); color: var(--tag-text);
-      border: 1px solid var(--border);
-      border-radius: 999px; padding: .28rem .85rem;
-      font-size: .75rem; font-weight: 600;
-    }
+.wrap{max-width:900px;margin:0 auto;padding:0 1.5rem}
+.section-home{padding:3rem 0;border-bottom:1px solid var(--bd)}
+.section-home:last-of-type{border-bottom:none}
+.sec-label{font-size:.68rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ac);margin-bottom:.45rem}
+.sec-title{font-family:var(--fm);font-size:clamp(1.3rem,3vw,1.9rem);margin-bottom:.7rem}
+.sec-lead{font-size:.97rem;color:var(--mu);margin-bottom:1.8rem;max-width:680px}
 
-    /* LAYOUT */
-    .wrap { max-width: 860px; margin: 0 auto; padding: 0 1.5rem; }
-    section { padding: 3.5rem 0; border-bottom: 1px solid var(--border); }
-    section:last-of-type { border-bottom: none; }
-    .sec-label {
-      font-size: .7rem; font-weight: 700;
-      letter-spacing: .14em; text-transform: uppercase;
-      color: var(--accent); margin-bottom: .55rem;
-    }
-    .sec-title {
-      font-family: var(--font-main);
-      font-size: clamp(1.4rem, 3.5vw, 2rem);
-      line-height: 1.28; margin-bottom: .9rem;
-    }
-    .sec-lead { font-size: 1.02rem; color: var(--text-muted); margin-bottom: 2rem; max-width: 700px; }
-    p + p { margin-top: .9rem; }
+/* ── MODULE CARDS (home) ──────────────── */
+.module-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:var(--gap)}
+.mcard{background:var(--bgc);border:1px solid var(--bd);border-radius:var(--r);padding:1.4rem;box-shadow:0 2px 10px var(--sh);cursor:pointer;transition:transform .2s,box-shadow .2s;border-top:3px solid var(--ac);display:flex;flex-direction:column}
+.mcard:hover{transform:translateY(-3px);box-shadow:0 6px 22px var(--sh)}
+.mcard-num{font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--fa);margin-bottom:.3rem}
+.mcard-icon{font-size:1.7rem;margin-bottom:.5rem;line-height:1}
+.mcard h3{font-family:var(--fm);font-size:.97rem;margin-bottom:.4rem}
+.mcard p{font-size:.83rem;color:var(--mu);line-height:1.55;flex:1}
+.mcard-start{margin-top:.9rem;font-size:.75rem;font-weight:700;color:var(--ac)}
+.mcard.done{border-top-color:var(--ok)}
+.mcard.done .mcard-num::after{content:' ✓';color:var(--ok)}
 
-    /* DARK NOTICE */
-    .dark-notice {
-      display: none; align-items: center; gap: .5rem;
-      background: var(--tag-bg); border: 1px solid var(--border);
-      border-radius: 6px; padding: .55rem 1rem;
-      font-size: .78rem; color: var(--text-muted); margin-bottom: 2rem;
-    }
-    [data-theme="dark"] .dark-notice { display: flex; }
+/* ── LEARN GRID (what you'll learn) ──── */
+.learn-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.8rem}
+.learn-item{background:var(--bgc);border:1px solid var(--bd);border-radius:8px;padding:1rem 1.1rem;display:flex;gap:.7rem;align-items:flex-start;box-shadow:0 1px 6px var(--sh)}
+.learn-icon{font-size:1.2rem;flex-shrink:0;margin-top:.1rem}
+.learn-item p{font-size:.85rem;color:var(--mu);line-height:1.55}
 
-    /* CARD GRID */
-    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px,1fr)); gap: 1.1rem; }
-    .card {
-      background: var(--bg-card); border: 1px solid var(--border);
-      border-radius: 10px; padding: 1.4rem;
-      box-shadow: 0 2px 10px var(--shadow);
-      transition: transform .2s, box-shadow .2s, background .3s;
-    }
-    .card:hover { transform: translateY(-3px); box-shadow: 0 6px 22px var(--shadow); }
-    .card-icon { font-size: 1.7rem; margin-bottom: .65rem; line-height: 1; }
-    .card h3 { font-family: var(--font-main); font-size: 1.05rem; margin-bottom: .45rem; }
-    .card p  { font-size: .87rem; color: var(--text-muted); line-height: 1.6; }
+/* ── MODULE SCREEN ────────────────────── */
+.mod-header{background:var(--bga);padding:1.8rem 1.5rem 1.5rem;border-bottom:1px solid var(--bd)}
+.mod-crumb{font-size:.72rem;color:var(--fa);margin-bottom:.4rem}
+.mod-crumb span{color:var(--ac);font-weight:600}
+.mod-title{font-family:var(--fm);font-size:clamp(1.3rem,3vw,1.9rem);margin-bottom:.3rem}
+.mod-lead{font-size:.93rem;color:var(--mu);max-width:660px}
 
-    /* TWO-COL */
-    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
-    @media (max-width: 620px) { .two-col { grid-template-columns: 1fr; } }
-    .col-box {
-      background: var(--bg-card); border: 1px solid var(--border);
-      border-radius: 10px; padding: 1.5rem;
-      box-shadow: 0 2px 10px var(--shadow);
-    }
-    .col-box h3 { font-family: var(--font-main); font-size: 1.07rem; margin-bottom: .6rem; color: var(--accent); }
-    .col-box p  { font-size: .88rem; color: var(--text-muted); line-height: 1.65; }
-    .col-box p + p { margin-top: .7rem; }
+.mod-body{max-width:820px;margin:0 auto;padding:2rem 1.5rem}
+.mod-nav-row{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-top:2.5rem;padding-top:1.5rem;border-top:1px solid var(--bd)}
+.mod-nav-row .btn{font-size:.85rem;padding:.5rem 1.1rem}
+.mod-nav-row .btn:disabled{opacity:.35;cursor:not-allowed;transform:none}
 
-    /* BLOCKQUOTE */
-    blockquote {
-      background: var(--quote-bg);
-      border-left: 3px solid var(--accent);
-      border-radius: 0 8px 8px 0;
-      padding: 1.2rem 1.5rem; margin: 1.75rem 0;
-      transition: background .3s;
-    }
-    blockquote p { font-family: var(--font-main); font-size: 1rem; color: var(--text-muted); font-style: italic; line-height: 1.7; }
-    blockquote cite { display: block; margin-top: .7rem; font-size: .78rem; font-style: normal; color: var(--text-faint); font-weight: 600; }
+/* ── SECTION TYPES ────────────────────── */
+.mod-section{margin-bottom:2.2rem}
+.section-tag{display:inline-block;font-size:.66rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;background:var(--tb);color:var(--ac);border:1px solid var(--bd);border-radius:4px;padding:.18rem .55rem;margin-bottom:.7rem}
+.section-tag.tag-q{background:#e8f0ff;color:#2a4a9f;border-color:#c0d0f0}
+.section-tag.tag-c{background:#e8f5ee;color:#1d6b3a;border-color:#b0ddc0}
+.section-tag.tag-a{background:#fff3e0;color:#8a5200;border-color:#f0d090}
+[data-theme=dark] .section-tag.tag-q{background:#0a1530;color:#6a9fd8;border-color:#1a2a50}
+[data-theme=dark] .section-tag.tag-c{background:#091a0e;color:#5db87a;border-color:#1a4028}
+[data-theme=dark] .section-tag.tag-a{background:#1a0e00;color:#d4a017;border-color:#3a2a00}
+.big-question{font-family:var(--fm);font-size:1.2rem;color:var(--ac);font-style:italic;background:var(--qb);border-left:3px solid var(--ac);border-radius:0 8px 8px 0;padding:1.1rem 1.4rem;line-height:1.5;margin:.5rem 0}
+.concept-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:.8rem;margin:.5rem 0}
+.concept-box{background:var(--bgc);border:1px solid var(--bd);border-radius:8px;padding:1.1rem;box-shadow:0 1px 6px var(--sh)}
+.concept-box h4{font-family:var(--fm);font-size:.95rem;color:var(--ac);margin-bottom:.4rem}
+.concept-box p{font-size:.84rem;color:var(--mu);line-height:1.6}
+.case-box{background:var(--bgc);border:1px solid var(--bd);border-radius:var(--r);padding:1.4rem;box-shadow:0 2px 10px var(--sh);margin:.5rem 0}
+.case-box h4{font-family:var(--fm);font-size:1rem;margin-bottom:.7rem;color:var(--ac)}
+.case-box p{font-size:.9rem;color:var(--mu);line-height:1.7}
+.analysis-questions{list-style:none;margin:.5rem 0}
+.analysis-questions li{padding:.55rem .9rem;border-left:2px solid var(--bd);margin-bottom:.5rem;font-size:.88rem;color:var(--mu)}
+.analysis-questions li:hover{border-left-color:var(--ac);color:var(--tx)}
 
-    /* TIMELINE */
-    .timeline { position: relative; padding-left: 2.2rem; }
-    .timeline::before { content: ''; position: absolute; left: .45rem; top: .35rem; bottom: .35rem; width: 2px; background: linear-gradient(to bottom, var(--accent), var(--border)); }
-    .tl-item { position: relative; margin-bottom: 2.2rem; }
-    .tl-item::before { content: ''; position: absolute; left: -1.83rem; top: .38rem; width: 11px; height: 11px; border-radius: 50%; background: var(--accent); border: 2px solid var(--bg); }
-    .tl-year { font-size: .7rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); margin-bottom: .2rem; }
-    .tl-title { font-size: .97rem; font-weight: 600; margin-bottom: .3rem; }
-    .tl-text  { font-size: .87rem; color: var(--text-muted); line-height: 1.65; }
+/* ── THEORY GRID ──────────────────────── */
+.theory-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:.8rem;margin:.5rem 0}
+.theory-card{background:var(--bgc);border:1px solid var(--bd);border-radius:8px;padding:1.1rem;box-shadow:0 1px 6px var(--sh);cursor:pointer;transition:transform .2s,box-shadow .2s;border-top:3px solid var(--ac)}
+.theory-card:hover{transform:translateY(-2px);box-shadow:0 4px 14px var(--sh)}
+.theory-card.tc-util{border-top-color:#2d7a4a}
+.theory-card.tc-deon{border-top-color:#3a6bbf}
+.theory-card.tc-virt{border-top-color:#8b5a9a}
+.theory-card.tc-cura{border-top-color:#c06030}
+.theory-card.tc-cont{border-top-color:#a09020}
+.theory-icon{font-size:1.4rem;margin-bottom:.4rem}
+.theory-card h4{font-family:var(--fm);font-size:.93rem;margin-bottom:.3rem}
+.theory-card p{font-size:.82rem;color:var(--mu);line-height:1.55}
+.theory-q{font-size:.78rem;font-weight:600;color:var(--ac);margin-top:.5rem;font-style:italic}
+.theory-detail{background:var(--bgc);border:1px solid var(--bd);border-radius:var(--r);padding:1.4rem;box-shadow:0 2px 10px var(--sh);margin-top:1rem;display:none}
+.theory-detail.open{display:block}
+.theory-detail h3{font-family:var(--fm);font-size:1.1rem;color:var(--ac);margin-bottom:.8rem}
+.theory-detail p{font-size:.88rem;color:var(--mu);line-height:1.7;margin-bottom:.7rem}
+.theory-detail p:last-child{margin-bottom:0}
 
-    /* ACCORDION */
-    .acc-item { border: 1px solid var(--border); border-radius: 8px; margin-bottom: .55rem; overflow: hidden; background: var(--bg-card); transition: background .3s; }
-    .acc-head {
-      width: 100%; background: none; border: none;
-      padding: 1.05rem 1.4rem;
-      display: flex; align-items: center; justify-content: space-between;
-      cursor: pointer; font-size: .95rem; font-weight: 600;
-      color: var(--text); text-align: left; gap: 1rem; transition: color .2s;
-    }
-    .acc-head:hover { color: var(--accent); }
-    .acc-arrow { font-size: .75rem; color: var(--text-faint); transition: transform .25s; flex-shrink: 0; }
-    .acc-head[aria-expanded="true"] .acc-arrow { transform: rotate(180deg); color: var(--accent); }
-    .acc-body { max-height: 0; overflow: hidden; transition: max-height .35s ease; }
-    .acc-body.open { max-height: 800px; }
-    .acc-content { padding: 1rem 1.4rem 1.3rem; border-top: 1px solid var(--border); font-size: .88rem; color: var(--text-muted); line-height: 1.7; }
-    .acc-content p + p { margin-top: .75rem; }
+/* ── COMPARISON TABLE ─────────────────── */
+.comp-table{width:100%;border-collapse:collapse;margin:.5rem 0;font-size:.85rem}
+.comp-table th{background:var(--tb);color:var(--ac);font-weight:700;padding:.65rem .8rem;text-align:left;border:1px solid var(--bd)}
+.comp-table td{padding:.6rem .8rem;border:1px solid var(--bd);color:var(--mu);line-height:1.5;vertical-align:top}
+.comp-table tr:nth-child(even) td{background:var(--bga)}
 
-    /* BOOKS */
-    .books { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px,1fr)); gap: 1.1rem; }
-    .book { background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px; padding: 1.4rem; display: flex; gap: 1.1rem; align-items: flex-start; box-shadow: 0 2px 10px var(--shadow); transition: background .3s; }
-    .book-icon { width: 48px; min-width: 48px; height: 66px; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 1.35rem; background: linear-gradient(150deg, var(--accent), var(--accent2)); }
-    .book-meta { font-size: .7rem; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: var(--accent); margin-bottom: .2rem; }
-    .book-title { font-family: var(--font-main); font-size: 1rem; line-height: 1.3; margin-bottom: .2rem; }
-    .book-author { font-size: .8rem; color: var(--text-faint); margin-bottom: .55rem; }
-    .book-desc { font-size: .84rem; color: var(--text-muted); line-height: 1.6; }
+/* ── DILEMMA SIMULATOR ────────────────── */
+.dilemma-nav{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1.4rem}
+.dil-tab{background:var(--tb);border:1px solid var(--bd);color:var(--mu);font-size:.78rem;font-weight:600;padding:.35rem .8rem;border-radius:6px;cursor:pointer;transition:all .2s}
+.dil-tab:hover,.dil-tab.active{background:var(--ac);color:#fff;border-color:var(--ac)}
+.dil-card{background:var(--bgc);border:1px solid var(--bd);border-radius:var(--r);padding:1.5rem;box-shadow:0 2px 10px var(--sh)}
+.dil-scenario{font-family:var(--fm);font-size:1rem;color:var(--tx);line-height:1.75;margin-bottom:1.2rem;padding-bottom:1.2rem;border-bottom:1px solid var(--bd)}
+.dil-prompt{font-size:.82rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--fa);margin-bottom:.7rem}
+.dil-options{display:flex;flex-direction:column;gap:.6rem}
+.dil-opt{background:var(--bga);border:2px solid var(--bd);border-radius:8px;padding:.9rem 1.1rem;cursor:pointer;font-size:.9rem;color:var(--tx);text-align:left;transition:all .2s;line-height:1.55}
+.dil-opt:hover{border-color:var(--ac);background:var(--tb)}
+.dil-opt.chosen{border-color:var(--ac);background:var(--ac3)}
+.dil-feedback{margin-top:1.3rem;display:none}
+.dil-feedback.show{display:block}
+.feedback-badge{display:inline-block;padding:.3rem .8rem;border-radius:999px;font-size:.75rem;font-weight:700;margin-bottom:.8rem}
+.fb-util{background:#e8f5ee;color:#1d6b3a}
+.fb-deon{background:#e8f0ff;color:#2a4a9f}
+.fb-virt{background:#f3e8ff;color:#6a3a8a}
+.fb-cura{background:#fff0e8;color:#8a4020}
+.fb-cont{background:#fffff0;color:#6a6010}
+[data-theme=dark] .fb-util{background:#091a0e;color:#5db87a}
+[data-theme=dark] .fb-deon{background:#0a1530;color:#6a9fd8}
+[data-theme=dark] .fb-virt{background:#140a1e;color:#b07ad8}
+[data-theme=dark] .fb-cura{background:#1a0800;color:#e0804a}
+[data-theme=dark] .fb-cont{background:#1a1a00;color:#c8c040}
+.feedback-text{font-size:.9rem;color:var(--mu);line-height:1.7;margin-bottom:1rem}
+.value-map{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.6rem}
+.value-chip{padding:.3rem .75rem;border-radius:999px;font-size:.76rem;font-weight:600;border:1px solid transparent}
+.vc-high{background:var(--ac);color:#fff;border-color:var(--ac)}
+.vc-mid{background:var(--tb);color:var(--tt);border-color:var(--bd)}
+.vc-low{background:var(--bga);color:var(--fa);border-color:var(--bd);opacity:.6}
+.value-legend{display:flex;gap:1rem;flex-wrap:wrap;font-size:.72rem;color:var(--fa);margin-bottom:.5rem}
+.value-legend span{display:flex;align-items:center;gap:.3rem}
+.vl-dot{width:10px;height:10px;border-radius:50%}
+.vld-h{background:var(--ac)}
+.vld-m{background:var(--tt);opacity:.6}
+.vld-l{background:var(--fa);opacity:.4}
+.dil-reset{margin-top:1rem;font-size:.78rem;font-weight:600;color:var(--ac);cursor:pointer;background:none;border:none;padding:0;text-decoration:underline}
 
-    /* PRINCIPLES */
-    .principles { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px,1fr)); gap: 1.1rem; }
-    .principle { background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px; padding: 1.4rem; box-shadow: 0 2px 10px var(--shadow); border-top: 3px solid var(--accent); transition: background .3s; }
-    .principle-num { font-size: .7rem; font-weight: 700; letter-spacing: .1em; color: var(--accent); margin-bottom: .4rem; }
-    .principle h3  { font-family: var(--font-main); font-size: 1rem; margin-bottom: .5rem; }
-    .principle p   { font-size: .85rem; color: var(--text-muted); line-height: 1.6; }
+/* ── QUIZ ─────────────────────────────── */
+.quiz-progress{font-size:.78rem;font-weight:700;color:var(--fa);margin-bottom:1rem;display:flex;align-items:center;gap:.8rem}
+.quiz-prog-bar{flex:1;height:6px;background:var(--bd);border-radius:999px;overflow:hidden}
+.quiz-prog-fill{height:100%;background:linear-gradient(90deg,var(--ac),var(--ac2));width:0%;transition:width .3s}
+.quiz-card{background:var(--bgc);border:1px solid var(--bd);border-radius:var(--r);padding:1.5rem;box-shadow:0 2px 10px var(--sh)}
+.quiz-q{font-family:var(--fm);font-size:1.05rem;margin-bottom:1.1rem;line-height:1.5}
+.quiz-opts{display:flex;flex-direction:column;gap:.55rem}
+.quiz-opt{background:var(--bga);border:2px solid var(--bd);border-radius:8px;padding:.8rem 1.1rem;cursor:pointer;font-size:.88rem;color:var(--tx);text-align:left;transition:all .2s;line-height:1.5}
+.quiz-opt:hover{border-color:var(--ac)}
+.quiz-opt.correct{border-color:var(--ok);background:#e8f5ee}
+.quiz-opt.wrong{border-color:var(--err);background:#fde8e8}
+[data-theme=dark] .quiz-opt.correct{background:#091a0e}
+[data-theme=dark] .quiz-opt.wrong{background:#1a0808}
+.quiz-feedback{margin-top:1rem;padding:.9rem 1.1rem;border-radius:8px;font-size:.88rem;line-height:1.6;display:none}
+.quiz-feedback.show{display:block}
+.quiz-feedback.ok{background:#e8f5ee;color:#1d6b3a;border:1px solid #b0ddc0}
+.quiz-feedback.ko{background:#fde8e8;color:#8a1a1a;border:1px solid #f0b0b0}
+[data-theme=dark] .quiz-feedback.ok{background:#091a0e;color:#5db87a;border-color:#1a4028}
+[data-theme=dark] .quiz-feedback.ko{background:#1a0808;color:#e07070;border-color:#4a1818}
+.quiz-nav{display:flex;justify-content:space-between;align-items:center;margin-top:1.2rem}
+.score-panel{text-align:center;padding:2.5rem 1rem;background:var(--bgc);border:1px solid var(--bd);border-radius:var(--r);box-shadow:0 2px 10px var(--sh)}
+.score-num{font-family:var(--fm);font-size:3rem;color:var(--ac);font-weight:700;margin:.5rem 0}
+.score-label{font-size:1.1rem;font-weight:600;margin-bottom:.5rem}
+.score-msg{font-size:.9rem;color:var(--mu);max-width:480px;margin:0 auto 1.5rem}
+.score-panel .btn-row{display:flex;gap:.8rem;justify-content:center;flex-wrap:wrap}
 
-    /* FOOTER */
-    footer { background: var(--bg-alt); border-top: 1px solid var(--border); padding: 2.5rem 1.5rem; text-align: center; transition: background .3s; }
-    footer p { font-size: .82rem; color: var(--text-faint); line-height: 1.7; }
-    footer strong { color: var(--accent); }
+/* ── ACCORDION ────────────────────────── */
+.acc-item{border:1px solid var(--bd);border-radius:8px;margin-bottom:.5rem;overflow:hidden;background:var(--bgc)}
+.acc-head{width:100%;background:none;border:none;padding:.95rem 1.3rem;display:flex;align-items:center;justify-content:space-between;cursor:pointer;font-size:.93rem;font-weight:600;color:var(--tx);text-align:left;gap:1rem;transition:color .2s}
+.acc-head:hover{color:var(--ac)}
+.acc-arrow{font-size:.72rem;color:var(--fa);transition:transform .25s;flex-shrink:0}
+.acc-head[aria-expanded=true] .acc-arrow{transform:rotate(180deg);color:var(--ac)}
+.acc-body{max-height:0;overflow:hidden;transition:max-height .35s ease}
+.acc-body.open{max-height:1000px}
+.acc-content{padding:.9rem 1.3rem 1.2rem;border-top:1px solid var(--bd);font-size:.87rem;color:var(--mu);line-height:1.7}
+.acc-content p+p{margin-top:.65rem}
 
-    @media (max-width: 580px) {
-      nav { padding: .6rem 1rem; }
-      .hero { padding: 2.8rem 1rem 2.2rem; }
-      .wrap { padding: 0 1rem; }
-    }
+/* ── ECONOMY CIVILE BOX ───────────────── */
+.eco-box{background:var(--bgc);border:1px solid var(--bd);border-left:4px solid var(--ac);border-radius:0 var(--r) var(--r) 0;padding:1.3rem 1.5rem;margin:.5rem 0;box-shadow:0 2px 8px var(--sh)}
+.eco-box h4{font-family:var(--fm);font-size:1rem;color:var(--ac);margin-bottom:.5rem}
+.eco-box p{font-size:.88rem;color:var(--mu);line-height:1.7}
+.eco-box p+p{margin-top:.6rem}
 
-    /* Lingue: di default mostra italiano; JS sovrascrive inline */
-    [data-lang="en"], [data-lang="pt"] { display: none; }
-    [data-lang="it"] { display: inline; }
-    /* per elementi block come p, div, li */
-    p[data-lang="en"], p[data-lang="pt"],
-    div[data-lang="en"], div[data-lang="pt"] { display: none; }
-    p[data-lang="it"], div[data-lang="it"] { display: block; }
-  </style>
+/* ── GLOSSARY PILL ────────────────────── */
+.glossary-term{border-bottom:2px dotted var(--ac);cursor:help;color:inherit;transition:color .2s}
+.glossary-term:hover{color:var(--ac)}
+
+/* ── FOOTER ───────────────────────────── */
+footer{background:var(--bga);border-top:1px solid var(--bd);padding:2rem 1.5rem;text-align:center}
+footer p{font-size:.8rem;color:var(--fa);line-height:1.7}
+footer strong{color:var(--ac)}
+
+/* ── DARK NOTICE ──────────────────────── */
+.dark-notice{display:none;align-items:center;gap:.5rem;background:var(--tb);border:1px solid var(--bd);border-radius:6px;padding:.5rem .9rem;font-size:.76rem;color:var(--mu);margin-bottom:1.5rem}
+[data-theme=dark] .dark-notice{display:flex}
+
+/* ── TOOLTIP ──────────────────────────── */
+.tip-overlay{display:none;position:fixed;inset:0;z-index:300;align-items:flex-end;justify-content:center;padding:1rem;pointer-events:none}
+.tip-overlay.show{display:flex;pointer-events:auto}
+.tip-box{background:var(--bgc);border:1px solid var(--bd);border-radius:var(--r);max-width:420px;width:100%;padding:1.2rem;box-shadow:0 8px 30px var(--sh);pointer-events:auto}
+.tip-close{float:right;background:var(--tb);border:none;border-radius:50%;width:26px;height:26px;cursor:pointer;font-size:.85rem;color:var(--mu);display:flex;align-items:center;justify-content:center;margin-left:1rem}
+.tip-box h4{font-family:var(--fm);font-size:1rem;color:var(--ac);margin-bottom:.5rem;padding-right:2rem}
+.tip-box p{font-size:.85rem;color:var(--mu);line-height:1.65}
+
+@media(max-width:580px){
+  nav{padding:.5rem .9rem}
+  .hero{padding:2.5rem 1rem 2rem}
+  .wrap{padding:0 .9rem}
+  .mod-body{padding:1.4rem .9rem}
+  .comp-table{font-size:.78rem}
+  .comp-table th,.comp-table td{padding:.45rem .55rem}
+}
+</style>
 </head>
 <body data-theme="light">
 
+<!-- NAV -->
 <nav>
-  <span class="nav-brand" id="brand">Etica &amp; Economia Civile</span>
-  <div class="nav-controls">
-    <button class="lang-btn active" onclick="setLang('it')">IT</button>
-    <button class="lang-btn"        onclick="setLang('en')">EN</button>
-    <button class="lang-btn"        onclick="setLang('pt')">PT</button>
-    <button class="theme-btn" id="theme-btn" onclick="toggleTheme()" title="Cambia tema">&#9788;</button>
+  <span class="nav-brand" id="nav-brand" onclick="goHome()">&#934; Etica</span>
+  <div class="nav-right">
+    <button class="home-btn" id="home-btn" onclick="goHome()">&#8592; Home</button>
+    <button class="theme-btn" id="theme-btn" onclick="toggleTheme()" title="Tema chiaro/scuro">&#9788;</button>
   </div>
 </nav>
+<div class="progress-wrap" id="prog-wrap"><div class="progress-bar" id="prog-bar"></div></div>
 
-<header class="hero">
-  <p class="eyebrow">
-    <span data-lang="it">Guida introduttiva</span><span data-lang="en">Introductory guide</span><span data-lang="pt">Guia introdut&#243;rio</span>
-  </p>
-  <h1>
-    <span data-lang="it">Etica, Economia e Felicit&#224; Civile</span>
-    <span data-lang="en">Ethics, Economics and Civil Happiness</span>
-    <span data-lang="pt">&#201;tica, Economia e Felicidade Civil</span>
-  </h1>
-  <p class="hero-lead">
-    <span data-lang="it">Un percorso divulgativo tra filosofia, storia del pensiero economico e domande che riguardano tutti: cosa &#232; giusto? Come funziona davvero il mercato? Che cosa ci rende felici come societ&#224;?</span>
-    <span data-lang="en">A popular journey through philosophy, history of economic thought and questions that concern everyone: what is just? How does the market really work? What makes us happy as a society?</span>
-    <span data-lang="pt">Um percurso divulgativo entre filosofia, hist&#243;ria do pensamento econ&#244;mico e perguntas que dizem respeito a todos: o que &#233; justo? Como o mercado realmente funciona? O que nos torna felizes como sociedade?</span>
-  </p>
-  <div class="tag-row">
-    <span class="tag"><span data-lang="it">Filosofia dell&#8217;Economia</span><span data-lang="en">Philosophy of Economics</span><span data-lang="pt">Filosofia da Economia</span></span>
-    <span class="tag"><span data-lang="it">Economia Civile</span><span data-lang="en">Civil Economy</span><span data-lang="pt">Economia Civil</span></span>
-    <span class="tag"><span data-lang="it">Etica degli Affari</span><span data-lang="en">Business Ethics</span><span data-lang="pt">&#201;tica nos Neg&#243;cios</span></span>
-    <span class="tag"><span data-lang="it">Teologia dell&#8217;Economia</span><span data-lang="en">Theology of Economics</span><span data-lang="pt">Teologia da Economia</span></span>
+<!-- TOOLTIP OVERLAY -->
+<div class="tip-overlay" id="tip-overlay">
+  <div class="tip-box">
+    <button class="tip-close" onclick="closeTip()">&#10005;</button>
+    <h4 id="tip-term"></h4>
+    <p id="tip-def"></p>
   </div>
-</header>
+</div>
 
-<main class="wrap">
+<!-- ═══════════════════════════════════════ HOME ══ -->
+<div class="screen active" id="screen-home">
 
-  <div class="dark-notice" role="note">
-    <span aria-hidden="true">&#9679;</span>
-    <span data-lang="it">Modalit&#224; scura attiva &#8212; risparmio energetico per schermi OLED e AMOLED.</span>
-    <span data-lang="en">Dark mode active &#8212; energy saving for OLED and AMOLED screens.</span>
-    <span data-lang="pt">Modo escuro ativo &#8212; economia de energia para telas OLED e AMOLED.</span>
-  </div>
-
-  <!-- 1. CHE COS'E' L'ECONOMIA CIVILE -->
-  <section>
-    <p class="sec-label"><span data-lang="it">Il punto di partenza</span><span data-lang="en">The starting point</span><span data-lang="pt">O ponto de partida</span></p>
-    <h2 class="sec-title"><span data-lang="it">Che cos&#8217;&#232; l&#8217;Economia Civile?</span><span data-lang="en">What is Civil Economy?</span><span data-lang="pt">O que &#233; Economia Civil?</span></h2>
-    <p class="sec-lead">
-      <span data-lang="it">L&#8217;economia non &#232; solo numeri, mercati e profitti. &#200; anche, e soprattutto, il modo in cui le persone cooperano, si fidano, si aiutano. L&#8217;<strong>Economia Civile</strong> &#232; la tradizione di pensiero che ha messo al centro questa dimensione umana.</span>
-      <span data-lang="en">Economics is not just numbers, markets and profits. It is also, and above all, the way people cooperate, trust each other, help each other. <strong>Civil Economy</strong> is the tradition of thought that placed this human dimension at its core.</span>
-      <span data-lang="pt">A economia n&#227;o &#233; apenas n&#250;meros, mercados e lucros. &#201; tamb&#233;m, e sobretudo, a forma como as pessoas cooperam, confiam umas nas outras, se ajudam. A <strong>Economia Civil</strong> &#233; a tradi&#231;&#227;o de pensamento que colocou essa dimens&#227;o humana no centro.</span>
-    </p>
-    <div class="grid">
-      <div class="card">
-        <div class="card-icon">&#128218;</div>
-        <h3><span data-lang="it">Filosofia dell&#8217;Economia</span><span data-lang="en">Philosophy of Economics</span><span data-lang="pt">Filosofia da Economia</span></h3>
-        <p><span data-lang="it">Si chiede perch&#233; scambiamo, che cos&#8217;&#232; il valore, se l&#8217;economia pu&#242; essere etica. Va oltre i modelli e chiede: che tipo di persone vogliamo diventare attraverso le nostre scelte economiche?</span><span data-lang="en">It asks why we exchange, what value is, whether economics can be ethical. It goes beyond models and asks: what kind of people do we want to become through our economic choices?</span><span data-lang="pt">Pergunta por que trocamos, o que &#233; valor, se a economia pode ser &#233;tica. Vai al&#233;m dos modelos e pergunta: que tipo de pessoas queremos nos tornar por meio de nossas escolhas econ&#244;micas?</span></p>
-      </div>
-      <div class="card">
-        <div class="card-icon">&#128336;</div>
-        <h3><span data-lang="it">Storia del Pensiero Economico</span><span data-lang="en">History of Economic Thought</span><span data-lang="pt">Hist&#243;ria do Pensamento Econ&#244;mico</span></h3>
-        <p><span data-lang="it">Le idee di oggi hanno radici profonde. Capire come Aristotele, Tommaso d&#8217;Aquino, Adam Smith o Antonio Genovesi pensavano l&#8217;economia ci aiuta a capire perch&#233; il nostro sistema funziona cos&#236; com&#8217;&#232;.</span><span data-lang="en">Today&#8217;s ideas have deep roots. Understanding how Aristotle, Thomas Aquinas, Adam Smith or Antonio Genovesi thought about economics helps us understand why our system works the way it does.</span><span data-lang="pt">As ideias de hoje t&#234;m ra&#237;zes profundas. Entender como Arist&#243;teles, Tom&#225;s de Aquino, Adam Smith ou Antonio Genovesi pensavam a economia nos ajuda a entender por que nosso sistema funciona assim.</span></p>
-      </div>
-      <div class="card">
-        <div class="card-icon">&#9878;&#65038;</div>
-        <h3><span data-lang="it">Etica degli Affari</span><span data-lang="en">Business Ethics</span><span data-lang="pt">&#201;tica nos Neg&#243;cios</span></h3>
-        <p><span data-lang="it">Come si dovrebbe agire nel mondo del lavoro? Quando un comportamento &#232; scorretto anche se &#232; legale? L&#8217;etica degli affari risponde a queste domande concrete della vita quotidiana.</span><span data-lang="en">How should one act in the business world? When is a behavior wrong even if it&#8217;s legal? Business ethics answers these concrete questions of daily life.</span><span data-lang="pt">Como se deve agir no mundo dos neg&#243;cios? Quando um comportamento &#233; errado mesmo sendo legal? A &#233;tica nos neg&#243;cios responde a essas perguntas concretas da vida cotidiana.</span></p>
-      </div>
-      <div class="card">
-        <div class="card-icon">&#128142;</div>
-        <h3><span data-lang="it">Teologia dell&#8217;Economia</span><span data-lang="en">Theology of Economics</span><span data-lang="pt">Teologia da Economia</span></h3>
-        <p><span data-lang="it">Le grandi tradizioni religiose hanno sempre riflettuto su ricchezza, povert&#224; e giustizia. La teologia dell&#8217;economia studia questi contributi e il loro dialogo con il pensiero economico moderno.</span><span data-lang="en">The great religious traditions have always reflected on wealth, poverty and justice. Theology of economics studies these contributions and their dialogue with modern economic thought.</span><span data-lang="pt">As grandes tradi&#231;&#245;es religiosas sempre refletiram sobre riqueza, pobreza e justi&#231;a. A teologia da economia estuda essas contribui&#231;&#245;es e seu di&#225;logo com o pensamento econ&#244;mico moderno.</span></p>
-      </div>
+  <header class="hero">
+    <p class="eyebrow">Percorso didattico interattivo</p>
+    <h1>Etica: pensare bene<br>per scegliere meglio</h1>
+    <p class="hero-lead">Dilemmi morali, teorie etiche e decisioni responsabili attraverso casi concreti, domande guidate e un simulatore interattivo.</p>
+    <div class="cta-row">
+      <button class="btn btn-primary" onclick="startModule(0)">Inizia il percorso &#8594;</button>
+      <button class="btn btn-outline" onclick="startModule(2)">Vai ai dilemmi &#8594;</button>
     </div>
-  </section>
+  </header>
 
-  <!-- 2. TOMMASO D'AQUINO -->
-  <section>
-    <p class="sec-label"><span data-lang="it">Le radici medievali</span><span data-lang="en">Medieval roots</span><span data-lang="pt">Ra&#237;zes medievais</span></p>
-    <h2 class="sec-title"><span data-lang="it">San Tommaso d&#8217;Aquino e il Bene Comune</span><span data-lang="en">Thomas Aquinas and the Common Good</span><span data-lang="pt">S&#227;o Tom&#225;s de Aquino e o Bem Comum</span></h2>
-    <p class="sec-lead">
-      <span data-lang="it">Per capire l&#8217;Economia Civile bisogna tornare indietro di sette secoli. Tommaso d&#8217;Aquino (1225&#8211;1274) ha posto domande che restano attualissime: cos&#8217;&#232; il giusto prezzo? A cosa serve la propriet&#224;? Chi deve beneficiare della ricchezza?</span>
-      <span data-lang="en">To understand Civil Economy we must go back seven centuries. Thomas Aquinas (1225&#8211;1274) posed questions that remain very relevant today: what is the just price? What is property for? Who should benefit from wealth?</span>
-      <span data-lang="pt">Para entender a Economia Civil &#233; preciso voltar sete s&#233;culos. Tom&#225;s de Aquino (1225&#8211;1274) fez perguntas que permanecem muito atuais: o que &#233; o pre&#231;o justo? Para que serve a propriedade? Quem deve se beneficiar da riqueza?</span>
-    </p>
-    <blockquote>
-      <p><span data-lang="it">&#171;L&#8217;uomo &#232; un animale politico per natura.&#187; Non siamo fatti per vivere isolati: la societ&#224; non &#232; un male necessario, ma la condizione naturale in cui l&#8217;essere umano fiorisce.</span><span data-lang="en">&#171;Man is by nature a political animal.&#187; We are not made to live in isolation: society is not a necessary evil, but the natural condition in which the human being flourishes.</span><span data-lang="pt">&#171;O homem &#233; por natureza um animal pol&#237;tico.&#187; N&#227;o somos feitos para viver isolados: a sociedade n&#227;o &#233; um mal necess&#225;rio, mas a condi&#231;&#227;o natural em que o ser humano floresce.</span></p>
-      <cite>Aristotele &#8212; <span data-lang="it">ripreso da Tommaso d&#8217;Aquino</span><span data-lang="en">taken up by Thomas Aquinas</span><span data-lang="pt">retomado por Tom&#225;s de Aquino</span></cite>
-    </blockquote>
-    <div class="grid">
-      <div class="card">
-        <div class="card-icon">&#9878;&#65038;</div>
-        <h3><span data-lang="it">Il Giusto Prezzo</span><span data-lang="en">The Just Price</span><span data-lang="pt">O Pre&#231;o Justo</span></h3>
-        <p><span data-lang="it">Tommaso sosteneva che ogni bene ha un prezzo equo determinato dalla comunit&#224;, non solo dall&#8217;utilit&#224; di chi compra o dalla cupidigia di chi vende. Vendere troppo caro a chi &#232; in difficolt&#224; &#232; moralmente sbagliato.</span><span data-lang="en">Aquinas argued that every good has a fair price determined by the community, not just by the buyer&#8217;s utility or the seller&#8217;s greed. Charging too much to those in need is morally wrong.</span><span data-lang="pt">Aquino argumentava que todo bem tem um pre&#231;o justo determinado pela comunidade, n&#227;o apenas pela utilidade do comprador ou pela gan&#226;ncia do vendedor. Cobrar demais de quem est&#225; em dificuldade &#233; moralmente errado.</span></p>
-      </div>
-      <div class="card">
-        <div class="card-icon">&#127968;</div>
-        <h3><span data-lang="it">La Propriet&#224; Privata</span><span data-lang="en">Private Property</span><span data-lang="pt">Propriedade Privada</span></h3>
-        <p><span data-lang="it">La propriet&#224; &#232; legittima, ma non assoluta: deve essere amministrata in modo da servire anche il bene comune. Possedere molte risorse comporta una responsabilit&#224; verso gli altri.</span><span data-lang="en">Property is legitimate, but not absolute: it must be managed in a way that also serves the common good. Possessing many resources entails a responsibility toward others.</span><span data-lang="pt">A propriedade &#233; leg&#237;tima, mas n&#227;o absoluta: deve ser administrada de forma a servir tamb&#233;m ao bem comum. Possuir muitos recursos implica uma responsabilidade para com os outros.</span></p>
-      </div>
-      <div class="card">
-        <div class="card-icon">&#9997;&#65038;</div>
-        <h3><span data-lang="it">La Virt&#249; della Giustizia</span><span data-lang="en">The Virtue of Justice</span><span data-lang="pt">A Virtude da Justi&#231;a</span></h3>
-        <p><span data-lang="it">La giustizia non &#232; solo una norma giuridica, ma una virt&#249; che si coltiva: la disposizione stabile a dare a ciascuno ci&#242; che gli spetta. Senza persone giuste, nessuna legge basta.</span><span data-lang="en">Justice is not just a legal norm, but a virtue to be cultivated: the stable disposition to give each person what they are due. Without just people, no law is sufficient.</span><span data-lang="pt">A justi&#231;a n&#227;o &#233; apenas uma norma jur&#237;dica, mas uma virtude a ser cultivada: a disposi&#231;&#227;o est&#225;vel de dar a cada pessoa o que lhe &#233; devido. Sem pessoas justas, nenhuma lei &#233; suficiente.</span></p>
-      </div>
+  <div class="wrap">
+    <div class="dark-notice" role="note">
+      <span>&#9679;</span> Modalit&#224; scura attiva &#8212; risparmio energetico per schermi OLED.
     </div>
-  </section>
 
-  <!-- 3. DUE TRADIZIONI -->
-  <section>
-    <p class="sec-label"><span data-lang="it">Due strade diverse</span><span data-lang="en">Two different paths</span><span data-lang="pt">Dois caminhos diferentes</span></p>
-    <h2 class="sec-title"><span data-lang="it">Economia Civile e Political Economy a confronto</span><span data-lang="en">Civil Economy and Political Economy compared</span><span data-lang="pt">Economia Civil e Economia Pol&#237;tica comparadas</span></h2>
-    <p class="sec-lead">
-      <span data-lang="it">Nel Settecento si sviluppano due grandi tradizioni che pensano il mercato in modo molto diverso. Conoscerle ci aiuta a capire le tensioni ancora vive nell&#8217;economia di oggi.</span>
-      <span data-lang="en">In the 18th century two great traditions developed that think about the market in very different ways. Knowing them helps us understand the tensions still alive in today&#8217;s economy.</span>
-      <span data-lang="pt">No s&#233;culo XVIII duas grandes tradi&#231;&#245;es se desenvolveram pensando o mercado de maneiras muito diferentes. Conhec&#234;-las nos ajuda a entender as tens&#245;es ainda vivas na economia de hoje.</span>
-    </p>
-    <div class="two-col">
-      <div class="col-box">
-        <h3><span data-lang="it">Economia Civile &#8212; Napoli, XVIII sec.</span><span data-lang="en">Civil Economy &#8212; Naples, 18th c.</span><span data-lang="pt">Economia Civil &#8212; N&#225;poles, s&#233;c. XVIII</span></h3>
-        <p><span data-lang="it">Pensatori come <strong>Antonio Genovesi</strong> vedono il mercato come uno spazio di relazioni umane. Gli scambi funzionano grazie alla <em>reciprocit&#224;</em>, alla fiducia e al senso civico, non nonostante essi.</span><span data-lang="en">Thinkers like <strong>Antonio Genovesi</strong> see the market as a space of human relationships. Exchanges work thanks to <em>reciprocity</em>, trust and civic sense, not despite them.</span><span data-lang="pt">Pensadores como <strong>Antonio Genovesi</strong> v&#234;em o mercado como um espa&#231;o de rela&#231;&#245;es humanas. As trocas funcionam gra&#231;as &#224; <em>reciprocidade</em>, &#224; confian&#231;a e ao senso c&#237;vico, n&#227;o apesar deles.</span></p>
-        <p><span data-lang="it">La <em>felicit&#224; pubblica</em> &#232; l&#8217;obiettivo centrale: una societ&#224; prospera &#232; quella in cui tutti fioriscono, non solo chi accumula di pi&#249;.</span><span data-lang="en"><em>Public happiness</em> is the central goal: a prosperous society is one in which everyone flourishes, not just those who accumulate the most.</span><span data-lang="pt">A <em>felicidade p&#250;blica</em> &#233; o objetivo central: uma sociedade pr&#243;spera &#233; uma em que todos florescem, n&#227;o apenas quem acumula mais.</span></p>
+    <!-- COSA IMPARERAI -->
+    <section class="section-home">
+      <p class="sec-label">Obiettivi</p>
+      <h2 class="sec-title">Cosa imparerai</h2>
+      <div class="learn-grid">
+        <div class="learn-item"><span class="learn-icon">&#128269;</span><p>Distinguere etica, morale, legge e costume</p></div>
+        <div class="learn-item"><span class="learn-icon">&#9878;&#65038;</span><p>Conoscere le grandi teorie etiche e le loro domande guida</p></div>
+        <div class="learn-item"><span class="learn-icon">&#128260;</span><p>Riconoscere i valori in conflitto nei dilemmi morali</p></div>
+        <div class="learn-item"><span class="learn-icon">&#128172;</span><p>Argomentare una scelta morale con ragioni, non solo opinioni</p></div>
       </div>
-      <div class="col-box">
-        <h3><span data-lang="it">Political Economy &#8212; Scozia, XVIII sec.</span><span data-lang="en">Political Economy &#8212; Scotland, 18th c.</span><span data-lang="pt">Economia Pol&#237;tica &#8212; Esc&#243;cia, s&#233;c. XVIII</span></h3>
-        <p><span data-lang="it"><strong>David Hume</strong> e <strong>Adam Smith</strong> fondano la visione dominante: il mercato funziona grazie all&#8217;interesse personale. Il singolo che persegue il proprio tornaconto genera, quasi involontariamente, benessere collettivo (<em>mano invisibile</em>).</span><span data-lang="en"><strong>David Hume</strong> and <strong>Adam Smith</strong> establish the dominant vision: the market works through self-interest. The individual pursuing their own gain generates, almost involuntarily, collective well-being (<em>invisible hand</em>).</span><span data-lang="pt"><strong>David Hume</strong> e <strong>Adam Smith</strong> estabelecem a vis&#227;o dominante: o mercado funciona por meio do interesse pr&#243;prio. O indiv&#237;duo que persegue seu pr&#243;prio ganho gera, quase involuntariamente, bem-estar coletivo (<em>m&#227;o invis&#237;vel</em>).</span></p>
-        <p><span data-lang="it">La virt&#249; e il legame sociale non sono necessari al funzionamento del mercato: bastano regole e incentivi giusti.</span><span data-lang="en">Virtue and social bonds are not necessary for the market to function: the right rules and incentives are sufficient.</span><span data-lang="pt">Virtude e la&#231;os sociais n&#227;o s&#227;o necess&#225;rios para o funcionamento do mercado: bastam regras e incentivos certos.</span></p>
+    </section>
+
+    <!-- 4 MODULE CARDS -->
+    <section class="section-home">
+      <p class="sec-label">Percorso</p>
+      <h2 class="sec-title">I quattro moduli</h2>
+      <p class="sec-lead">Ogni modulo segue lo stesso schema: domanda iniziale &#8594; concetti chiave &#8594; caso concreto &#8594; analisi &#8594; attivit&#224;.</p>
+      <div class="module-grid" id="module-grid">
+        <!-- populated by JS -->
       </div>
-    </div>
-    <blockquote style="margin-top:2rem">
-      <p><span data-lang="it">La domanda ancora aperta: i mercati hanno bisogno di <em>fiducia, reciprocit&#224; e virt&#249;</em> per funzionare davvero, oppure bastano le regole e l&#8217;interesse personale? Il dibattito tra queste due tradizioni &#232; pi&#249; vivo che mai.</span><span data-lang="en">The still open question: do markets need <em>trust, reciprocity and virtue</em> to truly work, or are rules and self-interest enough? The debate between these two traditions is more alive than ever.</span><span data-lang="pt">A pergunta ainda aberta: os mercados precisam de <em>confian&#231;a, reciprocidade e virtude</em> para realmente funcionar, ou bastam regras e interesse pr&#243;prio? O debate entre essas duas tradi&#231;&#245;es est&#225; mais vivo do que nunca.</span></p>
-      <cite><span data-lang="it">Uno dei temi centrali della ricerca contemporanea in filosofia ed economia</span><span data-lang="en">One of the central themes of contemporary research in philosophy and economics</span><span data-lang="pt">Um dos temas centrais da pesquisa contempor&#226;nea em filosofia e economia</span></cite>
-    </blockquote>
-  </section>
+    </section>
 
-  <!-- 4. MERITOCRAZIA & LIMITI -->
-  <section>
-    <p class="sec-label"><span data-lang="it">Domande di oggi</span><span data-lang="en">Questions of today</span><span data-lang="pt">Perguntas de hoje</span></p>
-    <h2 class="sec-title"><span data-lang="it">Meritocrazia e Limiti Morali del Mercato</span><span data-lang="en">Meritocracy and the Moral Limits of the Market</span><span data-lang="pt">Meritocracia e os Limites Morais do Mercado</span></h2>
-    <p class="sec-lead">
-      <span data-lang="it">Queste due questioni stanno al cuore del dibattito filosofico ed economico contemporaneo. Sembrano astratte, ma riguardano scelte concrete: come distribuiamo le opportunit&#224;? Cosa non dovrebbe avere un prezzo?</span>
-      <span data-lang="en">These two questions are at the heart of the contemporary philosophical and economic debate. They may seem abstract, but they concern concrete choices: how do we distribute opportunities? What should not have a price?</span>
-      <span data-lang="pt">Essas duas quest&#245;es est&#227;o no cora&#231;&#227;o do debate filos&#243;fico e econ&#244;mico contempor&#226;neo. Podem parecer abstratas, mas dizem respeito a escolhas concretas: como distribuimos as oportunidades? O que n&#227;o deveria ter pre&#231;o?</span>
-    </p>
-    <div class="acc-item">
-      <button class="acc-head" onclick="toggleAcc(this)" aria-expanded="false">
-        <span><span data-lang="it">La meritocrazia &#232; davvero giusta?</span><span data-lang="en">Is meritocracy truly fair?</span><span data-lang="pt">A meritocracia &#233; realmente justa?</span></span>
-        <span class="acc-arrow">&#9660;</span>
-      </button>
-      <div class="acc-body"><div class="acc-content">
-        <p><span data-lang="it">La <strong>meritocrazia</strong> &#232; l&#8217;idea che le persone debbano essere ricompensate in base ai propri talenti e al proprio impegno. A prima vista sembra equa: chi si impegna di pi&#249; dovrebbe ottenere di pi&#249;.</span><span data-lang="en"><strong>Meritocracy</strong> is the idea that people should be rewarded based on their talents and effort. At first glance it seems fair: those who work harder should get more.</span><span data-lang="pt">A <strong>meritocracia</strong> &#233; a ideia de que as pessoas devem ser recompensadas com base em seus talentos e esfor&#231;o. &#192; primeira vista parece justa: quem se esfor&#231;a mais deveria obter mais.</span></p>
-        <p><span data-lang="it">Ma la filosofia solleva un problema: fino a che punto i nostri talenti sono davvero <em>nostri</em>? Nasciamo in famiglie diverse, con risorse diverse, in contesti diversi. Premiare il merito senza correggere le disuguaglianze di partenza rischia di <em>legittimare il privilegio</em> come se fosse conquista personale.</span><span data-lang="en">But philosophy raises a problem: to what extent are our talents truly <em>ours</em>? We are born into different families, with different resources, in different contexts. Rewarding merit without correcting starting inequalities risks <em>legitimizing privilege</em> as if it were personal achievement.</span><span data-lang="pt">Mas a filosofia levanta um problema: at&#233; que ponto nossos talentos s&#227;o realmente <em>nossos</em>? Nascemos em fam&#237;lias diferentes, com recursos diferentes, em contextos diferentes. Recompensar o m&#233;rito sem corrigir as desigualdades de partida corre o risco de <em>legitimar o privil&#233;gio</em> como se fosse conquista pessoal.</span></p>
-        <p><span data-lang="it">La sfida &#232; distinguere tra ci&#242; che &#232; genuinamente meritato e ci&#242; che &#232; frutto di circostanze fortunate. Una societ&#224; giusta dovrebbe premiare lo sforzo, ma anche garantire che il punto di partenza sia il pi&#249; equo possibile.</span><span data-lang="en">The challenge is to distinguish between what is genuinely earned and what is the fruit of fortunate circumstances. A just society should reward effort, but also ensure that the starting point is as equitable as possible.</span><span data-lang="pt">O desafio &#233; distinguir entre o que &#233; genuinamente merecido e o que &#233; fruto de circunst&#226;ncias afortunadas. Uma sociedade justa deve recompensar o esfor&#231;o, mas tamb&#233;m garantir que o ponto de partida seja o mais equitativo poss&#237;vel.</span></p>
-      </div></div>
-    </div>
-    <div class="acc-item">
-      <button class="acc-head" onclick="toggleAcc(this)" aria-expanded="false">
-        <span><span data-lang="it">Esistono cose che il mercato non dovrebbe comprare?</span><span data-lang="en">Are there things the market should not buy?</span><span data-lang="pt">Existem coisas que o mercado n&#227;o deveria comprar?</span></span>
-        <span class="acc-arrow">&#9660;</span>
-      </button>
-      <div class="acc-body"><div class="acc-content">
-        <p><span data-lang="it">Il mercato &#232; uno strumento potente: pu&#242; allocare beni e servizi in modo efficiente. Ma esistono cose che, se messe in vendita, <em>cambiano di natura</em> e perdono il loro valore autentico.</span><span data-lang="en">The market is a powerful tool: it can allocate goods and services efficiently. But there are things that, if put up for sale, <em>change their nature</em> and lose their authentic value.</span><span data-lang="pt">O mercado &#233; uma ferramenta poderosa: pode alocar bens e servi&#231;os de forma eficiente. Mas existem coisas que, se colocadas &#224; venda, <em>mudam de natureza</em> e perdem seu valor aut&#234;ntico.</span></p>
-        <p><span data-lang="it">Esempio: l&#8217;amicizia comprata non &#232; vera amicizia. Un voto elettorale comprato non &#232; vera democrazia. Alcuni beni &#8212; come la fiducia, la cura, la partecipazione civica &#8212; funzionano solo fuori dalla logica del prezzo. Quando li trasformiamo in merce, li svuotiamo di senso.</span><span data-lang="en">Example: bought friendship is not true friendship. A bought vote is not true democracy. Some goods &#8212; like trust, care, civic participation &#8212; only work outside the logic of price. When we turn them into commodities, we empty them of meaning.</span><span data-lang="pt">Exemplo: amizade comprada n&#227;o &#233; verdadeira amizade. Um voto comprado n&#227;o &#233; verdadeira democracia. Alguns bens &#8212; como confian&#231;a, cuidado, participa&#231;&#227;o c&#237;vica &#8212; s&#243; funcionam fora da l&#243;gica do pre&#231;o. Quando os transformamos em mercadoria, esvaziamos seu significado.</span></p>
-        <p><span data-lang="it">Riconoscere i <strong>limiti morali del mercato</strong> non significa essere contro il mercato: significa capire dove esso &#232; uno strumento utile e dove invece danneggia ci&#242; che tocca.</span><span data-lang="en">Recognizing the <strong>moral limits of the market</strong> does not mean being against the market: it means understanding where it is a useful tool and where it instead damages what it touches.</span><span data-lang="pt">Reconhecer os <strong>limites morais do mercado</strong> n&#227;o significa ser contra o mercado: significa entender onde ele &#233; uma ferramenta &#250;til e onde, ao contr&#225;rio, danifica o que toca.</span></p>
-      </div></div>
-    </div>
-    <div class="acc-item">
-      <button class="acc-head" onclick="toggleAcc(this)" aria-expanded="false">
-        <span><span data-lang="it">Che cosa ci rende davvero felici?</span><span data-lang="en">What truly makes us happy?</span><span data-lang="pt">O que realmente nos torna felizes?</span></span>
-        <span class="acc-arrow">&#9660;</span>
-      </button>
-      <div class="acc-body"><div class="acc-content">
-        <p><span data-lang="it">Uno dei risultati pi&#249; solidi della ricerca empirica sul benessere &#232; che <em>il reddito, oltre una certa soglia, non aumenta la felicit&#224;</em>. Contano molto di pi&#249; le relazioni, la fiducia, il senso di appartenenza a una comunit&#224;.</span><span data-lang="en">One of the most robust results of well-being research is that <em>income, beyond a certain threshold, does not increase happiness</em>. What matters much more are relationships, trust, a sense of belonging to a community.</span><span data-lang="pt">Um dos resultados mais s&#243;lidos da pesquisa sobre bem-estar &#233; que <em>a renda, al&#233;m de certo limite, n&#227;o aumenta a felicidade</em>. O que importa muito mais s&#227;o as rela&#231;&#245;es, a confian&#231;a, o senso de pertencimento a uma comunidade.</span></p>
-        <p><span data-lang="it">La tradizione dell&#8217;Economia Civile chiama questo la <strong>felicit&#224; civile</strong>: una felicit&#224; che si realizza <em>con</em> gli altri, non <em>contro</em> o <em>nonostante</em> gli altri. Le politiche pubbliche dovrebbero costruire le condizioni perch&#233; questa forma di fiorire sia possibile per tutti.</span><span data-lang="en">The Civil Economy tradition calls this <strong>civil happiness</strong>: a happiness realized <em>with</em> others, not <em>against</em> or <em>despite</em> others. Public policies should build conditions for this form of flourishing to be possible for everyone.</span><span data-lang="pt">A tradi&#231;&#227;o da Economia Civil chama isso de <strong>felicidade civil</strong>: uma felicidade que se realiza <em>com</em> os outros, n&#227;o <em>contra</em> ou <em>apesar</em> dos outros. As pol&#237;ticas p&#250;blicas deveriam construir condi&#231;&#245;es para que essa forma de florescimento seja poss&#237;vel para todos.</span></p>
-      </div></div>
-    </div>
-  </section>
-
-  <!-- 5. DUE LIBRI -->
-  <section>
-    <p class="sec-label"><span data-lang="it">Letture fondamentali</span><span data-lang="en">Foundational readings</span><span data-lang="pt">Leituras fundamentais</span></p>
-    <h2 class="sec-title"><span data-lang="it">Due Libri per Capire il Dibattito Contemporaneo</span><span data-lang="en">Two Books to Understand the Contemporary Debate</span><span data-lang="pt">Dois Livros para Entender o Debate Contempor&#226;neo</span></h2>
-    <p class="sec-lead">
-      <span data-lang="it">Queste due opere recenti rappresentano contributi fondamentali alla riflessione su mercato, istituzioni e vita buona, scritte da filosofi-economisti che dialogano con entrambe le grandi tradizioni.</span>
-      <span data-lang="en">These two recent works represent fundamental contributions to reflection on market, institutions and the good life, written by philosopher-economists who engage with both great traditions.</span>
-      <span data-lang="pt">Essas duas obras recentes representam contribui&#231;&#245;es fundamentais &#224; reflex&#227;o sobre mercado, institui&#231;&#245;es e vida boa, escritas por fil&#243;sofos-economistas que dialogam com as duas grandes tradi&#231;&#245;es.</span>
-    </p>
-    <div class="books">
-      <div class="book">
-        <div class="book-icon">&#128218;</div>
-        <div>
-          <p class="book-meta">Robert Sugden &#8212; 2018</p>
-          <h3 class="book-title">The Community of Advantage</h3>
-          <p class="book-author"><span data-lang="it">Economia, libert&#224; e cooperazione</span><span data-lang="en">Economics, liberty and cooperation</span><span data-lang="pt">Economia, liberdade e coopera&#231;&#227;o</span></p>
-          <p class="book-desc"><span data-lang="it">Sugden critica l&#8217;approccio paternalistico del &#171;nudge&#187; e difende una visione del mercato come <em>comunit&#224; di vantaggio reciproco</em>. Il punto di partenza non &#232; l&#8217;individuo isolato, ma persone che cooperano e contrattano. La libert&#224; di scelta &#232; un valore in s&#233;, non solo un mezzo per massimizzare l&#8217;utilit&#224;.</span><span data-lang="en">Sugden critiques the paternalistic nudge approach and defends a vision of the market as a <em>community of mutual advantage</em>. The starting point is not the isolated individual, but people cooperating and bargaining. Freedom of choice is a value in itself, not merely a means to maximize utility.</span><span data-lang="pt">Sugden critica a abordagem paternalista do nudge e defende uma vis&#227;o do mercado como <em>comunidade de vantagem m&#250;tua</em>. O ponto de partida n&#227;o &#233; o indiv&#237;duo isolado, mas pessoas que cooperam e negociam. A liberdade de escolha &#233; um valor em si mesma, n&#227;o apenas um meio para maximizar a utilidade.</span></p>
+    <!-- APPROFONDIMENTO: ECONOMIA CIVILE -->
+    <section class="section-home">
+      <p class="sec-label">Approfondimento</p>
+      <h2 class="sec-title">Economia Civile e San Francesco</h2>
+      <p class="sec-lead">Un percorso aggiuntivo sulle radici etiche dell&#8217;economia: dal pensiero medievale all&#8217;Economia Civile napoletana, da san Francesco ai movimenti contemporanei.</p>
+      <div id="eco-acc">
+        <div class="acc-item">
+          <button class="acc-head" onclick="toggleAcc(this)" aria-expanded="false">
+            <span>Che cos&#8217;&#232; l&#8217;Economia Civile?</span><span class="acc-arrow">&#9660;</span>
+          </button>
+          <div class="acc-body"><div class="acc-content">
+            <p>L&#8217;Economia Civile &#232; una tradizione di pensiero nata a Napoli nel Settecento con <strong>Antonio Genovesi</strong> (1713&#8211;1769), il primo professore di economia in Italia. La sua tesi: il mercato funziona bene quando le persone si comportano da <em>cittadini</em>, con fiducia reciproca e senso civico. Non basta l&#8217;interesse personale &#8212; servono reciprocit&#224; e cura del bene comune.</p>
+            <p>Questa tradizione &#232; rimasta ai margini per quasi due secoli, oscurata dall&#8217;economia anglosassone. &#200; stata riscoperta negli anni Novanta e oggi offre una delle prospettive pi&#249; innovative per ripensare il capitalismo dopo le crisi del XXI secolo.</p>
+          </div></div>
+        </div>
+        <div class="acc-item">
+          <button class="acc-head" onclick="toggleAcc(this)" aria-expanded="false">
+            <span>San Tommaso d&#8217;Aquino: giusto prezzo e bene comune</span><span class="acc-arrow">&#9660;</span>
+          </button>
+          <div class="acc-body"><div class="acc-content">
+            <p>Vissuto nel XIII secolo, Tommaso d&#8217;Aquino ha posto domande che sembrano scritte per oggi: cos&#8217;&#232; un prezzo giusto? La propriet&#224; privata pu&#242; avere dei limiti? Esiste un obbligo di condivisione per chi ha molto?</p>
+            <p>La sua risposta: la propriet&#224; privata &#232; legittima ma non assoluta. I beni della terra appartengono originariamente a tutti. Chi ha molto ha responsabilit&#224; verso chi ha poco. Questo principio &#8212; la <em>funzione sociale della propriet&#224;</em> &#8212; &#232; entrato in molte costituzioni democratiche, inclusa quella italiana (art.&nbsp;42).</p>
+          </div></div>
+        </div>
+        <div class="acc-item">
+          <button class="acc-head" onclick="toggleAcc(this)" aria-expanded="false">
+            <span>San Francesco d&#8217;Assisi: povert&#224;, fraternit&#224; e profezia</span><span class="acc-arrow">&#9660;</span>
+          </button>
+          <div class="acc-body"><div class="acc-content">
+            <p>A 800 anni dalla morte (1226&#8211;2026), il pensiero economico di Francesco d&#8217;Assisi risuona con sorprendente attualit&#224;. L&#8217;<em>Altissima Povert&#224;</em> francescana non &#232; miseria: &#232; la scelta di non possedere come condizione di libert&#224; totale. I frati non compravano, non vendevano, non accumulavano: ricevevano e davano come dono.</p>
+            <p>Nel <em>Cantico delle Creature</em> Francesco chiama il sole &#171;frate&#187;, la luna &#171;sora&#187;: tutto il creato &#232; famiglia. Questa visione di <em>fraternit&#224; universale</em> anticipa di secoli le preoccupazioni contemporanee su disuguaglianza, ambiente e limiti della crescita.</p>
+            <p>Oggi il movimento internazionale <strong>The Economy of Francesco</strong> (2020) riunisce migliaia di giovani economisti e imprenditori che si ispirano a questa tradizione per costruire un&#8217;economia pi&#249; giusta.</p>
+          </div></div>
+        </div>
+        <div class="acc-item">
+          <button class="acc-head" onclick="toggleAcc(this)" aria-expanded="false">
+            <span>Mappa del pensiero: da Aristotele a oggi</span><span class="acc-arrow">&#9660;</span>
+          </button>
+          <div class="acc-body"><div class="acc-content">
+            <p><strong>IV sec. a.C. &#8212; Aristotele</strong> distingue <em>oikonomia</em> (gestione saggia della casa e della citt&#224;) da <em>crematistica</em> (accumulazione senza fine di denaro). La seconda, dice, corrompe l&#8217;anima.</p>
+            <p><strong>XIII sec. &#8212; Tommaso d&#8217;Aquino</strong> sintetizza Aristotele e il Vangelo: mercato giusto, giusto prezzo, bene comune. La ricchezza deve servire tutti.</p>
+            <p><strong>1776 &#8212; Adam Smith</strong> propone la &#171;mano invisibile&#187;: l&#8217;interesse personale di ciascuno produce, quasi per magia, benessere collettivo. Un&#8217;idea potente e controversa.</p>
+            <p><strong>Oggi</strong> &#8212; Dopo la crisi del 2008 e la pandemia, molti economisti riscopronola tradizione dell&#8217;Economia Civile: un mercato che include reciprocit&#224;, fiducia e cura del bene comune come elementi essenziali, non optional.</p>
+          </div></div>
         </div>
       </div>
-      <div class="book">
-        <div class="book-icon">&#128218;</div>
-        <div>
-          <p class="book-meta">Francesco Guala &#8212; 2016</p>
-          <h3 class="book-title">Understanding Institutions</h3>
-          <p class="book-author"><span data-lang="it">La filosofia delle istituzioni sociali</span><span data-lang="en">The philosophy of social institutions</span><span data-lang="pt">A filosofia das institui&#231;&#245;es sociais</span></p>
-          <p class="book-desc"><span data-lang="it">Guala esplora cosa sono le istituzioni: il denaro, il matrimonio, la propriet&#224;, lo Stato. Esistono perch&#233; le persone credono che esistano e agiscono di conseguenza. Le istituzioni sono <em>regole del gioco</em> condivise che rendono possibile la cooperazione su larga scala.</span><span data-lang="en">Guala explores what institutions are: money, marriage, property, the State. They exist because people believe they exist and act accordingly. Institutions are shared <em>rules of the game</em> that make large-scale cooperation possible.</span><span data-lang="pt">Guala explora o que s&#227;o institui&#231;&#245;es: dinheiro, casamento, propriedade, o Estado. Existem porque as pessoas acreditam que existem e agem de acordo. As institui&#231;&#245;es s&#227;o <em>regras do jogo</em> compartilhadas que tornam poss&#237;vel a coopera&#231;&#227;o em larga escala.</span></p>
-        </div>
-      </div>
+    </section>
+
+  </div><!-- /wrap -->
+
+  <footer>
+    <p><strong>&#934; Etica &#8212; Percorso Didattico</strong></p>
+    <p>Filosofia morale per studenti &#8212; Etica &bull; Teorie &bull; Dilemmi &bull; Economia Civile</p>
+  </footer>
+</div><!-- /screen-home -->
+
+<!-- ═══════════════════════════════════════ MODULE ══ -->
+<div class="screen" id="screen-module">
+  <div class="mod-header" id="mod-header">
+    <div style="max-width:820px;margin:0 auto;padding:0 1.5rem">
+      <p class="mod-crumb" id="mod-crumb"></p>
+      <h2 class="mod-title" id="mod-title"></h2>
+      <p class="mod-lead" id="mod-lead"></p>
     </div>
-  </section>
-
-  <!-- 6. CINQUE PRINCIPI -->
-  <section>
-    <p class="sec-label"><span data-lang="it">Per ricordare</span><span data-lang="en">To remember</span><span data-lang="pt">Para lembrar</span></p>
-    <h2 class="sec-title"><span data-lang="it">Cinque Principi dell&#8217;Etica Economica</span><span data-lang="en">Five Principles of Economic Ethics</span><span data-lang="pt">Cinco Princ&#237;pios da &#201;tica Econ&#244;mica</span></h2>
-    <p class="sec-lead">
-      <span data-lang="it">Questi principi sintetizzano secoli di riflessione. Non sono risposte definitive, ma strumenti per pensare meglio le questioni economiche e sociali.</span>
-      <span data-lang="en">These principles synthesize centuries of reflection. They are not definitive answers, but tools for thinking more clearly about economic and social questions.</span>
-      <span data-lang="pt">Esses princ&#237;pios sintetizam s&#233;culos de reflex&#227;o. N&#227;o s&#227;o respostas definitivas, mas ferramentas para pensar melhor as quest&#245;es econ&#244;micas e sociais.</span>
-    </p>
-    <div class="principles">
-      <div class="principle"><p class="principle-num">01</p><h3><span data-lang="it">Reciprocit&#224;</span><span data-lang="en">Reciprocity</span><span data-lang="pt">Reciprocidade</span></h3><p><span data-lang="it">Gli scambi che durano nel tempo si fondano su un dare e ricevere equilibrato. Non basta l&#8217;interesse personale: la fiducia reciproca &#232; il vero motore delle economie sane.</span><span data-lang="en">Exchanges that endure over time are founded on balanced giving and receiving. Self-interest alone is not enough: mutual trust is the true engine of healthy economies.</span><span data-lang="pt">As trocas que duram no tempo se fundam em um dar e receber equilibrado. O interesse pr&#243;prio sozinho n&#227;o basta: a confian&#231;a m&#250;tua &#233; o verdadeiro motor das economias saud&#225;veis.</span></p></div>
-      <div class="principle"><p class="principle-num">02</p><h3><span data-lang="it">Bene Comune</span><span data-lang="en">Common Good</span><span data-lang="pt">Bem Comum</span></h3><p><span data-lang="it">Il bene comune non &#232; la somma degli interessi individuali, ma il fiorire dell&#8217;intera comunit&#224;. Una societ&#224; prospera &#232; quella in cui ognuno pu&#242; svilupparsi pienamente come persona.</span><span data-lang="en">The common good is not the sum of individual interests, but the flourishing of the entire community. A prosperous society is one in which everyone can develop fully as a person.</span><span data-lang="pt">O bem comum n&#227;o &#233; a soma dos interesses individuais, mas o florescimento de toda a comunidade. Uma sociedade pr&#243;spera &#233; aquela em que cada um pode se desenvolver plenamente como pessoa.</span></p></div>
-      <div class="principle"><p class="principle-num">03</p><h3><span data-lang="it">Giustizia</span><span data-lang="en">Justice</span><span data-lang="pt">Justi&#231;a</span></h3><p><span data-lang="it">Dare a ciascuno ci&#242; che gli &#232; dovuto. La giustizia &#232; una virt&#249; personale prima ancora che una norma: richiede persone disposte ad agire in modo equo anche quando non ci sono controlli.</span><span data-lang="en">Giving each person what is due to them. Justice is a personal virtue before it is a norm: it requires people willing to act fairly even when there are no controls.</span><span data-lang="pt">Dar a cada pessoa o que lhe &#233; devido. A justi&#231;a &#233; uma virtude pessoal antes de ser uma norma: requer pessoas dispostas a agir de forma justa mesmo quando n&#227;o h&#225; controles.</span></p></div>
-      <div class="principle"><p class="principle-num">04</p><h3><span data-lang="it">Limiti del Mercato</span><span data-lang="en">Limits of the Market</span><span data-lang="pt">Limites do Mercado</span></h3><p><span data-lang="it">Non tutto pu&#242; e deve avere un prezzo. Alcune dimensioni della vita &#8212; l&#8217;amicizia, la cura, la dignit&#224;, la democrazia &#8212; perdono valore se mercificate.</span><span data-lang="en">Not everything can or should have a price. Some dimensions of life &#8212; friendship, care, dignity, democracy &#8212; lose value if commodified.</span><span data-lang="pt">Nem tudo pode e deve ter um pre&#231;o. Algumas dimens&#245;es da vida &#8212; amizade, cuidado, dignidade, democracia &#8212; perdem valor se mercantilizadas.</span></p></div>
-      <div class="principle"><p class="principle-num">05</p><h3><span data-lang="it">Felicit&#224; Civile</span><span data-lang="en">Civil Happiness</span><span data-lang="pt">Felicidade Civil</span></h3><p><span data-lang="it">La felicit&#224; autentica &#232; relazionale: fiorisce nella vita condivisa, nell&#8217;impegno civile, nella cura reciproca. Costruire una buona economia significa costruire le condizioni perch&#233; questa felicit&#224; sia accessibile a tutti.</span><span data-lang="en">Authentic happiness is relational: it flourishes in shared life, civic engagement, mutual care. Building a good economy means building the conditions for this happiness to be accessible to all.</span><span data-lang="pt">A felicidade aut&#234;ntica &#233; relacional: floresce na vida compartilhada, no engajamento c&#237;vico, no cuidado m&#250;tuo. Construir uma boa economia significa construir as condi&#231;&#245;es para que essa felicidade seja acess&#237;vel a todos.</span></p></div>
+  </div>
+  <div class="mod-body" id="mod-body">
+    <!-- rendered by JS -->
+  </div>
+  <div style="max-width:820px;margin:0 auto;padding:0 1.5rem">
+    <div class="mod-nav-row" id="mod-nav-row">
+      <button class="btn btn-outline" id="btn-prev" onclick="prevModule()">&#8592; Precedente</button>
+      <span id="mod-counter" style="font-size:.8rem;color:var(--fa)"></span>
+      <button class="btn btn-primary" id="btn-next" onclick="nextModule()">Successivo &#8594;</button>
     </div>
-  </section>
-
-</main>
-
-<footer>
-  <p><strong>Etica &amp; Economia Civile</strong></p>
-  <p>
-    <span data-lang="it">Percorso divulgativo di filosofia economica ed etica sociale &#8212; Economia Civile, Pensiero Tomista, Political Economy, Meritocrazia, Istituzioni.</span>
-    <span data-lang="en">Popular guide to economic philosophy and social ethics &#8212; Civil Economy, Thomistic Thought, Political Economy, Meritocracy, Institutions.</span>
-    <span data-lang="pt">Guia divulgativo de filosofia econ&#244;mica e &#233;tica social &#8212; Economia Civil, Pensamento Tomista, Economia Pol&#237;tica, Meritocracia, Institui&#231;&#245;es.</span>
-  </p>
-</footer>
+  </div>
+  <footer style="margin-top:3rem">
+    <p><strong>&#934; Etica &#8212; Percorso Didattico</strong></p>
+  </footer>
+</div><!-- /screen-module -->
 
 <script>
-  var brands = { it:'Etica & Economia Civile', en:'Ethics & Civil Economy', pt:'Ética & Economia Civil' };
-  var currentLang = 'it';
+/* ═══════════════════════════════════════════════════
+   DATI DEL PERCORSO
+═══════════════════════════════════════════════════ */
 
-  function setLang(l) {
-    currentLang = l;
-    document.documentElement.lang = l;
-    document.getElementById('brand').textContent = brands[l];
-    document.title = brands[l];
-    var all = document.querySelectorAll('[data-lang]');
-    for (var i = 0; i < all.length; i++) {
-      var el = all[i];
-      var tag = el.tagName.toLowerCase();
-      var isBlock = (tag === 'p' || tag === 'div' || tag === 'section' || tag === 'li');
-      if (el.getAttribute('data-lang') === l) {
-        el.style.display = isBlock ? 'block' : 'inline';
-      } else {
-        el.style.display = 'none';
-      }
-    }
-    var btns = document.querySelectorAll('.lang-btn');
-    var langs = ['it','en','pt'];
-    for (var j = 0; j < btns.length; j++) {
-      btns[j].classList.toggle('active', langs[j] === l);
-    }
+var MODULES = [
+  /* ─── MODULO 1: CHE COS'È L'ETICA ─── */
+  {
+    id:'m1', icon:'&#129300;', num:1,
+    title:'Che cos\'&#232; l\'etica',
+    lead:'Le domande fondamentali della filosofia morale e perch&#233; studiarla oggi.',
+    sections:[
+      {type:'bigq', text:'&#200; possibile sapere con certezza cosa &#232; giusto e cosa &#232; sbagliato?'},
+      {type:'concepts', label:'Concetti chiave', items:[
+        {term:'Etica',def:'La parte della filosofia che studia il bene, il male, i valori morali e i criteri per agire correttamente. &#200; una riflessione <em>razionale</em> su come dovremmo vivere.'},
+        {term:'Morale',def:'L\'insieme delle norme e dei valori condivisi da una persona o comunit&#224;. La morale cambia nel tempo e tra culture diverse. L\'etica le studia criticamente.'},
+        {term:'Legge',def:'Le norme stabilite dallo Stato. Una cosa pu&#242; essere legale ma non etica (vendere sigarette &#232; legale) &#8212; oppure etica ma illegale (nascondere perseguitati era illegale sotto il nazismo).'},
+        {term:'Costume',def:'Le abitudini e tradizioni di un gruppo. Non coincidono sempre con ci&#242; che &#232; giusto: un tempo i duelli erano considerati "onorevoli".'}
+      ]},
+      {type:'case', label:'Caso concreto', title:'Una domanda difficile',
+       text:'Un tuo amico ha copiato durante una verifica. L\'insegnante ti chiede direttamente se sai qualcosa. Il tuo amico ti ha chiesto di non dire niente. Che cosa fai?'},
+      {type:'analysis', label:'Analisi guidata', questions:[
+        'Chi &#232; coinvolto? Elenca tutti i soggetti e le loro aspettative.',
+        'Quali valori entrano in conflitto? (es. lealt&#224; vs. onest&#224; vs. giustizia)',
+        'Quali conseguenze produce ogni scelta possibile &#8212; a breve e a lungo termine?',
+        'Esiste una risposta "giusta" per tutti, o dipende dal contesto?',
+        'Come cambierebbe la tua risposta se il tuo amico rischiasse di essere bocciato?'
+      ]},
+      {type:'acc', label:'Perch&#233; studiare etica oggi?', items:[
+        {q:'Non basta seguire la legge?',
+         a:'La legge stabilisce i minimi. Ma molte scelte importanti &#8212; come trattare un collega, cosa postare sui social, come consumare &#8212; non sono regolate da nessuna legge. L\'etica ci aiuta a orientarci in questi spazi di libert&#224;.'},
+        {q:'L\'etica non &#232; solo opinione?',
+         a:'Le opinioni etiche si possono argomentare, confrontare, migliorare. Non sono come i gusti alimentari ("mi piace il cioccolato"). Un\'argomentazione etica si pu&#242; valutare: &#232; coerente? Considera tutte le persone coinvolte? Resiste alle obiezioni?'},
+        {q:'Perch&#233; &#232; difficile?',
+         a:'Perch&#233; in molte situazioni pi&#249; valori importanti entrano in conflitto. Non si tratta di scegliere tra bene e male &#8212; spesso si tratta di scegliere tra due beni che non possiamo avere entrambi contemporaneamente.'}
+      ]},
+      {type:'miniquiz', label:'Metti alla prova', qid:'q1', qs:[
+        {q:'Quale termine indica la riflessione <em>razionale</em> sui criteri per agire correttamente?',
+         opts:['Etica','Costume','Legge','Morale'], ans:0,
+         fb:'L\'etica &#232; la disciplina filosofica che studia razionalmente i criteri morali. La morale &#232; l\'insieme dei valori vissuti; la legge &#232; la norma giuridica; il costume &#232; la tradizione sociale.'},
+        {q:'Una cosa pu&#242; essere legale ma non etica?',
+         opts:['No, ci&#242; che &#232; legale &#232; sempre etico','S&#236;, la legge &#232; distinta dall\'etica','S&#236;, ma solo in casi rarissimi','No, la legge riflette sempre l\'etica'],
+         ans:1,
+         fb:'Legge ed etica sono sfere distinte. Molte cose legali sono eticamente discutibili; alcune cose illegali (come aiutare un perseguitato) possono essere eticamente giuste.'},
+        {q:'Quando due valori importanti entrano in conflitto, l\'etica offre...',
+         opts:['Una risposta matematica e certa','Strumenti per argomentare e confrontare scelte','Un manuale di regole valide sempre','La risposta della maggioranza'],
+         ans:1,
+         fb:'L\'etica non d&#224; risposte matematiche. Ci d&#224; strumenti &#8212; teorie, distinzioni, domande &#8212; per argomentare meglio, non per eliminare la difficolt&#224;.'}
+      ]}
+    ]
+  },
+
+  /* ─── MODULO 2: TEORIE ETICHE ─── */
+  {
+    id:'m2', icon:'&#9878;&#65038;', num:2,
+    title:'Le grandi teorie etiche',
+    lead:'Cinque modi diversi di rispondere alla stessa domanda: come devo agire?',
+    sections:[
+      {type:'bigq', text:'Come posso decidere se una mia azione &#232; giusta? Dipende dalle conseguenze, dalle regole, dalla persona che voglio essere &#8212; o dalle relazioni che ho?'},
+      {type:'theories', label:'Le cinque teorie', items:[
+        {cls:'tc-util', icon:'&#9878;&#65038;', name:'Utilitarismo',
+         authors:'Bentham, Mill (XIX sec.)',
+         guide:'Quale scelta produce il maggior benessere per il maggior numero?',
+         short:'Un\'azione &#232; giusta se massimizza la felicit&#224; complessiva. Le conseguenze sono tutto.',
+         detail:'Fondato da Jeremy Bentham e John Stuart Mill nell\'Ottocento, l\'utilitarismo valuta le azioni esclusivamente in base ai loro effetti. Prima di agire, devi calcolare: chi viene coinvolto? Quale scelta riduce la sofferenza e aumenta il benessere del maggior numero di persone? Nessuna azione &#232; intrinsecamente buona o cattiva &#8212; dipende dagli effetti.<br><br><em>Forza</em>: ci obbliga a considerare tutti, non solo noi stessi.<br><em>Limite</em>: pu&#242; giustificare di far del male a una persona se questo benefica molte. Sacrificare l\'innocente per il bene comune?',
+         example:'Dovrei dire una bugia per proteggere il mio amico? S&#236;, se le conseguenze complessive sono migliori.'},
+        {cls:'tc-deon', icon:'&#128214;', name:'Deontologia',
+         authors:'Kant (XVIII sec.)',
+         guide:'Quale dovere devo rispettare, indipendentemente dalle conseguenze?',
+         short:'Esistono doveri morali assoluti. Alcune azioni sono sempre sbagliate, qualunque sia il risultato.',
+         detail:'Immanuel Kant credeva che la morale non dipendesse dalle conseguenze, ma dalla <em>ragione</em>. Il suo imperativo categorico dice: agisci solo secondo una regola che potresti volere valesse per tutti. Non mentire &#8212; nemmeno per una buona causa &#8212; perch&#233; se tutti mentissero quando gli conviene, la fiducia umana crollerebbe.<br><br><em>Forza</em>: protegge i diritti individuali anche quando la maggioranza vorrebbe violarli.<br><em>Limite</em>: pu&#242; sembrare rigida &#8212; non mentire nemmeno per salvare una vita?',
+         example:'Dovrei dire una bugia per proteggere il mio amico? No. Mentire viola sempre un dovere morale fondamentale.'},
+        {cls:'tc-virt', icon:'&#127775;', name:'Etica delle Virt&#249;',
+         authors:'Aristotele (IV sec. a.C.)',
+         guide:'Che tipo di persona voglio essere? Che cosa farebbe una persona virtuosa?',
+         short:'Il centro della morale non &#232; l\'azione singola, ma il <em>carattere</em>: l\'insieme delle virt&#249; che rendono una persona buona.',
+         detail:'Aristotele pensava che la morale non fosse una lista di regole, ma una questione di <em>carattere</em>. La persona giusta non &#232; quella che segue la legge per paura, ma quella che ha fatto della giustizia un\'abitudine &#8212; una virt&#249;. Le virt&#249; principali sono: coraggio, giustizia, prudenza, temperanza.<br><br><em>Forza</em>: valorizza la formazione del carattere e l\'educazione morale.<br><em>Limite</em>: chi decide quali sono le virt&#249; giuste? E come agire in situazioni completamente nuove?',
+         example:'Dovrei dire una bugia per proteggere il mio amico? Dipende: una persona leale ma anche onesta cercherebbe una via che rispetti entrambi i valori.'},
+        {cls:'tc-cura', icon:'&#129309;', name:'Etica della Cura',
+         authors:'Gilligan, Noddings (XX sec.)',
+         guide:'Come posso prendermi cura delle relazioni e delle persone vulnerabili coinvolte?',
+         short:'La morale parte dalle relazioni concrete di dipendenza e cura, non da principi astratti.',
+         detail:'Carol Gilligan e Nel Noddings svilupparono questa teoria negli anni Ottanta come critica ai sistemi etici astratti. L\'etica della cura dice: la morale nasce dalle relazioni. Non siamo individui isolati che calcolano doveri &#8212; siamo esseri in relazione, vulnerabili, dipendenti gli uni dagli altri. La domanda giusta &#232;: come posso prendermi cura di tutte le persone coinvolte?<br><br><em>Forza</em>: d&#224; voce alle relazioni, all\'empatia, ai bisogni specifici delle persone concrete.<br><em>Limite</em>: rischia di privilegiare chi ci &#232; vicino rispetto agli sconosciuti.',
+         example:'Dovrei dire una bugia per proteggere il mio amico? Forse &#8212; ma prima parlerei con l\'amico per trovare insieme una soluzione che rispetti la relazione.'},
+        {cls:'tc-cont', icon:'&#129309;', name:'Contrattualismo',
+         authors:'Hobbes, Locke, Rawls (XVII-XX sec.)',
+         guide:'Su quale principio tutti potrebbero ragionevolmente essere d\'accordo?',
+         short:'Le norme morali sono quelle che esseri razionali sceglierebbero dietro un "velo di ignoranza".',
+         detail:'John Rawls (1971) propose un esperimento mentale: immagina di dover scegliere le regole della societ&#224; senza sapere quale posizione occuperai &#8212; ricco o povero, sano o malato, uomo o donna. Che regole sceglieresti? Probabilmente quelle pi&#249; giuste per tutti, perch&#233; potresti essere chiunque.<br><br><em>Forza</em>: produce princip&#236; di giustizia imparziali, attenti alle posizioni pi&#249; vulnerabili.<br><em>Limite</em>: si basa su un\'astrazione: nella realt&#224; non siamo mai dietro un "velo di ignoranza".',
+         example:'Dovrei dire una bugia per proteggere il mio amico? Dipende: quale regola vorrei valesse per tutti, indipendentemente da chi sono?'}
+      ]},
+      {type:'comp-table', label:'Confronto tra teorie',
+       headers:['Teoria','Domanda guida','Criterio dell\'azione giusta','Limite principale'],
+       rows:[
+         ['Utilitarismo','Quanta felicit&#224; produco?','Massimizzare il benessere del maggior numero','Pu&#242; sacrificare l\'individuo per il gruppo'],
+         ['Deontologia','Qual &#232; il mio dovere?','Rispettare regole morali assolute','Pu&#242; essere rigida di fronte a situazioni complesse'],
+         ['Virt&#249;','Che persona voglio essere?','Agire come una persona di buon carattere','Chi definisce le virt&#249;?'],
+         ['Cura','Come mi prendo cura?','Mantenere relazioni e rispondere ai bisogni','Pu&#242; privilegiare chi ci &#232; vicino'],
+         ['Contrattualismo','Su cosa potremmo accordarci?','Principi accettabili da tutti in condizioni eque','Dipende da un\'astrazione irreale']
+       ]},
+      {type:'miniquiz', label:'Metti alla prova', qid:'q2', qs:[
+        {q:'Quale teoria valuta le azioni esclusivamente in base alle <em>conseguenze</em>?',
+         opts:['Deontologia','Utilitarismo','Etica della cura','Etica delle virt&#249;'], ans:1,
+         fb:'L\'utilitarismo (Bentham, Mill) misura la moralit&#224; di un\'azione dai suoi effetti: &#232; giusta se massimizza il benessere complessivo.'},
+        {q:'"Agisci solo secondo una massima che potresti volere diventi legge universale" &#232; di:',
+         opts:['Aristotele','John Stuart Mill','Immanuel Kant','Carol Gilligan'], ans:2,
+         fb:'&#200; l\'<em>imperativo categorico</em> di Kant, il principio fondamentale della deontologia.'},
+        {q:'L\'etica della cura si concentra principalmente su:',
+         opts:['I doveri verso lo Stato','Il calcolo delle conseguenze','Le relazioni e i bisogni concreti delle persone','Le virt&#249; del carattere'],
+         ans:2,
+         fb:'L\'etica della cura (Gilligan, Noddings) parte dall\'idea che siamo esseri in relazione e che la morale nasce dall\'attenzione ai bisogni specifici delle persone con cui siamo in relazione.'}
+      ]}
+    ]
+  },
+
+  /* ─── MODULO 3: DILEMMI MORALI ─── */
+  {
+    id:'m3', icon:'&#128260;', num:3,
+    title:'Dilemmi morali',
+    lead:'Leggi il caso, scegli un\'opzione, scopri quale teoria si allinea alla tua scelta &#8212; e quali valori entrano in conflitto.',
+    sections:[
+      {type:'bigq', text:'Un dilemma morale &#232; una situazione in cui nessuna scelta &#232; perfetta: qualunque cosa tu faccia, qualcosa di valore verr&#224; sacrificato. Come si decide?'},
+      {type:'simulator'}
+    ]
+  },
+
+  /* ─── MODULO 4: QUIZ FINALE ─── */
+  {
+    id:'m4', icon:'&#9989;', num:4,
+    title:'Quiz finale',
+    lead:'Metti alla prova tutto ci&#242; che hai imparato. 8 domande su etica, teorie e dilemmi.',
+    sections:[
+      {type:'finalquiz'}
+    ]
   }
+];
 
-  function toggleTheme() {
-    var isDark = document.body.getAttribute('data-theme') === 'dark';
-    var next = isDark ? 'light' : 'dark';
-    document.body.setAttribute('data-theme', next);
-    document.getElementById('theme-btn').textContent = next === 'dark' ? '☼' : '☂';
-    try { localStorage.setItem('theme', next); } catch(e){}
+/* ─── DILEMMI ──────────────────────────────── */
+var DILEMMAS = [
+  {
+    id:'d1', title:'Il dilemma del carrello',
+    icon:'&#128739;',
+    scenario:'Un carrello ferroviario fuori controllo sta per travolgere cinque operai legati ai binari. Tu sei vicino a una leva: tirandola, il carrello devier&#224; su un binario laterale dove c\'&#232; un solo operaio. Non agire significa cinque morti; agire significa causare la morte di una persona. Cosa fai?',
+    prompt:'Quale scelta fai?',
+    options:[
+      {text:'Tiro la leva: cinque vite salvate valgono pi&#249; di una.',
+       theory:'util', badge:'Scelta utilitarista',
+       feedback:'Il calcolo utilitarista dice: massimizza il benessere del maggior numero. Cinque vite pesano pi&#249; di una. Questa logica &#232; intuitivamente potente &#8212; ma c\'&#232; un problema: stai deliberatamente causando la morte di una persona innocente. &#200; la stessa cosa di "lasciarla morire per inazione"?',
+       values:{liberta:1,giustizia:2,responsabilita:3,benessere:3,verita:1,solidarieta:2}},
+      {text:'Non agisco: non &#232; mio compito decidere chi vive e chi muore.',
+       theory:'deon', badge:'Scelta deontologica',
+       feedback:'Una posizione deontologica pu&#242; portare a non intervenire: Kant direbbe che non &#232; lecito usare deliberatamente una persona come mezzo &#8212; nemmeno per salvarne cinque. C\'&#232; una differenza morale tra causare attivamente una morte e non impedire una morte che stava gi&#224; avvenendo.',
+       values:{liberta:2,giustizia:2,responsabilita:1,benessere:1,verita:2,solidarieta:1}},
+      {text:'Cerco un\'altra soluzione &#8212; urlo, cerco di fermare il carrello in altro modo.',
+       theory:'cura', badge:'Scelta dell\'etica della cura',
+       feedback:'L\'etica della cura rifiuta la logica del dilemma come "falsa": nella realt&#224; quasi sempre esistono pi&#249; opzioni di quelle presentate. La priorit&#224; &#232; prendersi cura di tutti, cercando vie creative invece di accettare passivamente la scelta tra una morte e cinque.',
+       values:{liberta:2,giustizia:2,responsabilita:3,benessere:2,verita:2,solidarieta:3}}
+    ],
+    highlight:['responsabilita','benessere','giustizia']
+  },
+  {
+    id:'d2', title:'Mentire per proteggere',
+    icon:'&#129300;',
+    scenario:'Il tuo migliore amico &#232; fuggito di casa dopo una lite grave con i genitori. Ti chiede di non dire niente a nessuno. Il giorno dopo i suoi genitori, disperati, ti chiedono dove &#232; andato. Sai dove si trova. Cosa fai?',
+    prompt:'Come ti comporti?',
+    options:[
+      {text:'Dico la verita: i suoi genitori hanno diritto di sapere e lui &#232; al sicuro.',
+       theory:'deon', badge:'Scelta deontologica',
+       feedback:'La deontologia valorizza la verit&#224; come dovere: mentire o tacere deliberatamente viola un principio fondamentale. Inoltre, i genitori hanno una responsabilit&#224; legale e morale verso il figlio minorenne. Dire la verit&#224; rispetta queste obbligazioni.',
+       values:{liberta:1,giustizia:2,responsabilita:3,benessere:2,verita:3,solidarieta:1}},
+      {text:'Non dico niente: ho promesso al mio amico e devo rispettare la sua fiducia.',
+       theory:'cura', badge:'Scelta dell\'etica della cura',
+       feedback:'L\'etica della cura privilegia la relazione di fiducia: tradire un segreto dell\'amico pu&#242; distruggere un legame fondamentale. La promessa fatta &#232; un vincolo morale reale. Tuttavia, si potrebbe anche cercare di convincere l\'amico a farsi vivo da solo.',
+       values:{liberta:3,giustizia:1,responsabilita:2,benessere:2,verita:1,solidarieta:3}},
+      {text:'Chiamo prima il mio amico per convincerlo a chiamare i genitori, poi decido.',
+       theory:'virt', badge:'Scelta dell\'etica delle virt&#249;',
+       feedback:'Una persona prudente e leale cerca una via che rispetti tutti i valori in gioco: la fiducia dell\'amico, la verit&#224; dovuta ai genitori, la sicurezza di tutti. Prima di agire, usa la <em>prudenza</em> &#8212; la virt&#249; aristotelica del saper scegliere il mezzo giusto nella situazione concreta.',
+       values:{liberta:2,giustizia:2,responsabilita:3,benessere:3,verita:2,solidarieta:3}}
+    ],
+    highlight:['verita','solidarieta','responsabilita']
+  },
+  {
+    id:'d3', title:'L\'IA decide',
+    icon:'&#129302;',
+    scenario:'Un algoritmo di intelligenza artificiale seleziona i candidati per un lavoro. &#200; pi&#249; veloce ed "obiettivo" di un esaminatore umano. Per&#242;: i dati su cui &#232; stato addestrato vengono da 20 anni di assunzioni passate, in cui le donne e le minoranze erano sistematicamente svantaggiate. L\'algoritmo riproduce questi pregiudizi. Sei il responsabile HR: cosa fai?',
+    prompt:'Qual &#232; la tua scelta?',
+    options:[
+      {text:'Mantengo l\'algoritmo: &#232; oggettivo e pi&#249; efficiente degli esseri umani.',
+       theory:'util', badge:'Scelta utilitarista (problematica)',
+       feedback:'L\'argomento dell\'efficienza &#232; utilitarista, ma trascura le conseguenze a lungo termine: l\'algoritmo perpetua disuguaglianze sistemiche, escludendo gruppi gi&#224; svantaggiati. Un utilitarismo corretto dovrebbe calcolare anche questi effetti &#8212; e concludere che la scelta non massimizza il benessere complessivo.',
+       values:{liberta:1,giustizia:1,responsabilita:1,benessere:2,verita:2,solidarieta:1}},
+      {text:'Sospendo l\'algoritmo fino a quando non &#232; stato ri-addestrato su dati equi.',
+       theory:'deon', badge:'Scelta deontologica/contrattualista',
+       feedback:'Rawls direbbe: quale sistema sceglieresti se non sapessi se sarai il candidato avvantaggiato o quello discriminato? Sicuramente uno equo. Un sistema che discrimina sistematicamente viola princip&#236; di giustizia che nessuno accetterebbe dietro un "velo di ignoranza".',
+       values:{liberta:2,giustizia:3,responsabilita:3,benessere:2,verita:3,solidarieta:2}},
+      {text:'Uso l\'algoritmo come primo filtro, ma aggiungo una revisione umana che corregge i bias.',
+       theory:'virt', badge:'Scelta pragmatica e virtuosa',
+       feedback:'La prudenza aristotelica cerca il giusto mezzo: n&#233; rifiutare l\'innovazione tecnologica, n&#233; affidarsi ciecamente a essa. L\'algoritmo pu&#242; essere utile, ma la responsabilit&#224; della decisione finale resta umana. Una persona giusta usa gli strumenti senza delegare ad essi la propria coscienza morale.',
+       values:{liberta:2,giustizia:3,responsabilita:3,benessere:3,verita:2,solidarieta:3}}
+    ],
+    highlight:['giustizia','responsabilita','liberta']
+  },
+  {
+    id:'d4', title:'Mercato e fraternit&#224;',
+    icon:'&#127756;',
+    scenario:'Sei proprietario di un piccolo bar in un quartiere popolare. Hai l\'opportunit&#224; di triplicare il tuo guadagno affittando il locale a una catena internazionale di caff&#232;. Questo significherebbe: pi&#249; soldi per te, ma anche: licenziare i tuoi tre dipendenti, aumentare i prezzi nel quartiere e contribuire alla "gentrificazione" del quartiere. Cosa fai?',
+    prompt:'Cosa scegli?',
+    options:[
+      {text:'Accetto l\'offerta: &#232; il mercato. Ognuno pensa ai propri interessi.',
+       theory:'util', badge:'Logica del mercato (Political Economy)',
+       feedback:'Questa &#232; la logica della <em>Political Economy</em> anglosassone: ogni agente segue il proprio interesse, e il mercato produce benessere complessivo come "mano invisibile". Adam Smith la descrisse come naturale. Per&#242;: &#232; davvero neutrale? Chi paga il prezzo del tuo guadagno?',
+       values:{liberta:3,giustizia:1,responsabilita:1,benessere:2,verita:1,solidarieta:1}},
+      {text:'Rifiuto: la mia impresa ha radici nel quartiere. Il profitto non &#232; l\'unico valore.',
+       theory:'eco', badge:'Scelta dell\'Economia Civile',
+       feedback:'Questa &#232; la risposta dell\'<em>Economia Civile</em>: il mercato funziona bene quando include reciprocit&#224;, fiducia e cura del bene comune. L\'imprenditore non &#232; solo un massimizzatore di profitto &#8212; &#232; un membro di una comunit&#224; con responsabilit&#224; verso di essa. Antonio Genovesi chiamava questo la "pubblica felicit&#224;".',
+       values:{liberta:1,giustizia:3,responsabilita:3,benessere:2,verita:2,solidarieta:3}},
+      {text:'Tratto con la catena per ottenere: una quota per i dipendenti, prezzi calmierati, partecipazione agli utili.',
+       theory:'cont', badge:'Scelta contrattualista',
+       feedback:'Il contrattualismo cerca regole che tutti possano accettare. Negoziare condizioni che proteggano i pi&#249; vulnerabili (dipendenti, residenti del quartiere) &#232; un modo per applicare il "velo di ignoranza" di Rawls: se non sapessi se saresti il proprietario, il dipendente o il cliente, vorresti un accordo equo.',
+       values:{liberta:2,giustizia:3,responsabilita:3,benessere:3,verita:2,solidarieta:3}}
+    ],
+    highlight:['solidarieta','giustizia','responsabilita']
   }
+];
 
-  function toggleAcc(btn) {
-    var isOpen = btn.getAttribute('aria-expanded') === 'true';
-    var all = document.querySelectorAll('.acc-head');
-    for (var i = 0; i < all.length; i++) {
-      all[i].setAttribute('aria-expanded','false');
-      all[i].nextElementSibling.classList.remove('open');
-    }
-    if (!isOpen) {
-      btn.setAttribute('aria-expanded','true');
-      btn.nextElementSibling.classList.add('open');
-    }
+var VALUE_LABELS = ['liberta','giustizia','responsabilita','benessere','verita','solidarieta'];
+var VALUE_DISPLAY = {liberta:'libertà',giustizia:'giustizia',responsabilita:'responsabilità',benessere:'benessere',verita:'verità',solidarieta:'solidarietà'};
+
+var THEORY_BADGES = {
+  util:{cls:'fb-util', label:'Utilitarismo'},
+  deon:{cls:'fb-deon', label:'Deontologia'},
+  virt:{cls:'fb-virt', label:'Etica delle Virt&#249;'},
+  cura:{cls:'fb-cura', label:'Etica della Cura'},
+  cont:{cls:'fb-cont', label:'Contrattualismo'},
+  eco:{cls:'fb-util', label:'Economia Civile'}
+};
+
+/* ─── QUIZ FINALE ──────────────────────────── */
+var FINAL_QUIZ = [
+  {q:'Qual &#232; la definizione pi&#249; precisa di "etica"?',
+   opts:['L\'insieme delle leggi di uno Stato','La riflessione filosofica razionale su valori morali e criteri per agire bene','Le tradizioni e i costumi di una comunit&#224;','Le norme religiose di un gruppo'],
+   ans:1, fb:'L\'etica &#232; una disciplina filosofica: studia razionalmente il bene, il male e come dovremmo agire. La legge, il costume e la religione sono sfere distinte &#8212; spesso collegate, ma non identiche.'},
+  {q:'Quale affermazione descrive meglio l\'utilitarismo?',
+   opts:['Le azioni sono giuste se rispettano doveri assoluti','Un\'azione &#232; giusta se massimizza il benessere del maggior numero','La morale dipende dal carattere virtuoso della persona','Le norme morali nascono dalle relazioni di cura'],
+   ans:1, fb:'L\'utilitarismo (Bentham, Mill) valuta le azioni in base alle conseguenze: &#232; giusta l\'azione che produce il maggior benessere per il maggior numero di persone coinvolte.'},
+  {q:'Kant sosteneva che le azioni morali devono seguire doveri:',
+   opts:['Che cambiano a seconda delle conseguenze','Assoluti e universalizzabili, indipendentemente dagli effetti','Stabiliti dalla maggioranza democratica','Derivati dall\'etica della cura e delle relazioni'],
+   ans:1, fb:'La deontologia kantiana: agisci solo secondo una massima che potresti volere diventi legge per tutti. I doveri morali non dipendono dai risultati.'},
+  {q:'Nel dilemma del carrello, chi predilige la regola "non usare mai una persona come mezzo" appartiene a quale teoria?',
+   opts:['Utilitarismo','Contrattualismo','Etica della cura','Deontologia'],
+   ans:3, fb:'La deontologia di Kant vieta di usare un essere umano come semplice strumento, anche per salvarne altri. Non tiro la leva perch&#233; non &#232; moralmente lecito causare deliberatamente una morte, anche per un fine buono.'},
+  {q:'L\'Economia Civile napoletana (Antonio Genovesi) sostiene che il mercato funziona bene quando si basa su:',
+   opts:['Solo sull\'interesse personale di ciascuno','Reciprocit&#224;, fiducia e cura del bene comune','L\'intervento diretto dello Stato in ogni scambio','Il massimo profitto individuale'],
+   ans:1, fb:'Genovesi, primo professore di economia in Italia (XVIII sec.), vedeva il mercato come spazio di relazioni civili. La sua tesi: senza reciprocit&#224; e senso civico, il mercato non funziona bene nel lungo periodo.'},
+  {q:'L\'esperimento mentale del "velo di ignoranza" &#232; associato a quale filosofo e quale teoria?',
+   opts:['Aristotele &#8212; Etica delle virt&#249;','Kant &#8212; Deontologia','John Rawls &#8212; Contrattualismo','Carol Gilligan &#8212; Etica della cura'],
+   ans:2, fb:'John Rawls nel 1971 propose di scegliere le regole della societ&#224; immaginando di non sapere quale posizione si occuper&#224; &#8212; ricco o povero, uomo o donna. Questo garantisce imparzialit&#224;.'},
+  {q:'Quale termine indica le abitudini di un gruppo che non coincidono necessariamente con ci&#242; che &#232; moralmente giusto?',
+   opts:['Etica','Diritto','Costume','Virt&#249;'],
+   ans:2, fb:'Il "costume" indica le tradizioni e le abitudini di una comunit&#224;. Non coincidono sempre con l\'etica: in passato molte pratiche accettate come costume (schiavit&#249;, discriminazioni) erano moralmente sbagliate.'},
+  {q:'Un algoritmo di selezione del personale addestrato su dati storici discriminatori. Un utilitarista <em>corretto</em> dovrebbe:',
+   opts:['Mantenerlo perch&#233; &#232; pi&#249; efficiente','Sospenderlo: perpetua disuguaglianze, peggiorando il benessere complessivo','Ignorare il problema: &#232; responsabilit&#224; dei programmatori','Usarlo solo per i candidati maschi'],
+   ans:1, fb:'Un utilitarismo corretto considera <em>tutte</em> le conseguenze, incluse quelle a lungo termine sulle disuguaglianze. Un algoritmo che discrimina sistematicamente non massimizza il benessere complessivo &#8212; anche se sembra efficiente nel breve.'}
+];
+</script>
+
+<script>
+/* ═══════════════════════════════════════════════════
+   STATE
+═══════════════════════════════════════════════════ */
+var S = {
+  mod: 0,          // modulo corrente (0-3)
+  dil: 0,          // dilemma corrente
+  dilChoice: null, // opzione scelta nel simulatore
+  quizIdx: 0,      // domanda corrente nel quiz finale
+  quizScore: 0,
+  quizAnswered: [], // true/false per ogni domanda
+  m1done:false, m2done:false, m3done:false, m4done:false
+};
+
+/* ═══════════════════════════════════════════════════
+   NAVIGAZIONE SCHERMATE
+═══════════════════════════════════════════════════ */
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(function(s){ s.classList.remove('active'); });
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0,0);
+}
+function goHome() {
+  showScreen('screen-home');
+  document.getElementById('prog-wrap').classList.remove('show');
+  document.getElementById('home-btn').classList.remove('show');
+  renderHomeCards();
+}
+function startModule(idx) {
+  S.mod = idx;
+  showScreen('screen-module');
+  document.getElementById('home-btn').classList.add('show');
+  renderModule();
+}
+function prevModule() {
+  if (S.mod > 0) { S.mod--; renderModule(); window.scrollTo(0,0); }
+  else goHome();
+}
+function nextModule() {
+  if (S.mod < MODULES.length - 1) { S.mod++; S.dilChoice=null; S.dil=0; S.quizIdx=0; S.quizScore=0; S.quizAnswered=[]; renderModule(); window.scrollTo(0,0); }
+  else goHome();
+}
+function updateProgress() {
+  var pct = ((S.mod+1) / MODULES.length) * 100;
+  document.getElementById('prog-wrap').classList.add('show');
+  document.getElementById('prog-bar').style.width = pct + '%';
+  document.getElementById('mod-counter').textContent = 'Modulo ' + (S.mod+1) + ' di ' + MODULES.length;
+  document.getElementById('btn-prev').disabled = false;
+  document.getElementById('btn-next').textContent = S.mod < MODULES.length-1 ? 'Successivo →' : 'Torna alla home';
+}
+
+/* ═══════════════════════════════════════════════════
+   RENDER HOME CARDS
+═══════════════════════════════════════════════════ */
+function renderHomeCards() {
+  var g = document.getElementById('module-grid');
+  g.innerHTML = '';
+  MODULES.forEach(function(m, i) {
+    var done = S['m'+(i+1)+'done'];
+    var el = document.createElement('div');
+    el.className = 'mcard' + (done ? ' done' : '');
+    el.onclick = function(){ startModule(i); };
+    el.innerHTML = '<p class="mcard-num">Modulo 0' + m.num + (done?' ✓':'')+  '</p>'
+      + '<div class="mcard-icon">' + m.icon + '</div>'
+      + '<h3>' + m.title + '</h3>'
+      + '<p>' + m.lead + '</p>'
+      + '<span class="mcard-start">Inizia →</span>';
+    g.appendChild(el);
+  });
+}
+
+/* ═══════════════════════════════════════════════════
+   RENDER MODULE
+═══════════════════════════════════════════════════ */
+function renderModule() {
+  var m = MODULES[S.mod];
+  document.getElementById('mod-crumb').innerHTML =
+    'Percorso &rsaquo; <span>Modulo 0' + m.num + '</span>';
+  document.getElementById('mod-title').textContent = m.title.replace(/&#\d+;/g,function(e){var d=document.createElement('span');d.innerHTML=e;return d.textContent;});
+  document.getElementById('mod-title').innerHTML = m.title;
+  document.getElementById('mod-lead').innerHTML = m.lead;
+  updateProgress();
+
+  var body = document.getElementById('mod-body');
+  body.innerHTML = '';
+  m.sections.forEach(function(sec) { body.appendChild(buildSection(sec)); });
+}
+
+function buildSection(sec) {
+  var wrap = document.createElement('div');
+  wrap.className = 'mod-section';
+  switch(sec.type) {
+    case 'bigq':      wrap.appendChild(buildBigQ(sec)); break;
+    case 'concepts':  wrap.appendChild(buildConcepts(sec)); break;
+    case 'case':      wrap.appendChild(buildCase(sec)); break;
+    case 'analysis':  wrap.appendChild(buildAnalysis(sec)); break;
+    case 'acc':       wrap.appendChild(buildAcc(sec)); break;
+    case 'theories':  wrap.appendChild(buildTheories(sec)); break;
+    case 'comp-table':wrap.appendChild(buildCompTable(sec)); break;
+    case 'miniquiz':  wrap.appendChild(buildMiniQuiz(sec)); break;
+    case 'simulator': wrap.appendChild(buildSimulator()); break;
+    case 'finalquiz': wrap.appendChild(buildFinalQuiz()); break;
   }
+  return wrap;
+}
 
-  (function init() {
-    var saved;
-    try { saved = localStorage.getItem('theme'); } catch(e){}
-    var sys = window.matchMedia && window.matchMedia('(prefers-color-scheme:dark)').matches;
-    var theme = saved || (sys ? 'dark' : 'light');
-    document.body.setAttribute('data-theme', theme);
-    document.getElementById('theme-btn').textContent = theme === 'dark' ? '☼' : '☂';
+function tag(t,cls,html){ var el=document.createElement(t); if(cls)el.className=cls; if(html!==undefined)el.innerHTML=html; return el; }
+function sectionTag(label,cls){ return tag('span','section-tag '+(cls||''),label); }
 
-    var nav = (navigator.language || 'it').slice(0,2).toLowerCase();
-    var l = nav === 'en' ? 'en' : nav === 'pt' ? 'pt' : 'it';
-    setLang(l);
-  })();
+function buildBigQ(sec) {
+  var d=document.createElement('div');
+  d.appendChild(sectionTag('&#10067; Domanda iniziale','tag-q'));
+  d.appendChild(tag('div','big-question',sec.text));
+  return d;
+}
+
+function buildConcepts(sec) {
+  var d=document.createElement('div');
+  if(sec.label) d.appendChild(sectionTag('&#128214; '+sec.label,''));
+  var g=tag('div','concept-list');
+  sec.items.forEach(function(it){
+    var b=tag('div','concept-box');
+    b.appendChild(tag('h4',null,it.term));
+    b.appendChild(tag('p',null,it.def));
+    g.appendChild(b);
+  });
+  d.appendChild(g);
+  return d;
+}
+
+function buildCase(sec) {
+  var d=document.createElement('div');
+  d.appendChild(sectionTag('&#128196; '+sec.label,'tag-c'));
+  var b=tag('div','case-box');
+  b.appendChild(tag('h4',null,sec.title));
+  b.appendChild(tag('p',null,sec.text));
+  d.appendChild(b);
+  return d;
+}
+
+function buildAnalysis(sec) {
+  var d=document.createElement('div');
+  d.appendChild(sectionTag('&#128270; '+sec.label,'tag-a'));
+  var ul=tag('ul','analysis-questions');
+  sec.questions.forEach(function(q){
+    ul.appendChild(tag('li',null,q));
+  });
+  d.appendChild(ul);
+  return d;
+}
+
+function buildAcc(sec) {
+  var d=document.createElement('div');
+  d.appendChild(sectionTag('&#128218; '+sec.label,''));
+  sec.items.forEach(function(it,i){
+    var item=tag('div','acc-item');
+    var btn=tag('button','acc-head');
+    btn.setAttribute('aria-expanded','false');
+    btn.onclick=function(){ toggleAcc(this); };
+    btn.innerHTML='<span>'+it.q+'</span><span class="acc-arrow">&#9660;</span>';
+    var body=tag('div','acc-body');
+    var content=tag('div','acc-content');
+    content.innerHTML='<p>'+it.a+'</p>';
+    body.appendChild(content);
+    item.appendChild(btn);
+    item.appendChild(body);
+    d.appendChild(item);
+  });
+  return d;
+}
+
+function buildTheories(sec) {
+  var d=document.createElement('div');
+  d.appendChild(sectionTag('&#9878;&#65038; '+sec.label,''));
+  var g=tag('div','theory-grid');
+  sec.items.forEach(function(th,i){
+    var c=tag('div','theory-card '+th.cls);
+    c.innerHTML='<div class="theory-icon">'+th.icon+'</div>'
+      +'<h4>'+th.name+'</h4>'
+      +'<p style="font-size:.72rem;color:var(--fa);margin-bottom:.3rem">'+th.authors+'</p>'
+      +'<p>'+th.short+'</p>'
+      +'<p class="theory-q">'+th.guide+'</p>'
+      +'<span class="card-more" style="font-size:.73rem;font-weight:700;color:var(--ac);margin-top:.6rem;display:block">Espandi &#8594;</span>';
+    var detail=tag('div','theory-detail');
+    detail.id='td-'+i;
+    detail.innerHTML='<h3>'+th.name+'</h3><p>'+th.detail+'</p>'
+      +'<div class="eco-box" style="margin-top:.8rem"><h4>Esempio applicato</h4><p><em>Caso del carrello o dell\'amico:</em> '+th.example+'</p></div>';
+    c.onclick=function(){ toggleTheory('td-'+i, this); };
+    g.appendChild(c);
+    d.appendChild(g);
+    d.appendChild(detail);
+    return; // avoid double appendChild of g
+  });
+  // fix: g already appended inside loop — rebuild cleanly
+  d.innerHTML='';
+  d.appendChild(sectionTag('&#9878;&#65038; '+sec.label,''));
+  var g2=tag('div','theory-grid');
+  sec.items.forEach(function(th,i){
+    var c=tag('div','theory-card '+th.cls);
+    c.innerHTML='<div class="theory-icon">'+th.icon+'</div>'
+      +'<h4>'+th.name+'</h4>'
+      +'<p style="font-size:.72rem;color:var(--fa);margin-bottom:.3rem">'+th.authors+'</p>'
+      +'<p>'+th.short+'</p>'
+      +'<p class="theory-q">'+th.guide+'</p>'
+      +'<span style="font-size:.73rem;font-weight:700;color:var(--ac);margin-top:.6rem;display:block">Espandi &#8594;</span>';
+    var detId='td-'+S.mod+'-'+i;
+    c.onclick=(function(id,card){ return function(){ toggleTheory(id,card); }; })(detId,c);
+    g2.appendChild(c);
+  });
+  d.appendChild(g2);
+  sec.items.forEach(function(th,i){
+    var detail=tag('div','theory-detail');
+    detail.id='td-'+S.mod+'-'+i;
+    detail.innerHTML='<h3>'+th.name+'</h3><p>'+th.detail+'</p>'
+      +'<div class="eco-box" style="margin-top:.8rem"><h4>Esempio applicato</h4><p>'+th.example+'</p></div>';
+    d.appendChild(detail);
+  });
+  return d;
+}
+
+function toggleTheory(id, card) {
+  var det=document.getElementById(id);
+  var open=det.classList.contains('open');
+  document.querySelectorAll('.theory-detail').forEach(function(d){ d.classList.remove('open'); });
+  if(!open){ det.classList.add('open'); det.scrollIntoView({behavior:'smooth',block:'nearest'}); }
+}
+
+function buildCompTable(sec) {
+  var d=document.createElement('div');
+  d.appendChild(sectionTag('&#128203; '+sec.label,''));
+  var t=tag('table','comp-table');
+  var head=tag('thead'); var hr=tag('tr');
+  sec.headers.forEach(function(h){ hr.appendChild(tag('th',null,h)); });
+  head.appendChild(hr); t.appendChild(head);
+  var body=tag('tbody');
+  sec.rows.forEach(function(row){
+    var tr=tag('tr');
+    row.forEach(function(cell,i){ tr.appendChild(tag(i===0?'th':'td',null,cell)); });
+    body.appendChild(tr);
+  });
+  t.appendChild(body); d.appendChild(t);
+  return d;
+}
+
+/* ─── MINI QUIZ ─────────────────────────── */
+function buildMiniQuiz(sec) {
+  var d=document.createElement('div');
+  d.appendChild(sectionTag('&#10003; '+sec.label,'tag-c'));
+  var state={idx:0, answered:[]};
+  var container=tag('div','quiz-card');
+  function renderQ() {
+    if(state.idx>=sec.qs.length){
+      container.innerHTML='<div style="text-align:center;padding:1.5rem">'
+        +'<div style="font-size:2rem;margin-bottom:.5rem">&#127881;</div>'
+        +'<p style="font-weight:700;font-size:1.05rem;margin-bottom:.4rem">Sezione completata!</p>'
+        +'<p style="font-size:.88rem;color:var(--mu)">Procedi al modulo successivo quando sei pronto.</p></div>';
+      markDone();
+      return;
+    }
+    var q=sec.qs[state.idx];
+    var prog=tag('div','quiz-progress');
+    var fill=tag('div','quiz-prog-bar'); var f2=tag('div','quiz-prog-fill');
+    f2.style.width=(state.idx/sec.qs.length*100)+'%'; fill.appendChild(f2); prog.appendChild(fill);
+    prog.insertAdjacentHTML('afterbegin','Domanda '+(state.idx+1)+' di '+sec.qs.length+'&nbsp;');
+    container.innerHTML=''; container.appendChild(prog);
+    var qel=tag('div','quiz-q'); qel.innerHTML=q.q; container.appendChild(qel);
+    var opts=tag('div','quiz-opts');
+    q.opts.forEach(function(opt,oi){
+      var btn=tag('button','quiz-opt'); btn.innerHTML=opt;
+      btn.onclick=function(){
+        if(state.answered[state.idx]!==undefined) return;
+        state.answered[state.idx]=oi;
+        var correct=(oi===q.ans);
+        container.querySelectorAll('.quiz-opt').forEach(function(b,bi){
+          if(bi===q.ans) b.classList.add('correct');
+          else if(bi===oi&&!correct) b.classList.add('wrong');
+        });
+        var fb=tag('div','quiz-feedback show '+(correct?'ok':'ko'));
+        fb.innerHTML=(correct?'&#10003; Corretto! ':'&#10007; Risposta errata. ')+q.fb;
+        container.appendChild(fb);
+        var nextBtn=tag('button','btn btn-primary',state.idx<sec.qs.length-1?'Prossima &rarr;':'Fine &#10003;');
+        nextBtn.style.marginTop='.9rem';
+        nextBtn.onclick=function(){ state.idx++; renderQ(); };
+        container.appendChild(nextBtn);
+      };
+      opts.appendChild(btn);
+    });
+    container.appendChild(opts);
+  }
+  renderQ();
+  d.appendChild(container);
+  return d;
+}
+
+function markDone() {
+  S['m'+(S.mod+1)+'done']=true;
+}
+
+/* ─── SIMULATOR ─────────────────────────── */
+function buildSimulator() {
+  var d=document.createElement('div');
+  // tabs
+  var nav=tag('div','dilemma-nav');
+  DILEMMAS.forEach(function(dl,i){
+    var btn=tag('button','dil-tab'+(i===S.dil?' active':''));
+    btn.innerHTML=dl.icon+' '+dl.title;
+    btn.onclick=(function(idx){ return function(){ S.dil=idx; S.dilChoice=null; refreshSim(d); }; })(i);
+    nav.appendChild(btn);
+  });
+  d.appendChild(nav);
+  var simArea=tag('div',''); simArea.id='sim-area';
+  d.appendChild(simArea);
+  refreshSim(d);
+  return d;
+}
+
+function refreshSim(container) {
+  var nav=container.querySelector('.dilemma-nav');
+  if(nav){
+    nav.querySelectorAll('.dil-tab').forEach(function(btn,i){
+      btn.className='dil-tab'+(i===S.dil?' active':'');
+    });
+  }
+  var area=container.querySelector('#sim-area');
+  if(!area) return;
+  var dl=DILEMMAS[S.dil];
+  area.innerHTML='';
+  var card=tag('div','dil-card');
+  card.innerHTML='<p class="dil-scenario">'+dl.scenario+'</p>'
+    +'<p class="dil-prompt">'+dl.prompt+'</p>';
+  var opts=tag('div','dil-options');
+  dl.options.forEach(function(opt,oi){
+    var btn=tag('button','dil-opt'+(S.dilChoice===oi?' chosen':''));
+    btn.innerHTML=opt.text;
+    btn.onclick=(function(idx){ return function(){ chooseDilOption(idx, container); }; })(oi);
+    opts.appendChild(btn);
+  });
+  card.appendChild(opts);
+  // feedback area
+  var fb=tag('div','dil-feedback'+(S.dilChoice!==null?' show':''));
+  fb.id='dil-fb';
+  if(S.dilChoice!==null) { renderFeedback(fb, dl, S.dilChoice); }
+  card.appendChild(fb);
+  area.appendChild(card);
+}
+
+function chooseDilOption(idx, container) {
+  S.dilChoice=idx;
+  // update chosen style
+  var optBtns=container.querySelectorAll('.dil-opt');
+  optBtns.forEach(function(b,i){ b.className='dil-opt'+(i===idx?' chosen':''); });
+  var fb=container.querySelector('#dil-fb');
+  fb.classList.add('show');
+  var dl=DILEMMAS[S.dil];
+  renderFeedback(fb, dl, idx);
+  S.m3done=true;
+}
+
+function renderFeedback(fb, dl, idx) {
+  var opt=dl.options[idx];
+  var tb=THEORY_BADGES[opt.theory]||{cls:'fb-util',label:'Teoria etica'};
+  var vals=opt.values;
+  var keys=VALUE_LABELS;
+
+  // sort keys by value descending
+  var sorted=keys.slice().sort(function(a,b){ return (vals[b]||0)-(vals[a]||0); });
+
+  var legend='<div class="value-legend">'
+    +'<span><span class="vl-dot vld-h"></span>Valore centrale</span>'
+    +'<span><span class="vl-dot vld-m"></span>In gioco</span>'
+    +'<span><span class="vl-dot vld-l"></span>Secondario</span></div>';
+
+  var chips=sorted.map(function(k){
+    var v=vals[k]||0;
+    var cls=v>=3?'vc-high':v>=2?'vc-mid':'vc-low';
+    return '<span class="value-chip '+cls+'">'+(VALUE_DISPLAY[k]||k)+'</span>';
+  }).join('');
+
+  fb.innerHTML='<span class="feedback-badge '+tb.cls+'">'+tb.label+'</span>'
+    +'<p class="feedback-text">'+opt.feedback+'</p>'
+    +'<p style="font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--fa);margin-bottom:.4rem">Valori in gioco</p>'
+    +legend
+    +'<div class="value-map">'+chips+'</div>'
+    +'<button class="dil-reset" onclick="resetDil(this)">&#8635; Scegli un\'altra opzione</button>';
+}
+
+function resetDil(btn) {
+  S.dilChoice=null;
+  var nav=document.querySelector('#mod-body .dilemma-nav');
+  if(nav) refreshSim(nav.parentNode);
+}
+
+/* ─── FINAL QUIZ ─────────────────────────── */
+function buildFinalQuiz() {
+  var d=tag('div','');
+  renderFinalQuizQ(d);
+  return d;
+}
+
+function renderFinalQuizQ(container) {
+  container.innerHTML='';
+  if(S.quizIdx>=FINAL_QUIZ.length){
+    renderScore(container); return;
+  }
+  var q=FINAL_QUIZ[S.quizIdx];
+  var prog=tag('div','quiz-progress');
+  var fill=tag('div','quiz-prog-bar'); var f2=tag('div','quiz-prog-fill');
+  f2.style.width=(S.quizIdx/FINAL_QUIZ.length*100)+'%'; fill.appendChild(f2); prog.appendChild(fill);
+  prog.insertAdjacentHTML('afterbegin','Domanda '+(S.quizIdx+1)+' di '+FINAL_QUIZ.length+'&emsp;Punteggio: '+S.quizScore);
+  container.appendChild(prog);
+  var card=tag('div','quiz-card');
+  var qel=tag('div','quiz-q'); qel.innerHTML=q.q; card.appendChild(qel);
+  var opts=tag('div','quiz-opts');
+  q.opts.forEach(function(opt,oi){
+    var btn=tag('button','quiz-opt'); btn.innerHTML=opt;
+    btn.onclick=function(){
+      if(S.quizAnswered[S.quizIdx]!==undefined) return;
+      S.quizAnswered[S.quizIdx]=oi;
+      var correct=(oi===q.ans);
+      if(correct) S.quizScore++;
+      card.querySelectorAll('.quiz-opt').forEach(function(b,bi){
+        if(bi===q.ans) b.classList.add('correct');
+        else if(bi===oi&&!correct) b.classList.add('wrong');
+      });
+      var fb=tag('div','quiz-feedback show '+(correct?'ok':'ko'));
+      fb.innerHTML=(correct?'&#10003; Corretto! ':'&#10007; Risposta errata. ')+q.fb;
+      card.appendChild(fb);
+      var nav=tag('div','quiz-nav');
+      var nextBtn=tag('button','btn btn-primary',S.quizIdx<FINAL_QUIZ.length-1?'Prossima &rarr;':'Vedi risultato &#9654;');
+      nextBtn.onclick=function(){ S.quizIdx++; renderFinalQuizQ(container); };
+      nav.appendChild(tag('span',null,''));
+      nav.appendChild(nextBtn);
+      card.appendChild(nav);
+    };
+    opts.appendChild(btn);
+  });
+  card.appendChild(opts);
+  container.appendChild(card);
+}
+
+function renderScore(container) {
+  S.m4done=true;
+  var pct=Math.round(S.quizScore/FINAL_QUIZ.length*100);
+  var msg = pct>=80
+    ? 'Ottimo! Hai una solida comprensione dei concetti fondamentali dell\'etica.'
+    : pct>=60
+    ? 'Buono! Ripassando alcuni argomenti riuscirai a consolidare le lacune.'
+    : 'Continua a studiare. Torna ai moduli precedenti e rileggi i concetti chiave.';
+  container.innerHTML='<div class="score-panel">'
+    +'<div style="font-size:2.5rem">&#127881;</div>'
+    +'<div class="score-num">'+S.quizScore+'/'+FINAL_QUIZ.length+'</div>'
+    +'<p class="score-label">'+pct+'% di risposte corrette</p>'
+    +'<p class="score-msg">'+msg+'</p>'
+    +'<div class="score-panel btn-row">'
+    +'<button class="btn btn-outline" onclick="S.quizIdx=0;S.quizScore=0;S.quizAnswered=[];renderFinalQuizQ(this.closest(\'.mod-section\').firstChild)">&#8635; Ricomincia</button>'
+    +'<button class="btn btn-primary" onclick="goHome()">Torna alla home &#8592;</button>'
+    +'</div></div>';
+}
+
+/* ═══════════════════════════════════════════════════
+   ACCORDION
+═══════════════════════════════════════════════════ */
+function toggleAcc(btn) {
+  var isOpen=btn.getAttribute('aria-expanded')==='true';
+  // close all siblings in same parent
+  var parent=btn.closest('#eco-acc')||btn.closest('.mod-section')||btn.parentNode.parentNode;
+  parent.querySelectorAll('.acc-head').forEach(function(b){
+    b.setAttribute('aria-expanded','false');
+    b.nextElementSibling.classList.remove('open');
+  });
+  if(!isOpen){
+    btn.setAttribute('aria-expanded','true');
+    btn.nextElementSibling.classList.add('open');
+  }
+}
+
+/* ═══════════════════════════════════════════════════
+   THEME
+═══════════════════════════════════════════════════ */
+function toggleTheme(){
+  var dark=document.body.getAttribute('data-theme')==='dark';
+  var next=dark?'light':'dark';
+  document.body.setAttribute('data-theme',next);
+  document.getElementById('theme-btn').textContent=next==='dark'?'☼':'☁';
+  try{localStorage.setItem('theme',next);}catch(e){}
+}
+
+/* ═══════════════════════════════════════════════════
+   TOOLTIP
+═══════════════════════════════════════════════════ */
+function closeTip(){
+  document.getElementById('tip-overlay').classList.remove('show');
+}
+
+/* ═══════════════════════════════════════════════════
+   INIT
+═══════════════════════════════════════════════════ */
+(function init(){
+  // tema
+  var saved; try{saved=localStorage.getItem('theme');}catch(e){}
+  var sys=window.matchMedia&&window.matchMedia('(prefers-color-scheme:dark)').matches;
+  var theme=saved||(sys?'dark':'light');
+  document.body.setAttribute('data-theme',theme);
+  document.getElementById('theme-btn').textContent=theme==='dark'?'☼':'☁';
+  // home
+  renderHomeCards();
+})();
 </script>
 </body>
 </html>
