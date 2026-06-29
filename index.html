@@ -544,17 +544,17 @@ var DILEMMAS = [
       {text:'Tiro la leva: cinque vite salvate valgono pi&#249; di una.',
        theory:'util', badge:'Scelta utilitarista',
        feedback:'Il calcolo utilitarista dice: massimizza il benessere del maggior numero. Cinque vite pesano pi&#249; di una. Questa logica &#232; intuitivamente potente &#8212; ma c\'&#232; un problema: stai deliberatamente causando la morte di una persona innocente. &#200; la stessa cosa di "lasciarla morire per inazione"?',
-       values:{libert&#224;:1,giustizia:2,responsabilit&#224;:3,benessere:3,verit&#224;:1,solidariet&#224;:2}},
+       values:{liberta:1,giustizia:2,responsabilita:3,benessere:3,verita:1,solidarieta:2}},
       {text:'Non agisco: non &#232; mio compito decidere chi vive e chi muore.',
        theory:'deon', badge:'Scelta deontologica',
        feedback:'Una posizione deontologica pu&#242; portare a non intervenire: Kant direbbe che non &#232; lecito usare deliberatamente una persona come mezzo &#8212; nemmeno per salvarne cinque. C\'&#232; una differenza morale tra causare attivamente una morte e non impedire una morte che stava gi&#224; avvenendo.',
-       values:{libert&#224;:2,giustizia:2,responsabilit&#224;:1,benessere:1,verit&#224;:2,solidariet&#224;:1}},
+       values:{liberta:2,giustizia:2,responsabilita:1,benessere:1,verita:2,solidarieta:1}},
       {text:'Cerco un\'altra soluzione &#8212; urlo, cerco di fermare il carrello in altro modo.',
        theory:'cura', badge:'Scelta dell\'etica della cura',
        feedback:'L\'etica della cura rifiuta la logica del dilemma come "falsa": nella realt&#224; quasi sempre esistono pi&#249; opzioni di quelle presentate. La priorit&#224; &#232; prendersi cura di tutti, cercando vie creative invece di accettare passivamente la scelta tra una morte e cinque.',
-       values:{libert&#224;:2,giustizia:2,responsabilit&#224;:3,benessere:2,verit&#224;:2,solidariet&#224;:3}}
+       values:{liberta:2,giustizia:2,responsabilita:3,benessere:2,verita:2,solidarieta:3}}
     ],
-    highlight:['responsabilit&#224;','benessere','giustizia']
+    highlight:['responsabilita','benessere','giustizia']
   },
   {
     id:'d2', title:'Mentire per proteggere',
@@ -562,20 +562,20 @@ var DILEMMAS = [
     scenario:'Il tuo migliore amico &#232; fuggito di casa dopo una lite grave con i genitori. Ti chiede di non dire niente a nessuno. Il giorno dopo i suoi genitori, disperati, ti chiedono dove &#232; andato. Sai dove si trova. Cosa fai?',
     prompt:'Come ti comporti?',
     options:[
-      {text:'Dico la verit&#224;: i suoi genitori hanno diritto di sapere e lui &#232; al sicuro.',
+      {text:'Dico la verita: i suoi genitori hanno diritto di sapere e lui &#232; al sicuro.',
        theory:'deon', badge:'Scelta deontologica',
        feedback:'La deontologia valorizza la verit&#224; come dovere: mentire o tacere deliberatamente viola un principio fondamentale. Inoltre, i genitori hanno una responsabilit&#224; legale e morale verso il figlio minorenne. Dire la verit&#224; rispetta queste obbligazioni.',
-       values:{libert&#224;:1,giustizia:2,responsabilit&#224;:3,benessere:2,verit&#224;:3,solidariet&#224;:1}},
+       values:{liberta:1,giustizia:2,responsabilita:3,benessere:2,verita:3,solidarieta:1}},
       {text:'Non dico niente: ho promesso al mio amico e devo rispettare la sua fiducia.',
        theory:'cura', badge:'Scelta dell\'etica della cura',
        feedback:'L\'etica della cura privilegia la relazione di fiducia: tradire un segreto dell\'amico pu&#242; distruggere un legame fondamentale. La promessa fatta &#232; un vincolo morale reale. Tuttavia, si potrebbe anche cercare di convincere l\'amico a farsi vivo da solo.',
-       values:{libert&#224;:3,giustizia:1,responsabilit&#224;:2,benessere:2,verit&#224;:1,solidariet&#224;:3}},
+       values:{liberta:3,giustizia:1,responsabilita:2,benessere:2,verita:1,solidarieta:3}},
       {text:'Chiamo prima il mio amico per convincerlo a chiamare i genitori, poi decido.',
        theory:'virt', badge:'Scelta dell\'etica delle virt&#249;',
        feedback:'Una persona prudente e leale cerca una via che rispetti tutti i valori in gioco: la fiducia dell\'amico, la verit&#224; dovuta ai genitori, la sicurezza di tutti. Prima di agire, usa la <em>prudenza</em> &#8212; la virt&#249; aristotelica del saper scegliere il mezzo giusto nella situazione concreta.',
-       values:{libert&#224;:2,giustizia:2,responsabilit&#224;:3,benessere:3,verit&#224;:2,solidariet&#224;:3}}
+       values:{liberta:2,giustizia:2,responsabilita:3,benessere:3,verita:2,solidarieta:3}}
     ],
-    highlight:['verit&#224;','solidariet&#224;','responsabilit&#224;']
+    highlight:['verita','solidarieta','responsabilita']
   },
   {
     id:'d3', title:'L\'IA decide',
@@ -586,17 +586,17 @@ var DILEMMAS = [
       {text:'Mantengo l\'algoritmo: &#232; oggettivo e pi&#249; efficiente degli esseri umani.',
        theory:'util', badge:'Scelta utilitarista (problematica)',
        feedback:'L\'argomento dell\'efficienza &#232; utilitarista, ma trascura le conseguenze a lungo termine: l\'algoritmo perpetua disuguaglianze sistemiche, escludendo gruppi gi&#224; svantaggiati. Un utilitarismo corretto dovrebbe calcolare anche questi effetti &#8212; e concludere che la scelta non massimizza il benessere complessivo.',
-       values:{libert&#224;:1,giustizia:1,responsabilit&#224;:1,benessere:2,verit&#224;:2,solidariet&#224;:1}},
+       values:{liberta:1,giustizia:1,responsabilita:1,benessere:2,verita:2,solidarieta:1}},
       {text:'Sospendo l\'algoritmo fino a quando non &#232; stato ri-addestrato su dati equi.',
        theory:'deon', badge:'Scelta deontologica/contrattualista',
        feedback:'Rawls direbbe: quale sistema sceglieresti se non sapessi se sarai il candidato avvantaggiato o quello discriminato? Sicuramente uno equo. Un sistema che discrimina sistematicamente viola princip&#236; di giustizia che nessuno accetterebbe dietro un "velo di ignoranza".',
-       values:{libert&#224;:2,giustizia:3,responsabilit&#224;:3,benessere:2,verit&#224;:3,solidariet&#224;:2}},
+       values:{liberta:2,giustizia:3,responsabilita:3,benessere:2,verita:3,solidarieta:2}},
       {text:'Uso l\'algoritmo come primo filtro, ma aggiungo una revisione umana che corregge i bias.',
        theory:'virt', badge:'Scelta pragmatica e virtuosa',
        feedback:'La prudenza aristotelica cerca il giusto mezzo: n&#233; rifiutare l\'innovazione tecnologica, n&#233; affidarsi ciecamente a essa. L\'algoritmo pu&#242; essere utile, ma la responsabilit&#224; della decisione finale resta umana. Una persona giusta usa gli strumenti senza delegare ad essi la propria coscienza morale.',
-       values:{libert&#224;:2,giustizia:3,responsabilit&#224;:3,benessere:3,verit&#224;:2,solidariet&#224;:3}}
+       values:{liberta:2,giustizia:3,responsabilita:3,benessere:3,verita:2,solidarieta:3}}
     ],
-    highlight:['giustizia','responsabilit&#224;','libert&#224;']
+    highlight:['giustizia','responsabilita','liberta']
   },
   {
     id:'d4', title:'Mercato e fraternit&#224;',
@@ -607,21 +607,22 @@ var DILEMMAS = [
       {text:'Accetto l\'offerta: &#232; il mercato. Ognuno pensa ai propri interessi.',
        theory:'util', badge:'Logica del mercato (Political Economy)',
        feedback:'Questa &#232; la logica della <em>Political Economy</em> anglosassone: ogni agente segue il proprio interesse, e il mercato produce benessere complessivo come "mano invisibile". Adam Smith la descrisse come naturale. Per&#242;: &#232; davvero neutrale? Chi paga il prezzo del tuo guadagno?',
-       values:{libert&#224;:3,giustizia:1,responsabilit&#224;:1,benessere:2,verit&#224;:1,solidariet&#224;:1}},
+       values:{liberta:3,giustizia:1,responsabilita:1,benessere:2,verita:1,solidarieta:1}},
       {text:'Rifiuto: la mia impresa ha radici nel quartiere. Il profitto non &#232; l\'unico valore.',
        theory:'eco', badge:'Scelta dell\'Economia Civile',
        feedback:'Questa &#232; la risposta dell\'<em>Economia Civile</em>: il mercato funziona bene quando include reciprocit&#224;, fiducia e cura del bene comune. L\'imprenditore non &#232; solo un massimizzatore di profitto &#8212; &#232; un membro di una comunit&#224; con responsabilit&#224; verso di essa. Antonio Genovesi chiamava questo la "pubblica felicit&#224;".',
-       values:{libert&#224;:1,giustizia:3,responsabilit&#224;:3,benessere:2,verit&#224;:2,solidariet&#224;:3}},
+       values:{liberta:1,giustizia:3,responsabilita:3,benessere:2,verita:2,solidarieta:3}},
       {text:'Tratto con la catena per ottenere: una quota per i dipendenti, prezzi calmierati, partecipazione agli utili.',
        theory:'cont', badge:'Scelta contrattualista',
        feedback:'Il contrattualismo cerca regole che tutti possano accettare. Negoziare condizioni che proteggano i pi&#249; vulnerabili (dipendenti, residenti del quartiere) &#232; un modo per applicare il "velo di ignoranza" di Rawls: se non sapessi se saresti il proprietario, il dipendente o il cliente, vorresti un accordo equo.',
-       values:{libert&#224;:2,giustizia:3,responsabilit&#224;:3,benessere:3,verit&#224;:2,solidariet&#224;:3}}
+       values:{liberta:2,giustizia:3,responsabilita:3,benessere:3,verita:2,solidarieta:3}}
     ],
-    highlight:['solidariet&#224;','giustizia','responsabilit&#224;']
+    highlight:['solidarieta','giustizia','responsabilita']
   }
 ];
 
-var VALUE_LABELS = ['libert&#224;','giustizia','responsabilit&#224;','benessere','verit&#224;','solidariet&#224;'];
+var VALUE_LABELS = ['liberta','giustizia','responsabilita','benessere','verita','solidarieta'];
+var VALUE_DISPLAY = {liberta:'libertà',giustizia:'giustizia',responsabilita:'responsabilità',benessere:'benessere',verita:'verità',solidarieta:'solidarietà'};
 
 var THEORY_BADGES = {
   util:{cls:'fb-util', label:'Utilitarismo'},
@@ -1036,7 +1037,7 @@ function renderFeedback(fb, dl, idx) {
   var chips=sorted.map(function(k){
     var v=vals[k]||0;
     var cls=v>=3?'vc-high':v>=2?'vc-mid':'vc-low';
-    return '<span class="value-chip '+cls+'">'+k+'</span>';
+    return '<span class="value-chip '+cls+'">'+(VALUE_DISPLAY[k]||k)+'</span>';
   }).join('');
 
   fb.innerHTML='<span class="feedback-badge '+tb.cls+'">'+tb.label+'</span>'
@@ -1049,9 +1050,8 @@ function renderFeedback(fb, dl, idx) {
 
 function resetDil(btn) {
   S.dilChoice=null;
-  var container=btn.closest('#mod-body');
-  if(!container) container=document.getElementById('mod-body');
-  refreshSim(container.querySelector('.dil-options').closest('.mod-section'));
+  var nav=document.querySelector('#mod-body .dilemma-nav');
+  if(nav) refreshSim(nav.parentNode);
 }
 
 /* ─── FINAL QUIZ ─────────────────────────── */
