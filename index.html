@@ -262,6 +262,55 @@ footer strong{color:var(--ac)}
 .modal-close:hover{background:var(--ac);color:#fff;border-color:var(--ac)}
 #theory-modal-content h3{font-family:var(--fm);font-size:1.25rem;color:var(--ac);margin-bottom:1rem}
 #theory-modal-content p{font-size:.92rem;color:var(--mu);line-height:1.75;margin-bottom:.8rem}
+
+/* ── GLOSSARIO ───────────────────────── */
+.gloss-fab{position:fixed;bottom:1.4rem;right:1.4rem;z-index:490;background:var(--ac);color:#fff;border:none;border-radius:999px;padding:.55rem 1.1rem;font-size:.8rem;font-weight:700;cursor:pointer;box-shadow:0 4px 18px var(--sh);display:flex;align-items:center;gap:.4rem;transition:all .2s}
+.gloss-fab:hover{background:var(--ac2);transform:translateY(-2px)}
+.gloss-search{width:100%;padding:.5rem .8rem;border:1px solid var(--bd);border-radius:8px;background:var(--tb);color:var(--tx);font-size:.9rem;margin-bottom:1rem}
+.gloss-search:focus{outline:2px solid var(--ac)}
+.gloss-list{list-style:none}
+.gloss-item{border-bottom:1px solid var(--bd);padding:.85rem 0}
+.gloss-item:last-child{border-bottom:none}
+.gloss-term{font-weight:700;color:var(--ac);font-family:var(--fm);font-size:1rem;margin-bottom:.2rem}
+.gloss-def{font-size:.87rem;color:var(--mu);line-height:1.65}
+.modal-box.gloss-box{max-width:600px}
+
+/* ── SCHEDE AUTORE ───────────────────── */
+.author-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:1rem;margin-top:1.2rem}
+.author-card{background:var(--bgc);border:1px solid var(--bd);border-radius:var(--r);padding:1.1rem;cursor:pointer;transition:all .2s;text-align:center}
+.author-card:hover{border-color:var(--ac);transform:translateY(-3px);box-shadow:0 6px 20px var(--sh)}
+.author-avatar{font-size:2.4rem;margin-bottom:.5rem}
+.author-name{font-family:var(--fm);font-size:1rem;font-weight:700;color:var(--ac)}
+.author-dates{font-size:.77rem;color:var(--fa);margin-top:.1rem}
+.author-theory{font-size:.75rem;background:var(--tb);border-radius:4px;padding:.2rem .5rem;display:inline-block;margin-top:.4rem;color:var(--mu)}
+.modal-box.author-box{max-width:560px}
+.author-box .author-avatar{font-size:3rem;text-align:center;display:block;margin-bottom:.8rem}
+.author-box h3{font-family:var(--fm);font-size:1.3rem;color:var(--ac)}
+.author-box .author-dates{font-size:.82rem;color:var(--fa);margin-bottom:1rem;display:block}
+.author-box .author-bio{font-size:.9rem;color:var(--mu);line-height:1.75;margin-bottom:.8rem}
+.author-box .author-work{background:var(--tb);border-left:3px solid var(--ac);padding:.7rem 1rem;border-radius:0 8px 8px 0;margin:.8rem 0;font-size:.87rem;color:var(--mu)}
+.author-box .author-quote{font-family:var(--fm);font-size:1rem;color:var(--ac2);font-style:italic;line-height:1.6;margin-top:.8rem;padding:.8rem 1rem;border:1px dashed var(--ac3);border-radius:8px}
+.theory-author-link{display:inline-flex;align-items:center;gap:.3rem;background:var(--tb);border:1px solid var(--bd);border-radius:6px;padding:.3rem .7rem;font-size:.78rem;color:var(--mu);cursor:pointer;margin-top:.8rem;transition:all .2s}
+.theory-author-link:hover{background:var(--ac);color:#fff;border-color:var(--ac)}
+
+/* ── DIARIO ──────────────────────────── */
+.diario-btn{background:var(--tb);border:1px solid var(--bd);color:var(--mu);font-size:.72rem;font-weight:700;padding:.26rem .65rem;border-radius:4px;cursor:pointer;transition:all .2s}
+.diario-btn:hover{background:var(--ac);color:#fff;border-color:var(--ac)}
+.screen#screen-diario{padding:2rem 0 3rem}
+.diario-wrap{max-width:720px;margin:0 auto;padding:0 1.5rem}
+.diario-header{margin-bottom:2rem}
+.diario-header h2{font-family:var(--fm);font-size:1.6rem;color:var(--ac);margin-bottom:.4rem}
+.diario-header p{color:var(--mu);font-size:.9rem}
+.diario-section{background:var(--bgc);border:1px solid var(--bd);border-radius:var(--r);padding:1.3rem;margin-bottom:1.2rem}
+.diario-section h4{font-family:var(--fm);font-size:1rem;color:var(--ac);margin-bottom:.6rem}
+.diario-section p.diario-prompt{font-size:.83rem;color:var(--fa);margin-bottom:.6rem;font-style:italic}
+.diario-textarea{width:100%;min-height:100px;padding:.7rem .9rem;border:1px solid var(--bd);border-radius:8px;background:var(--tb);color:var(--tx);font-family:var(--fs);font-size:.87rem;line-height:1.65;resize:vertical}
+.diario-textarea:focus{outline:2px solid var(--ac);background:var(--bgc)}
+.diario-save-row{display:flex;justify-content:flex-end;gap:.6rem;margin-top:.6rem;align-items:center}
+.diario-saved{font-size:.75rem;color:var(--ok);opacity:0;transition:opacity .4s}
+.diario-saved.show{opacity:1}
+.diario-clear-btn{background:none;border:1px solid var(--bd);color:var(--fa);font-size:.75rem;padding:.25rem .65rem;border-radius:5px;cursor:pointer;transition:all .2s}
+.diario-clear-btn:hover{border-color:var(--err);color:var(--err)}
 </style>
 </head>
 <body data-theme="light">
@@ -271,6 +320,7 @@ footer strong{color:var(--ac)}
   <span class="nav-brand" id="nav-brand" onclick="goHome()">&#934; Etica</span>
   <div class="nav-right">
     <button class="home-btn" id="home-btn" onclick="goHome()">&#8592; Home</button>
+    <button class="diario-btn" onclick="openDiario()">&#128221; Diario</button>
     <button class="theme-btn" id="theme-btn" onclick="toggleTheme()" title="Tema chiaro/scuro">&#9788;</button>
   </div>
 </nav>
@@ -370,6 +420,16 @@ footer strong{color:var(--ac)}
             <p><strong>Oggi</strong> &#8212; Dopo la crisi del 2008 e la pandemia, molti economisti riscopronola tradizione dell&#8217;Economia Civile: un mercato che include reciprocit&#224;, fiducia e cura del bene comune come elementi essenziali, non optional.</p>
           </div></div>
         </div>
+      </div>
+    </section>
+
+    <!-- SCHEDE AUTORE -->
+    <section class="section-home">
+      <p class="sec-label">Filosofi</p>
+      <h2 class="sec-title">Schede autore</h2>
+      <p class="sec-lead">I pensatori che hanno costruito le grandi teorie etiche. Clicca su una scheda per leggere la biografia, l&#8217;opera principale e una citazione.</p>
+      <div class="author-grid" id="authors-grid">
+        <!-- populated by JS -->
       </div>
     </section>
 
@@ -539,6 +599,63 @@ var MODULES = [
     sections:[
       {type:'finalquiz'}
     ]
+  },
+
+  /* ─── MODULO 5: ARGOMENTAZIONE MORALE ─── */
+  {
+    id:'m5', icon:'&#128172;', num:5,
+    title:'Argomentare in etica',
+    lead:'Come si costruisce un buon argomento morale? Come si riconoscono i ragionamenti sbagliati?',
+    sections:[
+      {type:'bigq', text:'Come fai a distinguere una vera argomentazione morale da una semplice opinione? E come sai se un ragionamento che ti convince &#232; anche <em>valido</em>?'},
+      {type:'concepts', label:'Concetti chiave', items:[
+        {term:'Argomento',def:'Un insieme di affermazioni in cui alcune (le <em>premesse</em>) supportano un\'altra (la <em>conclusione</em>). "Ogni essere senziente merita rispetto. Gli animali sono senzienti. Dunque gli animali meritano rispetto."'},
+        {term:'Premessa',def:'Un\'affermazione che funge da punto di partenza di un ragionamento. Pu&#242; essere vera o falsa, ovvia o contestabile. Un buon argomento inizia da premesse solide.'},
+        {term:'Conclusione',def:'L\'affermazione che si vuole sostenere. &#200; ci&#242; per cui si argomenta. La conclusione deve seguire logicamente dalle premesse.'},
+        {term:'Validit&#224;',def:'Un argomento &#232; valido se la conclusione segue necessariamente dalle premesse: se le premesse fossero vere, anche la conclusione lo sarebbe. La validit&#224; riguarda la <em>forma</em>, non il contenuto.'},
+        {term:'Solidit&#224;',def:'Un argomento &#232; solido se &#232; valido <em>e</em> ha premesse vere. Un argomento valido con premesse false pu&#242; portare a conclusioni sbagliate.'},
+        {term:'Fallacia',def:'Un errore di ragionamento: l\'argomento sembra valido ma ha un difetto logico o retorico. Le fallacie possono essere formali (difetto nella struttura) o informali (difetto nel contenuto).'}
+      ]},
+      {type:'acc', label:'Le principali fallacie morali', items:[
+        {q:'Ad hominem: attaccare la persona, non l\'argomento',
+         a:'"Non puoi parlare di ambiente se hai un SUV." Anche se fosse ipocrita, il suo argomento pu&#242; essere valido. Confutare una persona non confuta il suo ragionamento.'},
+        {q:'Appello all\'autorit&#224;: "lo dice l\'esperto, quindi &#232; vero"',
+         a:'"Il professore ha detto che questa scelta &#232; giusta, quindi lo &#232;." L\'autorit&#224; non sostituisce l\'argomento. Conta l\'argomento, non chi lo dice &#8212; anche se le opinioni degli esperti sono spesso rilevanti come premesse.'},
+        {q:'Falsa dicotomia: presentare solo due opzioni quando ce ne sono altre',
+         a:'"O sei con noi o sei contro di noi." Quasi sempre le situazioni morali hanno pi&#249; di due possibilit&#224;. Ridurre a una scelta binaria &#232; spesso fuorviante.'},
+        {q:'Pendio scivoloso: "se permettiamo X, arriveremo inevitabilmente a Y"',
+         a:'"Se legalizziamo il matrimonio gay, poi legalizzeranno anche il matrimonio con gli animali." La catena di conseguenze deve essere giustificata, non solo affermata.'},
+        {q:'Appello alla natura: "&#232; naturale, quindi &#232; giusto"',
+         a:'"&#200; naturale che i pi&#249; forti dominino i deboli." La natura descrive ci&#242; che accade, non ci&#242; che dovrebbe accadere. Molte cose "naturali" sono moralmente discutibili; molte cose "artificiali" (medicina, giustizia) sono moralmente buone.'}
+      ]},
+      {type:'case', label:'Caso concreto', title:'Analisi di un argomento',
+       text:'Leggi questo ragionamento:<br><br><em>"I giovani di oggi non rispettano le regole. Mio figlio &#232; giovane. Quindi mio figlio non rispetta le regole."</em><br><br>E questo:<br><br><em>"Se torturiamo il sospettato, scopriremo dove &#232; la bomba. Trovare la bomba salver&#224; cento vite. Quindi dobbiamo torturarlo."</em>'},
+      {type:'analysis', label:'Analisi guidata', questions:[
+        'Nel primo argomento: la premessa "i giovani non rispettano le regole" &#232; vera? Di che tipo di errore si tratta?',
+        'Nel secondo argomento: le premesse sono vere? L\'argomento &#232; valido? &#200; solido?',
+        'Il secondo argomento pu&#242; essere usato da un utilitarista. Come risponderebbe un deontologista?',
+        'Quali premesse nascoste ci sono nel secondo argomento? (es. "&#232; lecito usare una persona come mezzo")',
+        'Costruisci tu un argomento morale a favore o contro una delle posizioni nei dilemmi del modulo 3.'
+      ]},
+      {type:'miniquiz', label:'Metti alla prova', qid:'q5', qs:[
+        {q:'Un argomento &#232; <em>valido</em> quando:',
+         opts:['Le premesse sono tutte vere','La conclusione segue logicamente dalle premesse','L\'autore &#232; un esperto affidabile','La maggioranza lo condivide'],
+         ans:1,
+         fb:'La validit&#224; riguarda la struttura logica, non la verit&#224; delle premesse. Un argomento pu&#242; essere valido anche partendo da premesse false &#8212; ma allora non sar&#224; <em>solido</em>.'},
+        {q:'"Non puoi difendere i diritti degli animali se mangi carne." Questa &#232; una fallacia di tipo:',
+         opts:['Pendio scivoloso','Falsa dicotomia','Ad hominem','Appello alla natura'],
+         ans:2,
+         fb:'Ad hominem: si attacca la coerenza della persona invece di confutare l\'argomento. L\'eventuale ipocrisia non rende invalido il ragionamento sui diritti animali.'},
+        {q:'Un argomento <em>solido</em> &#232;:',
+         opts:['Valido + con premesse vere','Condiviso dalla maggioranza','Espresso da un\'autorit&#224;','Che porta a una conclusione condivisibile'],
+         ans:0,
+         fb:'Solidit&#224; = validit&#224; logica + premesse vere. Entrambi i requisiti sono necessari: un argomento valido con premesse false, o con premesse vere ma struttura invalida, non &#232; solido.'},
+        {q:'"Se abbassiamo il limite di velocit&#224;, poi vorranno vietare anche le auto, poi vietare tutto." Questa fallacia si chiama:',
+         opts:['Ad hominem','Falsa dicotomia','Pendio scivoloso','Appello all\'autorit&#224;'],
+         ans:2,
+         fb:'Pendio scivoloso: si afferma che una misura port&#224; inevitabilmente a conseguenze estreme, senza giustificare la catena causale. La logica del "e poi... e poi..." senza prove &#232; una fallacia.'}
+      ]}
+    ]
   }
 ];
 
@@ -669,6 +786,64 @@ var FINAL_QUIZ = [
    opts:['Mantenerlo perch&#233; &#232; pi&#249; efficiente','Sospenderlo: perpetua disuguaglianze, peggiorando il benessere complessivo','Ignorare il problema: &#232; responsabilit&#224; dei programmatori','Usarlo solo per i candidati maschi'],
    ans:1, fb:'Un utilitarismo corretto considera <em>tutte</em> le conseguenze, incluse quelle a lungo termine sulle disuguaglianze. Un algoritmo che discrimina sistematicamente non massimizza il benessere complessivo &#8212; anche se sembra efficiente nel breve.'}
 ];
+
+/* ─── GLOSSARIO ────────────────────────────────── */
+var GLOSSARIO = [
+  {term:'Argomento morale', def:'Un insieme strutturato di affermazioni in cui alcune (premesse) supportano una conclusione. La base del ragionamento etico: non basta affermare, bisogna giustificare.'},
+  {term:'Autonomia', def:'La capacità di darsi le proprie leggi morali attraverso la ragione. Per Kant, è il fondamento della dignità umana: siamo autori delle nostre scelte morali, non solo esecutori di regole esterne.'},
+  {term:'Bene comune', def:'Ciò che è vantaggioso per tutti i membri di una comunità, non solo per alcuni. Concetto centrale nell\'economia civile, nel pensiero di Aristotele e nella dottrina sociale cattolica.'},
+  {term:'Contrattualismo', def:'Teoria etica (Hobbes, Locke, Rawls) secondo cui le norme morali sono quelle che esseri razionali sceglierebbero in condizioni eque, come dietro un "velo di ignoranza".'},
+  {term:'Costume', def:'Le abitudini e tradizioni condivise da un gruppo sociale. Non coincidono sempre con ciò che è moralmente giusto: in passato duelli, schiavitù, discriminazioni erano "costume".'},
+  {term:'Deontologia', def:'Teoria etica di Kant: esistono doveri morali assoluti, indipendenti dalle conseguenze. L\'imperativo categorico chiede di agire solo secondo regole universalizzabili. Il fine non giustifica i mezzi.'},
+  {term:'Dignità', def:'Il valore intrinseco di ogni essere umano, che non può essere sacrificato per nessun fine. Per Kant, ogni persona è un fine in sé, mai un semplice mezzo.'},
+  {term:'Dilemma morale', def:'Situazione in cui valori importanti entrano in conflitto: qualunque scelta tu faccia, qualcosa di valore viene sacrificato. Non si tratta di scegliere tra bene e male, ma spesso tra due beni incompatibili.'},
+  {term:'Economia Civile', def:'Tradizione di pensiero nata con Antonio Genovesi a Napoli (XVIII sec.). Il mercato funziona bene quando si basa su reciprocità, fiducia e cura del bene comune, non solo sull\'interesse personale.'},
+  {term:'Etica', def:'La parte della filosofia che studia razionalmente il bene, il male, i valori morali e i criteri per agire correttamente. Diversa dalla morale (valori vissuti), dalla legge (norme giuridiche) e dal costume (tradizioni).'},
+  {term:'Etica della Cura', def:'Teoria di Gilligan e Noddings: la morale parte dalle relazioni concrete di dipendenza e cura. Non siamo individui isolati che calcolano doveri — siamo esseri in relazione, vulnerabili, interdipendenti.'},
+  {term:'Etica delle Virtù', def:'Teoria aristotelica: il centro della morale è il carattere, l\'insieme delle virtù acquisite con la pratica. La persona giusta non segue regole per paura, ma ha fatto della giustizia un\'abitudine.'},
+  {term:'Fallacia', def:'Un errore di ragionamento che rende un argomento invalido. Può essere formale (difetto strutturale) o informale. Esempi: ad hominem, pendio scivoloso, falsa dicotomia, appello all\'autorità.'},
+  {term:'Fraternità', def:'Il riconoscimento di un legame fondamentale tra tutti gli esseri umani, che genera obblighi di cura e solidarietà. Centrale nel pensiero di san Francesco e nell\'Economia Civile contemporanea.'},
+  {term:'Imperativo categorico', def:'Il principio fondamentale della deontologia kantiana: "Agisci solo secondo una massima che potresti volere diventasse legge universale." Un dovere assoluto, non condizionato dalle conseguenze.'},
+  {term:'Legge', def:'Le norme stabilite dallo Stato e applicate con coercizione. Distinta dall\'etica: una cosa può essere legale ma non etica (es. certe forme di sfruttamento), o etica ma illegale (es. disobbedienza civile).'},
+  {term:'Morale', def:'L\'insieme dei valori, norme e convinzioni che guidano il comportamento di una persona o di una comunità. L\'etica è la riflessione filosofica critica sulla morale.'},
+  {term:'Principio morale', def:'Una norma generale che orienta le scelte in diverse situazioni. Es. "non fare agli altri ciò che non vorresti fosse fatto a te" (‘regola d\'oro’). I principi si distinguono dai valori perché guidano l\'azione.'},
+  {term:'Relativismo morale', def:'La tesi che non esistano verità morali universali: ciò che è giusto dipende dalla cultura, dal periodo storico o dall\'individuo. Si contrappone all\'universalismo etico.'},
+  {term:'Responsabilità', def:'L\'obbligo di rispondere delle proprie azioni e delle loro conseguenze. Implica che siamo agenti liberi, capaci di scegliere. Responsabilità personale, collettiva e intergenerazionale (verso le generazioni future).'},
+  {term:'Solidarietà', def:'Il principio per cui i membri di una comunità si sostengono reciprocamente, specialmente nei confronti dei più vulnerabili. Diversa dalla carità (dono volontario): la solidarietà è un obbligo morale e sociale.'},
+  {term:'Utilitarismo', def:'Teoria etica di Bentham e Mill: un\'azione è giusta se massimizza il benessere del maggior numero. Le conseguenze sono il criterio morale. Nella versione di Mill si distinguono piaceri qualitativamente diversi.'},
+  {term:'Valore', def:'Qualcosa che riteniamo importante e che orienta le nostre scelte: libertà, giustizia, benessere, solidarietà. I valori possono entrare in conflitto tra loro, generando dilemmi morali.'},
+  {term:'Velo di ignoranza', def:'Esperimento mentale di John Rawls: per scegliere principi di giustizia davvero imparziali, immagina di non sapere quale posizione occuperai nella società (ricco/povero, uomo/donna, sano/malato).'},
+  {term:'Virtù', def:'Una disposizione stabile del carattere acquisita attraverso la pratica. Per Aristotele le virtù principali sono: coraggio, giustizia, temperanza, prudenza (phronesis). Non si nasce virtuosi: si diventa.'}
+];
+GLOSSARIO.sort(function(a,b){return a.term.localeCompare(b.term,'it');});
+
+/* ─── SCHEDE AUTORE ───────────────────────────── */
+var AUTHORS = [
+  {id:'aristotele', avatar:'🏛', name:'Aristotele', dates:'384–322 a.C.', theory:'Etica delle Virtù',
+   bio:'Nato a Stagira in Macedonia, Aristotele fu allievo di Platone e precettore del giovane Alessandro Magno. Fondò il Liceo di Atene, dove insegnò per anni. È considerato uno dei più grandi filosofi di tutti i tempi: ha scritto su logica, biologia, politica, retorica, fisica e filosofia morale.',
+   work:'<strong>Etica Nicomachea</strong> (IV sec. a.C.) — uno dei testi fondativi della filosofia morale occidentale. Il titolo si riferisce probabilmente al figlio Nicomaco. Vi elabora la dottrina della felicità come fine ultimo dell\'uomo, la teoria delle virtù come abitudini eccellenti, e il concetto di phronesis (saggezza pratica).',
+   quote:'«Siamo ciò che facciamo ripetutamente. L\'eccellenza, quindi, non è un atto, ma un\'abitudine.»'},
+  {id:'kant', avatar:'📖', name:'Immanuel Kant', dates:'1724–1804', theory:'Deontologia',
+   bio:'Kant trascorse quasi tutta la vita a Königsberg, Prussia (oggi Kaliningrad). Professore universitario di filosofia, è noto per la sua vita metodica e regolare. La sua “Rivoluzione Copernicana” in filosofia cambiò il modo di concepire la conoscenza: non è la mente che si adatta al mondo, ma il mondo che si struttura attraverso le categorie della mente.',
+   work:'<strong>Fondazione della Metafisica dei Costumi</strong> (1785) e <strong>Critica della Ragion Pratica</strong> (1788) — qui Kant elabora l\'imperativo categorico e la sua etica del dovere. Per Kant, la morale è fondata sulla ragione pura: un\'azione è giusta solo se segue un principio universalizzabile.',
+   quote:'«Agisci solo secondo quella massima che puoi allo stesso tempo volere che divenga una legge universale.»'},
+  {id:'mill', avatar:'⚖️', name:'John Stuart Mill', dates:'1806–1873', theory:'Utilitarismo',
+   bio:'Mill fu un bambino prodigio: a tre anni studiava greco, a otto il latino. Figlio del filosofo James Mill, fu educato secondo i principi di Bentham. Oltre alla filosofia, si occupò attivamente di politica (fu membro del Parlamento), di diritti delle donne e di economia politica.',
+   work:'<strong>Utilitarianism</strong> (1863) — in questo breve saggio Mill difende e raffina l\'utilitarismo di Bentham, distinguendo tra piaceri di qualità diversa. Anche <strong>Sulla Libertà</strong> (1859) è fondamentale: il "principio del danno" stabilisce che la società può limitare la libertà individuale solo per prevenire danni agli altri.',
+   quote:'«Meglio essere Socrate insoddisfatto che uno stupido soddisfatto.»'},
+  {id:'gilligan', avatar:'🤝', name:'Carol Gilligan', dates:'1936–', theory:'Etica della Cura',
+   bio:'Psicologa e filosofa americana, Gilligan ha lavorato a lungo all\'Università di Harvard. La sua ricerca nasce da una critica al suo stesso professore, Lawrence Kohlberg, che aveva sviluppato una teoria dello sviluppo morale basata esclusivamente su soggetti maschili.',
+   work:'<strong>In a Different Voice</strong> (1982) — il libro che ha fondato l\'etica della cura. Gilligan mostrò che le donne spesso ragionano moralmente partendo dalle relazioni concrete e dalla cura, non da principi astratti. Questo non è un deficit, ma una voce morale diversa e ugualmente valida.',
+   quote:'«La cura è il lavoro di mantenere il mondo in modo che possiamo vivere in esso nel modo più umano possibile.»'},
+  {id:'rawls', avatar:'🏛', name:'John Rawls', dates:'1921–2002', theory:'Contrattualismo',
+   bio:'Filosofo americano, professore ad Harvard per decenni. La sua formazione include la filosofia analitica e la tradizione del contratto sociale. È considerato il più importante filosofo politico del Novecento, e la sua opera ha influenzato profondamente i dibattiti su giustizia, democrazia e diritti.',
+   work:'<strong>A Theory of Justice</strong> (1971) — uno dei libri di filosofia politica più influenti del XX secolo. Rawls propone due principi di giustizia: (1) uguali libertà fondamentali per tutti; (2) le disuguaglianze economiche sono accettabili solo se avvantaggiano i più svantaggiati.',
+   quote:'«I principi della giustizia sono scelti dietro un velo di ignoranza.»'},
+  {id:'genovesi', avatar:'🏛', name:'Antonio Genovesi', dates:'1713–1769', theory:'Economia Civile',
+   bio:'Filosofo e economista napoletano, nel 1754 divenne il primo professore di economia in Italia (e tra i primi in Europa) all\'Università di Napoli. Partendo dalla filosofia morale, sviluppò una visione originale dell\'economia come scienza delle relazioni umane e del bene comune.',
+   work:'<strong>Lezioni di Commercio o sia di Economia Civile</strong> (1765–67) — il primo trattato sistematico di economia scritto in italiano. Genovesi usa il termine "pubblica felicità" invece di "utilità": l\'economia deve servire non solo l\'arricchimento individuale, ma il benessere di tutta la comunità.',
+   quote:'«Gli uomini non possono vivere in società senza assistenza reciproca.»'}
+];
 </script>
 
 <script>
@@ -682,7 +857,7 @@ var S = {
   quizIdx: 0,      // domanda corrente nel quiz finale
   quizScore: 0,
   quizAnswered: [], // true/false per ogni domanda
-  m1done:false, m2done:false, m3done:false, m4done:false
+  m1done:false, m2done:false, m3done:false, m4done:false, m5done:false
 };
 
 /* ═══════════════════════════════════════════════════
@@ -1173,9 +1348,140 @@ function closeTip(){
 }
 
 /* ═══════════════════════════════════════════════════
+   GLOSSARIO
+═══════════════════════════════════════════════════ */
+function openGlossario(){
+  renderGlossario('');
+  document.getElementById('glossario-overlay').classList.add('open');
+  document.body.style.overflow='hidden';
+  setTimeout(function(){ var s=document.getElementById('gloss-search'); if(s) s.focus(); },80);
+}
+function closeGlossario(){
+  document.getElementById('glossario-overlay').classList.remove('open');
+  document.body.style.overflow='';
+}
+function renderGlossario(filter){
+  var q=(filter||'').toLowerCase().trim();
+  var items=GLOSSARIO.filter(function(g){
+    return !q || g.term.toLowerCase().includes(q) || g.def.toLowerCase().includes(q);
+  });
+  var html='<ul class="gloss-list">';
+  if(!items.length) html+='<li class="gloss-item"><p style="color:var(--fa);font-style:italic">Nessun termine trovato.</p></li>';
+  items.forEach(function(g){
+    html+='<li class="gloss-item"><div class="gloss-term">'+g.term+'</div><div class="gloss-def">'+g.def+'</div></li>';
+  });
+  html+='</ul>';
+  document.getElementById('gloss-list-wrap').innerHTML=html;
+}
+
+/* ═══════════════════════════════════════════════════
+   SCHEDE AUTORE
+═══════════════════════════════════════════════════ */
+function openAuthor(id){
+  var a=AUTHORS.filter(function(x){return x.id===id;})[0];
+  if(!a) return;
+  var html='<span class="author-avatar">'+a.avatar+'</span>'
+    +'<h3>'+a.name+'</h3>'
+    +'<span class="author-dates">'+a.dates+' &mdash; '+a.theory+'</span>'
+    +'<p class="author-bio">'+a.bio+'</p>'
+    +'<div class="author-work">'+a.work+'</div>'
+    +'<div class="author-quote">&laquo;'+a.quote+'&raquo;</div>';
+  document.getElementById('author-modal-content').innerHTML=html;
+  document.getElementById('author-overlay').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeAuthorModal(){
+  document.getElementById('author-overlay').classList.remove('open');
+  document.body.style.overflow='';
+}
+function renderAuthorsGrid(){
+  var g=document.getElementById('authors-grid');
+  if(!g) return;
+  g.innerHTML='';
+  AUTHORS.forEach(function(a){
+    var el=document.createElement('div');
+    el.className='author-card';
+    el.onclick=function(){openAuthor(a.id);};
+    el.innerHTML='<div class="author-avatar">'+a.avatar+'</div>'
+      +'<div class="author-name">'+a.name+'</div>'
+      +'<div class="author-dates">'+a.dates+'</div>'
+      +'<div class="author-theory">'+a.theory+'</div>';
+    g.appendChild(el);
+  });
+}
+
+/* ═══════════════════════════════════════════════════
+   DIARIO DI RIFLESSIONE
+═══════════════════════════════════════════════════ */
+var DIARIO_KEY='etica-diario-v1';
+function loadDiario(){
+  try{ return JSON.parse(localStorage.getItem(DIARIO_KEY)||'{}'); }catch(e){ return {}; }
+}
+function saveDiarioEntry(key, val){
+  var data=loadDiario();
+  data[key]=val;
+  try{ localStorage.setItem(DIARIO_KEY,JSON.stringify(data)); }catch(e){}
+}
+function openDiario(){
+  renderDiario();
+  showScreen('screen-diario');
+  document.getElementById('home-btn').classList.add('show');
+}
+function renderDiario(){
+  var data=loadDiario();
+  var wrap=document.getElementById('diario-sections');
+  wrap.innerHTML='';
+  var prompts=[
+    {key:'gen', title:'Riflessione libera', prompt:'Scrivi qui i tuoi pensieri sull\'etica: domande aperte, dubbi, intuizioni...'},
+    {key:'d1', title:'Il dilemma del carrello', prompt:'Hai scelto di tirare o non tirare la leva? Perché? Cosa ti ha convinto?'},
+    {key:'d2', title:'Il medico e i cinque pazienti', prompt:'Sacrificare uno per salvarne cinque: la logica dei numeri è sempre giusta?'},
+    {key:'d3', title:'Il segreto e la famiglia', prompt:'Hai prioritizzato la lealtà o la verità? Cosa cambierebbe se le conseguenze fossero diverse?'},
+    {key:'d4', title:'Algoritmo e discriminazione', prompt:'Quali valori hai messo al primo posto? Come si conciliano efficienza e giustizia?'},
+    {key:'d5', title:'Mercato e fraternità', prompt:'Cosa ti ha colpito di più del pensiero di san Francesco o di Genovesi?'}
+  ];
+  prompts.forEach(function(p){
+    var saved=data[p.key]||'';
+    var sec=document.createElement('div');
+    sec.className='diario-section';
+    sec.innerHTML='<h4>'+p.title+'</h4>'
+      +'<p class="diario-prompt">'+p.prompt+'</p>'
+      +'<textarea class="diario-textarea" id="dt-'+p.key+'" placeholder="Scrivi qui...">'+esc(saved)+'</textarea>'
+      +'<div class="diario-save-row">'
+      +'<button class="diario-clear-btn" onclick="clearDiarioEntry(\''+p.key+'\')">Cancella</button>'
+      +'<span class="diario-saved" id="ds-'+p.key+'">&#10003; Salvato</span>'
+      +'<button class="btn btn-primary" style="font-size:.8rem;padding:.35rem .9rem" onclick="saveDiarioFromUI(\''+p.key+'\')">Salva</button>'
+      +'</div>';
+    wrap.appendChild(sec);
+  });
+}
+function esc(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function saveDiarioFromUI(key){
+  var ta=document.getElementById('dt-'+key);
+  if(!ta) return;
+  saveDiarioEntry(key, ta.value);
+  var badge=document.getElementById('ds-'+key);
+  if(badge){ badge.classList.add('show'); setTimeout(function(){ badge.classList.remove('show'); },2000); }
+}
+function clearDiarioEntry(key){
+  if(!confirm('Cancellare questa riflessione?')) return;
+  saveDiarioEntry(key,'');
+  var ta=document.getElementById('dt-'+key);
+  if(ta) ta.value='';
+}
+
+/* ═══════════════════════════════════════════════════
    INIT
 ═══════════════════════════════════════════════════ */
-document.addEventListener('keydown',function(e){ if(e.key==='Escape'){ var ov=document.getElementById('theory-modal-overlay'); if(ov&&ov.classList.contains('open')){ closeTheoryModal(); } } });
+document.addEventListener('keydown',function(e){
+  if(e.key==='Escape'){
+    var ov=document.getElementById('theory-modal-overlay');
+    if(ov&&ov.classList.contains('open')){ closeTheoryModal(); return; }
+    var go=document.getElementById('glossario-overlay');
+    if(go&&go.classList.contains('open')){ closeGlossario(); return; }
+    var ao=document.getElementById('author-overlay');
+    if(ao&&ao.classList.contains('open')){ closeAuthorModal(); return; }
+  }
+});
 
 (function init(){
   // tema
@@ -1186,15 +1492,56 @@ document.addEventListener('keydown',function(e){ if(e.key==='Escape'){ var ov=do
   document.getElementById('theme-btn').textContent=theme==='dark'?'☼':'☁';
   // home
   renderHomeCards();
+  renderAuthorsGrid();
 })();
 </script>
 
 <!-- THEORY MODAL -->
 <div class="modal-overlay" id="theory-modal-overlay" onclick="if(event.target===this)closeTheoryModal();">
   <div class="modal-box" role="dialog" aria-modal="true">
-    <button class="modal-close" id="theory-modal-close" aria-label="Chiudi" onclick="closeTheoryModal();">&#10005;</button>
+    <button class="modal-close" aria-label="Chiudi" onclick="closeTheoryModal();">&#10005;</button>
     <div id="theory-modal-content"></div>
   </div>
+</div>
+
+<!-- GLOSSARIO MODAL -->
+<div class="modal-overlay" id="glossario-overlay" onclick="if(event.target===this)closeGlossario();">
+  <div class="modal-box gloss-box" role="dialog" aria-modal="true">
+    <button class="modal-close" aria-label="Chiudi" onclick="closeGlossario();">&#10005;</button>
+    <h3 style="font-family:var(--fm);font-size:1.2rem;color:var(--ac);margin-bottom:1rem">&#128216; Glossario</h3>
+    <input class="gloss-search" id="gloss-search" type="search" placeholder="Cerca un termine&#8230;" oninput="renderGlossario(this.value)" autocomplete="off"/>
+    <div id="gloss-list-wrap"></div>
+  </div>
+</div>
+
+<!-- AUTHOR MODAL -->
+<div class="modal-overlay" id="author-overlay" onclick="if(event.target===this)closeAuthorModal();">
+  <div class="modal-box author-box" role="dialog" aria-modal="true">
+    <button class="modal-close" aria-label="Chiudi" onclick="closeAuthorModal();">&#10005;</button>
+    <div id="author-modal-content"></div>
+  </div>
+</div>
+
+<!-- GLOSSARIO FAB -->
+<button class="gloss-fab" onclick="openGlossario()" title="Apri il glossario">&#128216; Glossario</button>
+
+<!-- DIARIO SCREEN -->
+<div class="screen" id="screen-diario">
+  <div class="diario-wrap">
+    <div class="diario-header">
+      <h2>&#128221; Diario di riflessione</h2>
+      <p>Scrivi le tue riflessioni sui dilemmi e sui temi incontrati nel percorso. Le note vengono salvate nel browser.</p>
+    </div>
+    <div id="diario-sections">
+      <!-- rendered by JS -->
+    </div>
+    <div style="text-align:center;margin-top:1.5rem">
+      <button class="btn btn-outline" onclick="goHome()">&#8592; Torna alla home</button>
+    </div>
+  </div>
+  <footer style="margin-top:3rem">
+    <p><strong>&#934; Etica &#8212; Percorso Didattico</strong></p>
+  </footer>
 </div>
 </body>
 </html>
